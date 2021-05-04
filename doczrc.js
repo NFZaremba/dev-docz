@@ -1,28 +1,73 @@
-const colors = Object.freeze({
-  gray: "#b2becd",
-  white: "#fff",
-  lightGray: "#e9e9e9",
-  lightBlue: "#00b4fc",
-  darkGray: "#333333",
-  purple: "#9468ff",
-});
-
 export default {
   title: "Zaremba Docz",
+  menu: ["Components", "JavaScript", "Getting Started", "Readme"],
   themeConfig: {
+    initialColorMode: "dark",
     fonts: {
       body: "sofia-pro, sans-serif",
     },
-    // colors: {
-    //   background: "red",
-    // },
+    colors: {
+      modes: {
+        dark: {
+          background: "#12181b",
+          text: "#fff",
+          paragraph: "#b2becd", // used for paragraphs, ul, ol, etc.
+          accent: "#9166cc", // used for inlinecode text color
+          muted: "#1d1d1d", // used for inlinecode background color
+          blue: "#1fb6ff",
+          Container: {
+            bg: "bg",
+          },
+          root: {
+            bg: "bg",
+          },
+          // sidebar: {
+          //   // boxShadow: "4px 0 10px -3px #010101",
+          //   bg: "#13161F",
+          //   navGroup: "text",
+          //   navLinkActive: "blue",
+          //   tocLink: "#1fb6ff",
+          //   tocLinkActive: "yellow",
+          // },
+          prism: {
+            plain: {
+              bg: "red",
+            },
+          },
+        },
+        light: {
+          text: "#000000",
+          paragraph: "#828282",
+          accent: "#c7254e",
+          muted: "#f9f2f4",
+        },
+      },
+    },
     styles: {
+      Container: {
+        bg: "background",
+      },
+      root: {
+        bg: "background",
+      },
+      sidebar: {
+        // boxShadow: "4px 0 10px -3px #010101",
+        bg: "#13161F",
+        navGroup: "text",
+        navLinkActive: "blue",
+        tocLink: "#1fb6ff",
+        tocLinkActive: "yellow",
+      },
+      code: {
+        bg: "yellow",
+      },
       inlineCode: {
-        bg: colors.darkGray,
-        color: colors.purple,
+        bg: "muted",
+        color: "accent",
         padding: "2px 4px",
         borderRadius: "4px",
         fontWeight: 700,
+        fontSize: ".85em",
       },
       blockquote: {
         marginLeft: "30px",
@@ -30,26 +75,28 @@ export default {
         paddingBottom: "0",
         bg: "none",
       },
-      p: {
-        color: colors.gray,
-      },
       strong: {
-        color: colors.lightGray,
-        boxShadow: "inset 0 -1px 0 #00b4fc91",
+        color: "text",
+        // boxShadow: "inset 0 -1px 0 #00b4fc91",
       },
       img: {
         display: "block",
         marginTop: "20px",
-        marginLeft: "auto",
-        marginRight: "auto",
-        // width: "50%",
+        width: "100%",
+        objectFit: "cover",
+        // marginLeft: "auto",
+        // marginRight: "auto",
+        // height: "80vh",
+      },
+      p: {
+        color: "paragraph",
       },
       ol: {
-        color: colors.gray,
+        color: "paragraph",
         paddingLeft: "25px",
       },
       ul: {
-        color: colors.gray,
+        color: "paragraph",
         paddingLeft: "25px",
       },
       hr: {
@@ -57,7 +104,6 @@ export default {
       },
       table: {
         margin: "0 auto",
-        // maxWidth: "80%",
       },
     },
   },
