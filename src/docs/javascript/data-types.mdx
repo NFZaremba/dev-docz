@@ -1,5 +1,5 @@
 ---
-name: 3 - Data Types
+name: 3. Data Types
 menu: JavaScript
 ---
 
@@ -7,10 +7,92 @@ menu: JavaScript
 
 #### Links:
 
+- [Understanding Null and Undefined in JavaScript](https://blog.bitsrc.io/understanding-null-and-undefined-in-javascript-77ceb44cf7db)
+- [Null vs. Undefined](https://codeburst.io/javascript-null-vs-undefined-20f955215a2)
+
+<br />
+
+## Primitives
+
 ---
 
 `JavaScript` is a dynamic language, meaning that you **don't** have to define the type of your `variables` when you define them.
 
 There are 7 types in `JavaScript`, 6 `primitives` and the `object`.
 
-## Primitives
+`Primitive` types are **immutable**, they can be reassigned to a variable but not changed directly (**a new memory address will be allocated**).
+
+- `string`
+- `number`
+- `boolean`
+- `null`
+- `undefined`
+- `symbol` (the latest addition)
+
+<br />
+
+## Objects
+
+---
+
+Objects represent more complex data types.
+
+- `Arrays`
+- `Functions`
+- `Classes`
+
+Anything that is not a Primitive type will inherit from an Object.
+
+<br />
+
+## Null vs Undefined
+
+---
+
+![null vs undefined](https://i.stack.imgur.com/T9M2J.png)
+
+### null
+
+- `null` is a `primitive` type and an assignment value, can be thought of as an intentional absence of a value since it must be assigned.
+- `null` should be set explicitly, so that any `null` values that is encountered will tell you that it is intentional.
+
+### undefined
+
+- `undefined` is a primitive type that is returned if a variable was declared but not assigned a value.
+- `undefined` should only be set by the `JavaScript Engine` implicitly when it executes code because it lets you know that this undefined value is unintentional (**unless pointing to a declared variable that has been hoisted in which case it is your fault**).
+
+<br />
+
+`undefined` can also occur if an object's proprty doesn't exist...
+
+```js
+let myDetails = {
+  age: 27,
+};
+
+console.log(myDetails.name); // -> undefined
+```
+
+or a function has a missing parameter...
+
+```js
+function getString(str) {
+  console.log(str); // -> undefined
+}
+
+getString();
+```
+
+and default parameters will only work if the parameter is `undefined`.
+
+```js
+function getString(str = "hi") {
+  console.log(str); // -> 'hi'
+}
+getString();
+
+function getStrings(str = "hi") {
+  console.log(str); // -> null
+}
+getStrings(null);
+```

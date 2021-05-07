@@ -1,5 +1,5 @@
 ---
-name: 1 - How JavaScript Works
+name: 1. How JavaScript Works
 menu: JavaScript
 ---
 
@@ -7,13 +7,17 @@ menu: JavaScript
 
 ## JavaScript Engine vs Runtime Environment
 
-In web development, each browser has a `JavaScript Runtime Environment`, and in that runtime is a `JavaScript engine` that parses the code.
-
-> AJAX, the DOM tree, and other API’s, are not part of JavaScript, they are just objects with properties and methods, provided by the browser and made available in the browser’s JS Runtime Environment.
-
 ---
 
+In web development, each browser has a `JavaScript Runtime Environment`, and in that runtime is a `JavaScript engine` that parses the code.
+
+- `AJAX`, the `DOM tree`, and other `API’s`, are not part of `JavaScript`, they are just objects with properties and methods, provided by the browser and made available in the browser’s `JS Runtime Environment`.
+
+<br />
+
 ## JavaScript Engine
+
+---
 
 A `JavaScript engine` is a program or an `interpreter` which **parses and executes JavaScript code**.
 
@@ -21,9 +25,11 @@ It can be implemented as a standard `interpreter`, or `just-in-time compiler` th
 
 When running a `JavaScript` program, two regions of memory are allocated on the machine's `RAM` (Random Access Memory), to store things like the `runtime`, `variables` and `objects` that you reference in your code. The `Heap` and `Stack`.
 
----
+<br />
 
 ## Runtime Environment
+
+---
 
 Provides additional **scripts/features/API's** at runtime to build JavaScript based software.
 
@@ -31,6 +37,7 @@ Provides additional **scripts/features/API's** at runtime to build JavaScript ba
 - `Server Environment` - File System, Network, Console, etc
 
 Think of the `JavaScript runtime environment` as a big container. Within the big container are other smaller containers. As the `JavaScript engine` parses the code it starts putting pieces of it into different containers.
+
 ![JS Runtime Environment](https://miro.medium.com/max/700/1*zeKjWCjyAGZ9JN4fvnWsiA.png)
 
 ### Runtime Environment Containers:
@@ -61,8 +68,10 @@ Think of the `JavaScript runtime environment` as a big container. Within the big
   - The `Event Loop` is implemented in runtime environment.
   - Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
 
----
+<br />
 
 ## Blocking vs Non-Blocking I/O
+
+---
 
 Blocking is when the execution of additional `JavaScript` in the `Node.js` process must wait until a non-JavaScript operation completes. This happens because the `event loop` is unable to continue running `JavaScript` while a blocking operation is occurring.

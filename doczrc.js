@@ -1,11 +1,13 @@
 const colors = Object.freeze({
   dark: {
-    background: "#12181b",
+    background: "#12181b", // used for main container bg
     text: "#fff",
     paragraph: "#b2becd", // used for paragraphs, ul, ol, etc.
     accent: "#9166cc", // used for inlinecode text color
     muted: "#1d1d1d", // used for inlinecode background color
     blue: "#1fb6ff",
+    darkBlue: "#13161F",
+    code: "#22262f",
   },
   light: {
     text: "#000000",
@@ -26,28 +28,16 @@ export default {
     colors: {
       modes: {
         dark: {
-          //...colors.dark,
-          // Container: {
-          //   bg: "bg",
-          // },
-          // root: {
-          //   bg: "bg",
-          // },
+          ...colors.dark,
           header: {
-            bg: "#13161F",
+            bg: colors.dark.darkBlue,
           },
           sidebar: {
-            // boxShadow: "4px 0 10px -3px #010101",
-            bg: "#13161F",
+            bg: colors.dark.darkBlue,
             navGroup: "text",
-            navLinkActive: colors.dark.blue,
-            tocLink: "#1fb6ff",
-            tocLinkActive: "#1cffea",
-          },
-          prism: {
-            plain: {
-              bg: "red",
-            },
+            navLinkActive: colors.dark.accent,
+            tocLink: colors.dark.accent,
+            tocLinkActive: colors.dark.blue,
           },
         },
         light: {
@@ -62,9 +52,6 @@ export default {
       // root: {
       //   bg: "background",
       // },
-      code: {
-        bg: "yellow",
-      },
       inlineCode: {
         bg: "muted",
         color: "accent",
@@ -88,9 +75,6 @@ export default {
         marginTop: "20px",
         width: "100%",
         objectFit: "cover",
-        // marginLeft: "auto",
-        // marginRight: "auto",
-        // height: "80vh",
       },
       p: {
         color: "paragraph",
@@ -104,10 +88,17 @@ export default {
         paddingLeft: "25px",
       },
       hr: {
-        borderBottom: "1px solid #90909033",
+        borderBottom: `1px solid ${colors.dark.accent}`,
       },
       table: {
         margin: "0 auto",
+      },
+    },
+    prism: {
+      dark: {
+        plain: {
+          backgroundColor: colors.dark.code,
+        },
       },
     },
   },

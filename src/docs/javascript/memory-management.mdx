@@ -1,19 +1,15 @@
 ---
-name: 2 - Memory Management
+name: 2. Memory Management
 menu: JavaScript
 ---
 
 # Memory Management
 
-#### Links:
-
-- [Memory Management](https://felixgerschau.com/javascript-memory-management/)
-- [Memory Model](https://medium.com/@ethannam/javascripts-memory-model-7c972cd2c239)
-- [Memory Life Cycle](https://blog.alexdevero.com/memory-life-cycle-heap-stack-javascript/)
-
----
+<br />
 
 ## Memory Life Cycle
+
+---
 
 In `JavaScript`, memory life cycle is composed of 3 steps:
 
@@ -23,9 +19,12 @@ In `JavaScript`, memory life cycle is composed of 3 steps:
 
 But where is the memory allocation happening?...
 
----
+<br />
+<br />
 
 ## Memory Heap and Call Stack
+
+---
 
 `JavaScript engines` have two places where they can store data: The **memory heap** and **stack** located in the `RAM`.
 
@@ -41,17 +40,18 @@ But where is the memory allocation happening?...
 - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
 - Allocating memory during runtime is known as **dynamic memory allocation**.
 
-<br />
-
 | Stack                              | Heap                      |
 | ---------------------------------- | ------------------------- |
 | Primitive values and references    | Objects and functions     |
 | Size is known at compile time      | Size is known at run time |
 | Allocates a fixed amount of memory | No limit per object       |
 
----
+<br />
+<br />
 
 ## Memory Allocation for Primitives
+
+---
 
 Let’s start off with a simple example. Below, we declare a variable called `myNumber` and initialize it with a value of `23`.
 
@@ -102,11 +102,11 @@ const firstName = name.slice(0, 4); // allocates memory for a new string
 // -> Primitive values are immutable, which means that instead of changing the original value, JavaScript creates a new one.
 ```
 
-![memory stack example](https://felixgerschau.com/static/b94165593eb6e02d73039d8b2cfccfdd/29007/stack-memory-explained.png)
-
----
+<br />
 
 ## Memory Allocation for References
+
+---
 
 All `variables` first point to the `stack`. In case it's a non-primitive value, the `stack` contains a `reference` to the `object` in the `heap`.
 
@@ -156,11 +156,13 @@ const person = {
 
 ![memory references](https://felixgerschau.com/static/b452488bd7eeac0405c48f164da6280d/c1b63/stack-heap-pointers.png)
 
-> Note above how person and newPerson both point to the same object.
+Note above how person and newPerson both point to the same object.
 
----
+<br />
 
 ## Garbage Collection
+
+---
 
 The last step is releasing memory and this is where `garbage collection` comes into play (**which is also handled by the `JavaScript Engine`**).
 
@@ -186,9 +188,11 @@ Automatic `garbage collection` allows us to focus on building applications inste
   - The algorithms that collect garbage for us usually run periodically to clean unused `objects`.
   - The issue with this is that we, the developers, don't know when exactly this will happen. Collecting a lot of garbage or collecting garbage frequently might impact performance since it needs a certain amount of computation power to do so.
 
----
+<br />
 
 ## Memory leaks
+
+---
 
 Here are the most common memory leaks:
 
@@ -201,3 +205,14 @@ Here are the most common memory leaks:
 - **Forgotten timers and callbacks**
   - Forgetting about `timers` and `callbacks` can make the memory usage of your application go up. Especially in Single Page Applications (`SPAs`), you have to be careful when adding `event listeners` and `callbacks` dynamically.
   - **Make sure to clear and remove any `listeners` or `timers`**.
+
+<br />
+<br />
+
+#### Links:
+
+---
+
+- [Memory Management](https://felixgerschau.com/javascript-memory-management/)
+- [Memory Model](https://medium.com/@ethannam/javascripts-memory-model-7c972cd2c239)
+- [Memory Life Cycle](https://blog.alexdevero.com/memory-life-cycle-heap-stack-javascript/)
