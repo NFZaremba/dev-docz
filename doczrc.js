@@ -46,12 +46,6 @@ export default {
       },
     },
     styles: {
-      // Container: {
-      //   bg: "background",
-      // },
-      // root: {
-      //   bg: "background",
-      // },
       inlineCode: {
         bg: "muted",
         color: "accent",
@@ -73,8 +67,11 @@ export default {
       img: {
         display: "block",
         marginTop: "20px",
-        width: "100%",
+        maxWidth: "80%",
         objectFit: "cover",
+        margin: "0 auto",
+        marginTop: "2.5rem",
+        marginBottom: "2.5rem",
       },
       p: {
         color: "paragraph",
@@ -92,12 +89,17 @@ export default {
       },
       table: {
         margin: "0 auto",
+        maxWidth: "80%",
       },
     },
     prism: {
       dark: {
         plain: {
           backgroundColor: colors.dark.code,
+          maxWidth: "80%",
+          marginLeft: "auto",
+          marginRight: "auto",
+          whiteSpace: "pre-wrap",
         },
       },
     },

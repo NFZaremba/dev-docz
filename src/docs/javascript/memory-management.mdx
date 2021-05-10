@@ -20,7 +20,6 @@ In `JavaScript`, memory life cycle is composed of 3 steps:
 But where is the memory allocation happening?...
 
 <br />
-<br />
 
 ## Memory Heap and Call Stack
 
@@ -46,7 +45,6 @@ But where is the memory allocation happening?...
 | Size is known at compile time      | Size is known at run time |
 | Allocates a fixed amount of memory | No limit per object       |
 
-<br />
 <br />
 
 ## Memory Allocation for Primitives
@@ -81,6 +79,8 @@ let newVar = myNumber;
 
 #### Here’s another example:
 
+Take a look at the code below...
+
 ```js
 let myString = "abc";
 myString = myString + "d";
@@ -90,7 +90,7 @@ While a novice JS programmer may say that the letter `d` is simply appended to t
 
 ![example 3](https://miro.medium.com/max/750/1*WQHSspJDrPGOQ9L8R01jmw.jpeg)
 
-#### More Examples
+#### More Examples:
 
 ```js
 let name = "John"; // allocates memory for a string
@@ -142,7 +142,7 @@ myArray.pop();
 
 ![example 6](https://miro.medium.com/max/750/1*XfqW2Xh5oJrChzhRAauf9Q.jpeg)
 
-#### More Examples
+#### More Examples:
 
 ```js
 const person = {
