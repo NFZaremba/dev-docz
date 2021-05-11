@@ -102,6 +102,14 @@ export default {
           whiteSpace: "pre-wrap",
         },
       },
+      light: {
+        plain: {
+          maxWidth: "80%",
+          marginLeft: "auto",
+          marginRight: "auto",
+          whiteSpace: "pre-wrap",
+        },
+      },
     },
   },
 };

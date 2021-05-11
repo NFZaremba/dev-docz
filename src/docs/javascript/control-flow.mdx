@@ -17,7 +17,7 @@ Type `Coercion` is the conversion of a value from **one type to another**. It ca
 
 ### Explicit Coercion
 
-`Explicit coercion` is when you type cast a value from one type to another through the use of functions like `Number()` and `String()`.
+`Explicit Coercion` is when you type cast a value from one type to another through the use of functions (essentially `wrapper objects`) like`Number()`and`String()`.
 
 ```js
 String(42); // ->  "42"
@@ -34,7 +34,32 @@ Boolean(10); // -> true
 
 ### Implicit Coercion
 
-Implicit Coercion is when the JavaScript does the type conversion in an expression for you behind the scenes. Implicit coercion will mostly take place in an expression with operands of different types.
+`Implicit Coercion` is when the JavaScript does the type conversion in an expression for you behind the scenes. Implicit coercion will mostly take place in an expression with operands of different types.
+
+<br />
+
+## Truthy & Falsey
+
+---
+
+When using an `if` statement or other statements that expect a `Boolean` value (such as the `!` NOT) and the expression given is not a `Boolean` value, `JavaScript` will implicitly coerce and transform the expression into a `Boolean` value.
+
+```js
+// truthy
+true
+1
+' '
+[]
+{}
+function(){}
+
+// falsey
+false
+0
+undefined
+null
+''
+```
 
 <br />
 
@@ -44,23 +69,51 @@ Implicit Coercion is when the JavaScript does the type conversion in an expressi
 
 In JavaScript you have the following main operators:
 
-- assignment operators ( =, +=, -=, etc)
-- comparison operators (==, ===, !=, etc)
-- arithmetic operators (+, -, \*, /, etc)
-- logical operators ( &&, ||, !, etc)
+- assignment operators
+- comparison operators
+- arithmetic operators
+- logical operators
 
-### Assignment operators
+### Assignment operators ( =, +=, -=, etc)
 
 Assignment operators assign values to JavaScript variables.
 
 ```js
 let x = 10; // -> The = assignment operator assigns a value to a variable.
-x += 5; // -> The += assignment operator adds a value to a variable.
-x -= 5; // -> The -= assignment operator subtracts a value from a variable.
-x *= 5; // -> The *= assignment operator multiplies a variable.
+x += 5; // -> x = 15
+x -= 5; // -> x = 5
+x *= 5; // -> x = 50
 ```
 
-### Comparison Operators
+### Comparison Operators (==, ===, !=, etc)
+
+We use these operators to evaluate two expressions. As the computer runs the code, the operator will return either a `true` (if the statement evaluates to `true`) or a `false` (if the statement evaluates to not `true`).
+
+```js
+1 > 2; // -> false
+2 < 3; // -> true
+10 >=; // -> true
+100 <= 1; // -> false
+```
+
+### Arithmetic Operators (+, -, \*, /, etc)
+
+Arithmetic operators are used to perform arithmetic between variables and/or values.
+
+```js
+10 + 10; // -> 20
+10 - 10; // -> 0
+"10" - 10; // 0
+10 - "10"; // 0
+"10" + 10; // '1010'
+10 + "10"; // '1010'
+null + ""; // 'null'
+null + undefined; // NaN
+```
+
+### Logical Operators ( &&, ||, !, etc)
+
+Logical operators are used to determine the logic between variables or values.
 
 <br />
 <br />
