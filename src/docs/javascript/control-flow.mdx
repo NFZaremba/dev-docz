@@ -7,40 +7,9 @@ menu: JavaScript
 
 <br />
 
-## What is Type Coercion
-
 ---
-
-To understand control flow of `JavaScript`, type `coercion` must be understood.
-
-Type `Coercion` is the conversion of a value from **one type to another**. It can occur both when you intentionally (**explicit**) want to convert the type, and when the `JavaScript engine` does it for you (**implicit**)
-
-### Explicit Coercion
-
-`Explicit Coercion` is when you type cast a value from one type to another through the use of functions (essentially `wrapper objects`) like`Number()`and`String()`.
-
-```js
-String(42); // ->  "42"
-String(undefined); // -> "undefined"
-
-Number("12"); // -> 12
-Number("abc"); // -> NaN
-Number(undefined); // -> NaN
-
-Boolean(0); // -> false
-Boolean(1); // -> true
-Boolean(10); // -> true
-```
-
-### Implicit Coercion
-
-`Implicit Coercion` is when the JavaScript does the type conversion in an expression for you behind the scenes. Implicit coercion will mostly take place in an expression with operands of different types.
-
-<br />
 
 ## Truthy & Falsey
-
----
 
 When using an `if` statement or other statements that expect a `Boolean` value (such as the `!` NOT) and the expression given is not a `Boolean` value, `JavaScript` will implicitly coerce and transform the expression into a `Boolean` value.
 
@@ -63,18 +32,94 @@ null
 
 <br />
 
-## Operators
+---
+
+## What is Type Coercion
+
+To understand control flow of `JavaScript`, type `coercion` must be understood.
+
+Type `Coercion` is the conversion of a value from **one type to another**. It can occur:
+
+- **Explicitly** - when you intentionally want to convert the type.
+- **Implicitly** - when the `JavaScript engine` does it for you.
+
+<br />
+
+### Explicit Coercion
+
+`Explicit Coercion` is when you type cast a value from one type to another through the use of functions (essentially `wrapper objects`) like`Number()`and`String()`.
+
+```js
+String(42); // ->  "42"
+String(undefined); // -> "undefined"
+
+Number("12"); // -> 12
+Number("abc"); // -> NaN
+Number(undefined); // -> NaN
+
+Boolean(0); // -> false
+Boolean(1); // -> true
+Boolean(10); // -> true
+```
+
+### Implicit Coercion
+
+`Implicit Coercion` is when the JavaScript does the type conversion in an expression for you behind the scenes (using the same functions above). Implicit coercion will mostly take place in an expression with operands of different types.
+
+### Object Wrapper
+
+`JavaScript` promptly coerces between `primitives` and `objects`.
+
+Example:
+
+```js
+var str = "hello";
+console.log(str.toUpperCase()); // -> HELLO
+```
+
+**Question**: If `strings` are `primitive` types, how do they have properties?
+
+> **Answer**: whenever you try to access a property of a `string` str, `JavaScript` coerces the `string` value to an `object`, by `new String(str)`. This `object` is called a `wrapper object`. It inherits all string methods, and is used to resolve the property reference. Once the property has been resolved, the `wrapper object` is discarded. <br /> (**Note**: the same concept applies to numbers and booleans)
+
+So the above code translates to this via the `JavaScript engine`...
+
+```js
+var upper = new String(str).toUpperCase();
+```
+
+This is essentially the reason why the following piece of code yields an `undefined`:
+
+```js
+var str = "hello";
+str.custom = 1;
+console.log(str.custom); // -> undefined
+
+// which translates to
+var str = "hello";
+var temp = new String(str); // wrapper object
+temp.custom = 1;
+// end of the line for temp
+
+console.log(str.custom); // creates new temp wrapper object
+// custom property does not exist on this object
+```
+
+<br />
 
 ---
 
-In JavaScript you have the following main operators:
+## Operators
+
+In `JavaScript` you have the following main operators:
 
 - assignment operators
 - comparison operators
 - arithmetic operators
 - logical operators
 
-### Assignment operators ( =, +=, -=, etc)
+<br />
+
+### Assignment Operators (`=, +=, -=, etc`)
 
 Assignment operators assign values to JavaScript variables.
 
@@ -85,7 +130,9 @@ x -= 5; // -> x = 5
 x *= 5; // -> x = 50
 ```
 
-### Comparison Operators (==, ===, !=, etc)
+<br />
+
+### Comparison Operators (`==, ===, !=, etc`)
 
 We use these operators to evaluate two expressions. As the computer runs the code, the operator will return either a `true` (if the statement evaluates to `true`) or a `false` (if the statement evaluates to not `true`).
 
@@ -96,28 +143,162 @@ We use these operators to evaluate two expressions. As the computer runs the cod
 100 <= 1; // -> false
 ```
 
-### Arithmetic Operators (+, -, \*, /, etc)
+<br />
+
+### Arithmetic Operators (`+, -, \*, /, etc`)
 
 Arithmetic operators are used to perform arithmetic between variables and/or values.
 
 ```js
 10 + 10; // -> 20
 10 - 10; // -> 0
-"10" - 10; // 0
-10 - "10"; // 0
-"10" + 10; // '1010'
-10 + "10"; // '1010'
-null + ""; // 'null'
+"10" - 10; // -> 0
+10 - "10"; // -> 0
+"10" + 10; // -> '1010'
+10 + "10"; // -> '1010'
+null + ""; // -> 'null'
 null + undefined; // NaN
 ```
 
-### Logical Operators ( &&, ||, !, etc)
+#### Conversion to a string
+
+If we have two numbers, `JavaScript` will output the sum of those numbers. But if only one of the values is a number, **`JavaScript` will convert both values to strings and concatenate those values**.
+
+> `JavaScript Engine` will use `String()` method to convert types to a `string`.
+
+```js
+"2" + 2 // -> "22" - translates to: "2" + new String(2)
+"hi" + 2 // -> "hi2"
+[] + 2 // -> "2"
+[2] + 2 // -> "22" - engine converts both to strings
+
+15 + 3 + "2" // -> "182" - adds first two operands 18 + '2'
+"2" + 15 + 3 // -> "2153" - engine evaluates first operand as string and adds the rest
+```
+
+#### Conversion to a number
+
+The rest of the arithmetic operators, such as subtraction, multiplication or division operators have more predictable behavior.
+
+> `JavaScript Engine` will use `Number()` method to convert types to a `number`.
+
+```js
+"2" - 2; // -> 0 - translates to: new Number("2") - 2
+"2" * 2; // -> 4
+"2" / 2; // -> 1
+
+"hi" - 2; // -> NaN - "hi" can't be converted to a string so we get NaN
+"hi" * 2; // -> NaN
+"hi" / 2; // -> NaN
+
+[] - 2 // -> -2 - the object will be converted to 0.
+[] * 2 // -> 0
+[] / 2 // -> 0
+```
+
+#### Conversion to boolean
+
+Any true will be converted to 1 and any false to 0.
+
+> `JavaScript Engine` will use `Boolean()` method to convert types to a `boolean`.
+
+```js
+true + true; // 2
+1 + false; // 1
+!!"Hi there"; // true
+!!2; // true
+```
+
+```js
+!!"";
+!!0;
+!!undefined;
+!!null;
+!!NaN;
+!!false;
+```
+
+<br />
+
+### Logical Operators (`&&, ||, !, etc`)
 
 Logical operators are used to determine the logic between variables or values.
 
+#### Logical AND (`&&`)
+
+```js
+3 > 0 && -2 > 0; // -> returns false
+
+a1 = true && true; // -> t && t returns true
+a2 = true && false; // -> t && f returns false
+a3 = false && true; // -> f && t returns false
+a4 = false && 3 == 4; // -> f && f returns false
+a5 = "Cat" && "Dog"; // -> t && t returns "Dog"
+a6 = false && "Cat"; // -> f && t returns false
+a7 = "Cat" && false; // -> t && f returns false
+a8 = "" && false; // -> f && f returns ""
+a9 = false && ""; // -> f && f returns false
+```
+
+- Syntax:
+  - **expr1** && **expr2**
+- Description:
+  - If **expr1** evaluates to `true`, returns **expr2**. <br /> Else it short-circuits and returns **expr1** if `falsey`.
+- Short-circuit evaluation:
+  - If the first expression evaluates to `falsey`, the second expression is not evaluated and will immediatley return the first value.
+
+#### Logical OR (`||`)
+
+```js
+o1 = true || true; // -> t || t returns true
+o2 = false || true; // -> f || t returns true
+o3 = true || false; // -> t || f returns true
+o4 = false || 3 == 4; // -> f || f returns false
+o5 = "Cat" || "Dog"; // -> t || t returns "Cat"
+o6 = false || "Cat"; // -> f || t returns "Cat"
+o7 = "Cat" || false; // -> t || f returns "Cat"
+o8 = "" || false; // -> f || f returns false
+o9 = false || ""; // -> f || f returns ""
+o10 = false || varObject; // f || object returns varObject
+```
+
+- Syntax:
+  - **expr1** || **expr2**
+- Description:
+  - If **expr1** evaluates to `true`, returns **expr1**. <br /> Else it short-circuits and returns **expr2** if `falsey`. (**think of it as a fallback!**)
+- Short-circuit evaluation:
+  - If the first expression evaluates to `truthy`, the second expression is not evaluated and will immediatley return the first value.
+
+#### Logical NOT (`!`) and Double NOT (`!!`)
+
+```js
+// NOT (!)
+n1 = !true; // -> !t returns false
+n2 = !false; // -> !f returns true
+n3 = !""; // -> !f returns true
+n4 = !"Cat"; // -> !t returns false
+
+// Double NOT (!!)
+n1 = !!true; // -> !!truthy returns true
+n2 = !!{}; // -> !!truthy returns true: any object is truthy...
+n3 = !!new Boolean(false); // -> ...even Boolean objects with a false .valueOf()!
+n4 = !!false; // -> !!falsy returns false
+n5 = !!""; // -> !!falsy returns false
+n6 = !!Boolean(false); // -> !!falsy returns false
+```
+
+- Syntax:
+  - **!expr**
+- Description:
+  - Returns `false` if its single operand evaluates to `true`. <br /> Returns `true` if operand can be converted to `false`.
+
 <br />
 <br />
+
+---
 
 #### Links:
 
----
+- [Wrapper Object](https://javascriptrefined.io/the-wrapper-object-400311b29151)
+- [Type Coercion](https://javascript.plainenglish.io/implicit-type-coercion-in-javascript-7eb6170a2d87)
+- [Reddit explanation](https://www.reddit.com/r/learnprogramming/comments/7w5fw7/javascript_concept_what_is_type_coercion/)

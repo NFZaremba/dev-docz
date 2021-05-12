@@ -7,9 +7,9 @@ menu: JavaScript
 
 <br />
 
-## Memory Life Cycle
-
 ---
+
+## Memory Life Cycle
 
 In `JavaScript`, memory life cycle is composed of 3 steps:
 
@@ -21,11 +21,13 @@ But where is the memory allocation happening?...
 
 <br />
 
-## Memory Heap and Call Stack
-
 ---
 
+## Memory Heap and Call Stack
+
 `JavaScript engines` have two places where they can store data: The **memory heap** and **stack** located in the `RAM`.
+
+<br />
 
 ### Stack - `static memory allocation`
 
@@ -47,9 +49,9 @@ But where is the memory allocation happening?...
 
 <br />
 
-## Memory Allocation for Primitives
-
 ---
+
+## Memory Allocation for Primitives
 
 Let’s start off with a simple example. Below, we declare a variable called `myNumber` and initialize it with a value of `23`.
 
@@ -104,15 +106,17 @@ const firstName = name.slice(0, 4); // allocates memory for a new string
 
 <br />
 
-## Memory Allocation for References
-
 ---
+
+## Memory Allocation for References
 
 All `variables` first point to the `stack`. In case it's a non-primitive value, the `stack` contains a `reference` to the `object` in the `heap`.
 
 The memory of the `heap` is not ordered in any particular way, which is why we need to keep a `reference` to it in the stack. **You can think of references as addresses and the objects in the `heap` as houses that these addresses belong to**.
 
 > Remember that JavaScript stores objects and functions in the `heap`. `Primitive values` and `references` are stored in the `stack`.
+
+<br />
 
 Let's start with an example...
 
@@ -156,17 +160,19 @@ const person = {
 
 ![memory references](https://felixgerschau.com/static/b452488bd7eeac0405c48f164da6280d/c1b63/stack-heap-pointers.png)
 
-Note above how person and newPerson both point to the same object.
+Note above how `person` and `newPerson` both point to the same object.
 
 <br />
 
-## Garbage Collection
-
 ---
+
+## Garbage Collection
 
 The last step is releasing memory and this is where `garbage collection` comes into play (**which is also handled by the `JavaScript Engine`**).
 
 > **Algorithms** are used to pinpoint unneeded memory that needs to be released. The **mark-and-sweep algorithm** has been implemented in all modern browsers since 2012.
+
+<br />
 
 ### Mark-and-sweep algorithm
 
@@ -190,9 +196,9 @@ Automatic `garbage collection` allows us to focus on building applications inste
 
 <br />
 
-## Memory leaks
-
 ---
+
+## Memory leaks
 
 Here are the most common memory leaks:
 
@@ -209,9 +215,9 @@ Here are the most common memory leaks:
 <br />
 <br />
 
-#### Links:
-
 ---
+
+#### Links:
 
 - [Memory Management](https://felixgerschau.com/javascript-memory-management/)
 - [Memory Model](https://medium.com/@ethannam/javascripts-memory-model-7c972cd2c239)

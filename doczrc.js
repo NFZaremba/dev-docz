@@ -96,17 +96,17 @@ export default {
       dark: {
         plain: {
           backgroundColor: colors.dark.code,
-          maxWidth: "80%",
-          marginLeft: "auto",
-          marginRight: "auto",
+          // maxWidth: "80%",
+          // marginLeft: "auto",
+          // marginRight: "auto",
           whiteSpace: "pre-wrap",
         },
       },
       light: {
         plain: {
-          maxWidth: "80%",
-          marginLeft: "auto",
-          marginRight: "auto",
+          // maxWidth: "80%",
+          // marginLeft: "auto",
+          // marginRight: "auto",
           whiteSpace: "pre-wrap",
         },
       },
