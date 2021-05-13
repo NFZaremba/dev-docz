@@ -132,19 +132,6 @@ x *= 5; // -> x = 50
 
 <br />
 
-### Comparison Operators (`==, ===, !=, etc`)
-
-We use these operators to evaluate two expressions. As the computer runs the code, the operator will return either a `true` (if the statement evaluates to `true`) or a `false` (if the statement evaluates to not `true`).
-
-```js
-1 > 2; // -> false
-2 < 3; // -> true
-10 >=; // -> true
-100 <= 1; // -> false
-```
-
-<br />
-
 ### Arithmetic Operators (`+, -, \*, /, etc`)
 
 Arithmetic operators are used to perform arithmetic between variables and/or values.
@@ -160,7 +147,7 @@ null + ""; // -> 'null'
 null + undefined; // NaN
 ```
 
-#### Conversion to a string
+#### String conversion
 
 If we have two numbers, `JavaScript` will output the sum of those numbers. But if only one of the values is a number, **`JavaScript` will convert both values to strings and concatenate those values**.
 
@@ -176,7 +163,7 @@ If we have two numbers, `JavaScript` will output the sum of those numbers. But i
 "2" + 15 + 3 // -> "2153" - engine evaluates first operand as string and adds the rest
 ```
 
-#### Conversion to a number
+#### Number conversion
 
 The rest of the arithmetic operators, such as subtraction, multiplication or division operators have more predictable behavior.
 
@@ -196,18 +183,22 @@ The rest of the arithmetic operators, such as subtraction, multiplication or div
 [] / 2 // -> 0
 ```
 
-#### Conversion to boolean
+#### Boolean conversion
 
-Any true will be converted to 1 and any false to 0.
+Any `true` will be converted to **1** and any `false` to **0**.
 
 > `JavaScript Engine` will use `Boolean()` method to convert types to a `boolean`.
 
 ```js
-true + true; // 2
-1 + false; // 1
-!!"Hi there"; // true
-!!2; // true
+true + true; // -> 2
+1 + false; // -> 1
+!!"Hi there"; // -> true
+!!2; // -> true
 ```
+
+> **Hint**: Use double bang to convert any value into a boolean.
+
+All values in `JavaScript` can be converted to `true` except for the following:
 
 ```js
 !!"";
@@ -216,6 +207,29 @@ true + true; // 2
 !!null;
 !!NaN;
 !!false;
+```
+
+<br />
+
+### Comparison Operators (`==, ===, !=, etc`)
+
+We use these operators to evaluate two expressions. As the computer runs the code, the operator will return either a `true` (if the statement evaluates to `true`) or a `false` (if the statement evaluates to not `true`).
+
+```js
+1 > 2; // -> false
+2 < 3; // -> true
+10 >=; // -> true
+100 <= 1; // -> false
+```
+
+The loose `==` operator will compare two values of different types coercing one of the types to compare the same data types.
+
+However, this is bad practice. Using the strict `===`operator will allow you to compare values **without performing type `coercion`** on them first
+
+```js
+2 == "2"; // -> true - with type coercion
+
+2 === "2"; // -> false - without type coercion
 ```
 
 <br />
@@ -229,43 +243,43 @@ Logical operators are used to determine the logic between variables or values.
 ```js
 3 > 0 && -2 > 0; // -> returns false
 
-a1 = true && true; // -> t && t returns true
-a2 = true && false; // -> t && f returns false
-a3 = false && true; // -> f && t returns false
-a4 = false && 3 == 4; // -> f && f returns false
-a5 = "Cat" && "Dog"; // -> t && t returns "Dog"
-a6 = false && "Cat"; // -> f && t returns false
-a7 = "Cat" && false; // -> t && f returns false
-a8 = "" && false; // -> f && f returns ""
-a9 = false && ""; // -> f && f returns false
+true && true; // -> t && t returns true
+true && false; // -> t && f returns false
+false && true; // -> f && t returns false
+false && 3 == 4; // -> f && f returns false
+"Cat" && "Dog"; // -> t && t returns "Dog"
+false && "Cat"; // -> f && t returns false
+"Cat" && false; // -> t && f returns false
+"" && false; // -> f && f returns ""
+false && ""; // -> f && f returns false
 ```
 
 - Syntax:
-  - **expr1** && **expr2**
+  - `leftExpr && rightExpr`
 - Description:
-  - If **expr1** evaluates to `true`, returns **expr2**. <br /> Else it short-circuits and returns **expr1** if `falsey`.
+  - If **leftExpr** evaluates to `true`, returns **rightExpr**. <br /> Else it short-circuits and returns **leftExpr** if `falsey`.
 - Short-circuit evaluation:
   - If the first expression evaluates to `falsey`, the second expression is not evaluated and will immediatley return the first value.
 
 #### Logical OR (`||`)
 
 ```js
-o1 = true || true; // -> t || t returns true
-o2 = false || true; // -> f || t returns true
-o3 = true || false; // -> t || f returns true
-o4 = false || 3 == 4; // -> f || f returns false
-o5 = "Cat" || "Dog"; // -> t || t returns "Cat"
-o6 = false || "Cat"; // -> f || t returns "Cat"
-o7 = "Cat" || false; // -> t || f returns "Cat"
-o8 = "" || false; // -> f || f returns false
-o9 = false || ""; // -> f || f returns ""
-o10 = false || varObject; // f || object returns varObject
+true || true; // -> t || t returns true
+false || true; // -> f || t returns true
+true || false; // -> t || f returns true
+false || 3 == 4; // -> f || f returns false
+"Cat" || "Dog"; // -> t || t returns "Cat"
+false || "Cat"; // -> f || t returns "Cat"
+"Cat" || false; // -> t || f returns "Cat"
+"" || false; // -> f || f returns false
+false || ""; // -> f || f returns ""
+false || varObject; // f || object returns varObject
 ```
 
 - Syntax:
-  - **expr1** || **expr2**
+  - `leftExpr || rightExpr`
 - Description:
-  - If **expr1** evaluates to `true`, returns **expr1**. <br /> Else it short-circuits and returns **expr2** if `falsey`. (**think of it as a fallback!**)
+  - If **leftExpr** evaluates to `false`, returns **rightExpr**. <br /> Else, it short-circuits and returns **leftExpr** if `truthy`. (**think of it as a fallback!**)
 - Short-circuit evaluation:
   - If the first expression evaluates to `truthy`, the second expression is not evaluated and will immediatley return the first value.
 
@@ -273,24 +287,42 @@ o10 = false || varObject; // f || object returns varObject
 
 ```js
 // NOT (!)
-n1 = !true; // -> !t returns false
-n2 = !false; // -> !f returns true
-n3 = !""; // -> !f returns true
-n4 = !"Cat"; // -> !t returns false
+!true; // -> false
+!false; // -> true
+!""; // -> true
+!"Cat"; // -> false
 
 // Double NOT (!!)
-n1 = !!true; // -> !!truthy returns true
-n2 = !!{}; // -> !!truthy returns true: any object is truthy...
-n3 = !!new Boolean(false); // -> ...even Boolean objects with a false .valueOf()!
-n4 = !!false; // -> !!falsy returns false
-n5 = !!""; // -> !!falsy returns false
-n6 = !!Boolean(false); // -> !!falsy returns false
+!!"Cat"; // -> true
+!!true; // -> true
+!!{}; // -> true: any object is truthy...
+!![]; // -> true: any array is truthy...
+!![12]; // -> true
+!!false; // -> false
+!!""; // -> false
+!!Boolean(false); // -> false
 ```
 
 - Syntax:
-  - **!expr**
+  - `!expr`
 - Description:
   - Returns `false` if its single operand evaluates to `true`. <br /> Returns `true` if operand can be converted to `false`.
+
+#### Nullish coalescing (`??`)
+
+```js
+null ?? "default for A"; // -> "default for A"
+"" ?? "default for B"; // -> ""
+42 ?? 0; // -> 42
+```
+
+- Syntax:
+  - `leftExpr ?? rightExpr`
+- Description:
+  - If **leftExpr** evaluates to `null` or `undefined`, returns **rightExpr**. <br /> Else, it short-circuits and returns **rightExpr** if its anything other than `null` or `undefined`.
+  - This can be contrasted with the `logical OR (||)` operator, which returns the **rightExpr** if the **leftExpr** is any `falsy` value, not only `null` or `undefined`.
+
+> This fixes the issue when you are expecting a `falsy` value like `0` or `''` when using the `Logical OR (||)` when setting a default value.
 
 <br />
 <br />
@@ -300,5 +332,5 @@ n6 = !!Boolean(false); // -> !!falsy returns false
 #### Links:
 
 - [Wrapper Object](https://javascriptrefined.io/the-wrapper-object-400311b29151)
-- [Type Coercion](https://javascript.plainenglish.io/implicit-type-coercion-in-javascript-7eb6170a2d87)
-- [Reddit explanation](https://www.reddit.com/r/learnprogramming/comments/7w5fw7/javascript_concept_what_is_type_coercion/)
+- [Implicit Type Coercion](https://javascript.plainenglish.io/implicit-type-coercion-in-javascript-7eb6170a2d87)
+- [Reddit example](https://www.reddit.com/r/learnprogramming/comments/7w5fw7/javascript_concept_what_is_type_coercion/)
