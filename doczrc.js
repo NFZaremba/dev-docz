@@ -1,4 +1,4 @@
-const colors = Object.freeze({
+const colors = {
   dark: {
     background: "#12181b", // used for main container bg
     text: "#fff",
@@ -15,7 +15,7 @@ const colors = Object.freeze({
     accent: "#c7254e",
     muted: "#f9f2f4",
   },
-});
+};
 
 export default {
   title: "Zaremba Docz",
@@ -47,7 +47,7 @@ export default {
     },
     styles: {
       h1: {
-        color: "red",
+        color: "yellow",
       },
       h2: {
         color: "blue",
