@@ -46,6 +46,12 @@ export default {
       },
     },
     styles: {
+      h1: {
+        color: "red",
+      },
+      h2: {
+        color: "blue",
+      },
       inlineCode: {
         bg: "muted",
         color: "accent",
