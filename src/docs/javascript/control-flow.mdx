@@ -151,7 +151,7 @@ null + ""; // -> 'null'
 null + undefined; // NaN
 ```
 
-#### String conversion
+#### \* String conversion \*
 
 If we have two numbers, `JavaScript` will output the sum of those numbers. But if only one of the values is a number, **`JavaScript` will convert both values to strings and concatenate those values**.
 
@@ -167,7 +167,7 @@ If we have two numbers, `JavaScript` will output the sum of those numbers. But i
 "2" + 15 + 3 // -> "2153" - engine evaluates first operand as string and adds the rest
 ```
 
-#### Number conversion
+#### \* Number conversion \*
 
 The rest of the arithmetic operators, such as subtraction, multiplication or division operators have more predictable behavior.
 
@@ -187,7 +187,7 @@ The rest of the arithmetic operators, such as subtraction, multiplication or div
 [] / 2 // -> 0
 ```
 
-#### Boolean conversion
+#### \* Boolean conversion \*
 
 Any `true` will be converted to **1** and any `false` to **0**.
 
@@ -242,7 +242,7 @@ However, this is bad practice. Using the strict `===`operator will allow you to 
 
 Logical operators are used to determine the logic between variables or values.
 
-#### Logical AND (`&&`)
+#### \* Logical AND (`&&`) \*
 
 ```js
 3 > 0 && -2 > 0; // -> returns false
@@ -265,7 +265,7 @@ false && ""; // -> f && f returns false
 - Short-circuit evaluation:
   - If the first expression evaluates to `falsey`, the second expression is not evaluated and will immediatley return the first value.
 
-#### Logical OR (`||`)
+#### \* Logical OR (`||`) \*
 
 ```js
 true || true; // -> t || t returns true
@@ -287,7 +287,7 @@ false || varObject; // f || object returns varObject
 - Short-circuit evaluation:
   - If the first expression evaluates to `truthy`, the second expression is not evaluated and will immediatley return the first value.
 
-#### Logical NOT (`!`) and Double NOT (`!!`)
+#### \* Logical NOT (`!`) and Double NOT (`!!`) \*
 
 ```js
 // NOT (!)
@@ -312,7 +312,7 @@ false || varObject; // f || object returns varObject
 - Description:
   - Returns `false` if its single operand evaluates to `true`. <br /> Returns `true` if operand can be converted to `false`.
 
-#### Nullish coalescing (`??`)
+#### \* Nullish coalescing (`??`) \*
 
 ```js
 null ?? "default for A"; // -> "default for A"

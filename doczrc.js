@@ -1,3 +1,5 @@
+// import emoji from "remark-emoji";
+
 const colors = {
   dark: {
     background: "#12181b", // used for main container bg
@@ -20,6 +22,7 @@ const colors = {
 export default {
   title: "Zaremba Docz",
   menu: ["Components", "JavaScript", "Getting Started", "Readme"],
+  // mdPlugins: [emoji],
   themeConfig: {
     initialColorMode: "dark",
     fonts: {
@@ -47,10 +50,7 @@ export default {
     },
     styles: {
       h1: {
-        color: "yellow",
-      },
-      h2: {
-        color: "blue",
+        color: colors.dark.blue,
       },
       inlineCode: {
         bg: "muted",

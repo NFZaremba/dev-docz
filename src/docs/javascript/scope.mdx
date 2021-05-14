@@ -13,6 +13,8 @@ menu: JavaScript
 
 Scope in JavaScript refers to the current context of code, which determines the accessibility of variables to JavaScript
 
+<br />
+
 ### var, let, and const
 
 `JavaScript` has three different keywords to declare a variable, which adds an extra layer of intricacy to the language.
@@ -25,7 +27,9 @@ The differences between the three are based on `scope`, `hoisting`, and `reassig
 | `let`   | Block scope    | No       | Yes               | No                |
 | `const` | Block scope    | No       | No                | No                |
 
-> A commonly accepted practice is to use `const` as much as possible, and `let` in the case of loops and reassignment.
+A commonly accepted practice is to use `const` as much as possible, and `let` in the case of loops and reassignment.
+
+<br />
 
 ### Variable Scope
 
@@ -34,4 +38,21 @@ The two types of scope are local and global:
 - `Global` variables are those declared outside of a block
 - `Local` variables are those declared inside of a block
 
-#### function-scoped
+#### \* function-scoped \*
+
+In this example, the local variable is function-scoped. Variables declared with the var keyword are always function-scoped, meaning they recognize functions as having a separate scope. This locally-scoped variable is therefore not accessible from the global scope.
+
+```js
+// Initialize a global variable
+var species = "human";
+
+function transform() {
+  // Initialize a local, function-scoped variable
+  var species = "werewolf";
+  console.log(species);
+}
+
+console.log(species); // -> "human"
+transform(); // -> "werewolf"
+console.log(species); // -> "human"
+```

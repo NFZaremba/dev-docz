@@ -58,7 +58,7 @@ Anything that is not a Primitive type will inherit from an `Object`.
 
 <br />
 
-`undefined` can also occur if an object's property doesn't exist...
+#### \* `undefined` can also occur if an object's property doesn't exist... \*
 
 ```js
 let myDetails = {
@@ -68,7 +68,7 @@ let myDetails = {
 console.log(myDetails.name); // -> undefined
 ```
 
-or a function has a missing parameter...
+#### \* or a function has a missing parameter... \*
 
 ```js
 function getString(str) {
@@ -78,7 +78,7 @@ function getString(str) {
 getString();
 ```
 
-and default parameters will only work if the parameter is `undefined`.
+#### \* and default parameters will only work if the parameter is `undefined` \*
 
 ```js
 function getString(str = "hi") {

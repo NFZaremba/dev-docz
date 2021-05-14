@@ -35,6 +35,8 @@ But where is the memory allocation happening?...
 - The static data have fixed sizes and so the `JavaScript engine` knows how much memory to allocate before execution.
 - Allocating memory during compile time is known as **static memory allocation**.
 
+<br />
+
 ### Heap - `dynamic memory allocation`
 
 - The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
@@ -79,6 +81,8 @@ let newVar = myNumber;
 
 ![example 2](https://miro.medium.com/max/750/1*AaUqtuwa2BZiI73bV9RHmA.jpeg)
 
+<br />
+
 #### Here’s another example:
 
 Take a look at the code below...
@@ -91,6 +95,8 @@ myString = myString + "d";
 While a novice JS programmer may say that the letter `d` is simply appended to the string `abc` wherever it exists in memory, this is technically false. When `abc` is concatenated with `d`, since `strings` are also `primitive data types` in JS, a new memory address is allocated, `abcd` is stored there, and `myString` points to this new memory address.
 
 ![example 3](https://miro.medium.com/max/750/1*WQHSspJDrPGOQ9L8R01jmw.jpeg)
+
+<br />
 
 #### More Examples:
 
@@ -145,6 +151,8 @@ myArray.pop();
 ```
 
 ![example 6](https://miro.medium.com/max/750/1*XfqW2Xh5oJrChzhRAauf9Q.jpeg)
+
+<br />
 
 #### More Examples:
 
