@@ -1,12 +1,10 @@
-// import emoji from "remark-emoji";
-
 const colors = {
   dark: {
     background: "#12181b", // used for main container bg
     text: "#fff",
     paragraph: "#b2becd", // used for paragraphs, ul, ol, etc.
     accent: "#9166cc", // used for inlinecode text color
-    muted: "#1d1d1d", // used for inlinecode background color
+    muted: "#2d2d2d", // used for inlinecode background color
     blue: "#1fb6ff",
     darkBlue: "#13161F",
     code: "#22262f",
@@ -22,7 +20,6 @@ const colors = {
 export default {
   title: "Zaremba Docz",
   menu: ["Components", "JavaScript", "Getting Started", "Readme"],
-  // mdPlugins: [emoji],
   themeConfig: {
     initialColorMode: "dark",
     fonts: {
@@ -38,8 +35,8 @@ export default {
           sidebar: {
             bg: colors.dark.darkBlue,
             navGroup: "text",
-            navLinkActive: colors.dark.accent,
-            tocLink: colors.dark.accent,
+            navLinkActive: colors.dark.blue,
+            tocLink: colors.dark.blue,
             tocLinkActive: colors.dark.blue,
           },
         },
@@ -54,7 +51,7 @@ export default {
       },
       inlineCode: {
         bg: "muted",
-        color: "accent",
+        color: "blue",
         padding: "2px 4px",
         borderRadius: "4px",
         fontWeight: 700,
@@ -65,9 +62,10 @@ export default {
         paddingTop: "0",
         paddingBottom: "0",
         bg: "none",
+        borderLeft: `1px solid ${colors.dark.text}`,
       },
       strong: {
-        color: "text",
+        color: "accent",
         // boxShadow: "inset 0 -1px 0 #00b4fc91",
       },
       img: {
@@ -102,17 +100,20 @@ export default {
       dark: {
         plain: {
           backgroundColor: colors.dark.code,
-          // maxWidth: "80%",
-          // marginLeft: "auto",
-          // marginRight: "auto",
           whiteSpace: "pre-wrap",
         },
+        // styles: [
+        //   {
+        //     types: ["comment"],
+        //     style: {
+        //       color: "rgb(255, 55, 1)",
+        //       fontStyle: "italic",
+        //     },
+        //   },
+        // ],
       },
       light: {
         plain: {
-          // maxWidth: "80%",
-          // marginLeft: "auto",
-          // marginRight: "auto",
           whiteSpace: "pre-wrap",
         },
       },

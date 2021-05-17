@@ -1,0 +1,98 @@
+---
+name: 3. Data Types & Structures
+menu: JavaScript
+---
+
+# Data Types
+
+<br />
+
+---
+
+## Primitives
+
+`Primitive` types are **immutable**, they can be reassigned to a variable but not changed directly (**a new memory address will be allocated**).
+
+There are 7 types in `JavaScript`, 6 `primitives` and the `object`.
+
+- `string`
+- `number`
+- `boolean`
+- `null`
+- `undefined`
+- `symbol` (the latest addition)
+
+<br />
+
+### null
+
+> `null` is a `primitive` type and an assignment value, can be thought of as an intentional absence of a value since it must be assigned.
+>
+> <br />
+>
+> `null` should be set explicitly, so that any `null` values that is encountered will tell you that it is intentional.
+
+### undefined
+
+> `undefined` is a primitive type that is returned if a variable was declared but not assigned a value.
+>
+> <br />
+>
+> `undefined` should only be set by the `JavaScript Engine` implicitly when it executes code because it lets you know that this undefined value is unintentional (**unless pointing to a declared variable that has been hoisted in which case it is your fault**).
+>
+> ![null vs undefined](https://i.stack.imgur.com/T9M2J.png)
+>
+> `undefined` can also occur:
+>
+> ```js
+> // if an object's property doesn't exist...
+> let myDetails = {
+>   age: 27,
+> };
+> console.log(myDetails.name); // -> undefined
+>
+> // or a function has a missing parameter...
+> function getName(name) {
+>   return name;
+> }
+> getString(); // undefined
+>
+> // and default parameters will only work if the parameter is `undefined`
+> function getFullName(firstName = "ricky", lastName = "bobby") {
+>   `${firstName} ${lastName}`; // -> 'hi'
+> }
+> getFullName();
+> ```
+
+<br />
+<br />
+
+---
+
+## Objects
+
+`Objects` represent more complex data types.
+
+- `Arrays`
+- `Functions`
+- `Classes`
+
+Anything that is not a Primitive type will inherit from an `Object`.
+
+<br />
+
+### Objects
+
+<br />
+
+### Arrays
+
+<br />
+<br />
+
+---
+
+#### Links:
+
+- [Understanding Null and Undefined in JavaScript](https://blog.bitsrc.io/understanding-null-and-undefined-in-javascript-77ceb44cf7db)
+- [Null vs. Undefined](https://codeburst.io/javascript-null-vs-undefined-20f955215a2)

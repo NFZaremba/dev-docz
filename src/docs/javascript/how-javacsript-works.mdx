@@ -16,6 +16,7 @@ In web development, each browser has a `JavaScript Runtime Environment`, and in 
 - `AJAX`, the `DOM tree`, and other `API’s`, are not part of `JavaScript`, they are just objects with properties and methods, provided by the browser and made available in the browser’s `JS Runtime Environment`.
 
 <br />
+<br />
 
 ---
 
@@ -27,6 +28,7 @@ It can be implemented as a standard `interpreter`, or `just-in-time compiler` th
 
 When running a `JavaScript` program, two regions of memory are allocated on the machine's `RAM` (Random Access Memory), to store things like the `runtime`, `variables` and `objects` that you reference in your code. The `Heap` and `Stack`.
 
+<br />
 <br />
 
 ---
@@ -44,32 +46,34 @@ Think of the `JavaScript runtime environment` as a big container. Within the big
 
 ### Runtime Environment Containers:
 
-- **Memory Heap**
+> **Memory Heap**
+>
+> > - Unstructured memory pool where we can store complex objects.
+> > - Is `Garbage Collected`.
+>
+> **Call Stack**
+>
+> > - LIFO principle - last-in-first-out.
+> > - Helps keep track of where we are in the code so that we can run the code in order.
+> > - The call stack is designed to be a high performance continuous region of memory used to execute functions.
+> > - When you call a function, it creates a frame in the stack that contains a copy of its local variables.
+>
+> **Web API Container**
+>
+> > - Calls that were sent to the `Web API` container from the `Stack`, like event listeners, HTTP/AJAX requests, or timing functions, sit there until an action is triggered.
+> > - Once triggered, a 'callback function' is sent to the final container, the `callback queue`.
+>
+> **Callback Queue**
+>
+> > - The `Queue` is a FIFO (first in first out) data structure.
+> > - The `Callback Queue` will store all the callback functions in the order in which they were added. It will 'wait' until the `Stack` is completely empty.
+>
+> **Event Loop**
+>
+> > - The `Event Loop` is implemented in runtime environment.
+> > - Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
 
-  - Unstructured memory pool where we can store complex objects.
-  - Is `Garbage Collected`.
-
-- **Call Stack**
-
-  - LIFO principle - last-in-first-out.
-  - Helps keep track of where we are in the code so that we can run the code in order.
-  - The call stack is designed to be a high performance continuous region of memory used to execute functions.
-  - When you call a function, it creates a frame in the stack that contains a copy of its local variables.
-
-- **Web API Container**
-
-  - Calls that were sent to the `Web API` container from the `Stack`, like event listeners, HTTP/AJAX requests, or timing functions, sit there until an action is triggered.
-  - Once triggered, a 'callback function' is sent to the final container, the `callback queue`.
-
-- **Callback Queue**
-
-  - The `Queue` is a FIFO (first in first out) data structure.
-  - The `Callback Queue` will store all the callback functions in the order in which they were added. It will 'wait' until the `Stack` is completely empty.
-
-- **Event Loop**
-  - The `Event Loop` is implemented in runtime environment.
-  - Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
-
+<br />
 <br />
 
 ---
