@@ -11,50 +11,159 @@ menu: JavaScript
 
 ## Scope
 
-Scope in JavaScript refers to the current context of code, which determines the accessibility of variables to JavaScript
+_Scope_ in `JavaScript` refers to the current context of code, which determines the accessibility of `variables`.
 
 <br />
 
 ### var, let, and const
 
-`JavaScript` has three different keywords to declare a variable, which adds an extra layer of intricacy to the language.
-
-The differences between the three are based on `scope`, `hoisting`, and `reassignment`.
-
-| Stack   | Heap           | Hoisting | Can Be Reassigned | Can Be Redeclared |
-| ------- | -------------- | -------- | ----------------- | ----------------- |
-| `var`   | Function scope | Yes      | Yes               | Yes               |
-| `let`   | Block scope    | No       | Yes               | No                |
-| `const` | Block scope    | No       | No                | No                |
-
-A commonly accepted practice is to use `const` as much as possible, and `let` in the case of loops and reassignment.
-
-<br />
+> There are three ways to declare a variable in JavaScript: by using `var`, `let` and `const` keywords.
+>
+> - The differences between the three are based on _scope_, _hoisting_, and _reassignment_.
+> - Best practice: use `const` as much as possible, and `let` in the case of loops and reassignment.
+>
+> | Stack   | Heap           | Hoisting | Can Be Reassigned | Can Be Redeclared |
+> | ------- | -------------- | -------- | ----------------- | ----------------- |
+> | `var`   | Function scope | Yes      | Yes               | Yes               |
+> | `let`   | Block scope    | No       | Yes               | No                |
+> | `const` | Block scope    | No       | No                | No                |
 
 ### Variable Scope
 
-The two types of scope are local and global:
+> `JavaScript` has two scopes: _global_ and _local_. Local scope has two variations: the old function scope, and the new block scope introduced with ES6.
+>
+> <br />
+>
+> - _Global_ variables are those declared outside of a block
+> - _Local_ variables are those declared inside of a block
+>   - function scope
+>   - block scope
+>
+> <br />
+>
+> **Global Scope**
+>
+> > In a script, the outermost scope is the **global scope**.
+> >
+> > - The use of global variables is discouraged in `JavaScript`. This is, for example, because they can potentially be overwritten by other scripts, or from elsewhere in your program.
+> >
+> > ```js
+> > // Global Scope
+> >
+> > const name = "Monique";
+> >
+> > function sayHi() {
+> >   console.log(`Hi ${name}`);
+> > }
+> >
+> > sayHi(); // -> Hi Monique
+> > ```
+>
+> **Local Scope**
+>
+> > A **function** in `JavaScript` defines a scope for variables declared using `var`, `let` and `const`. Any variable declared within that `function` is only accessible from that `function` and any nested `functions`.
+> >
+> > ```js
+> > // Initialize a global variable
+> > var species = "human";
+> >
+> > function transform() {
+> >   // Initialize a local, function-scoped variable
+> >   var species = "werewolf";
+> >   console.log(species);
+> > }
+> >
+> > console.log(species); // -> "human"
+> > transform(); // -> "werewolf"
+> > console.log(species); // -> "human"
+> > ```
+> >
+> > - Variables declared with the `var` keyword are always function-scoped, meaning they **recognize functions as having a separate scope**.This locally-scoped variable is therefore not accessible from the global scope.
+> >
+> > <br />
+> >
+> > A **code block** on the otherhand (`if`, `for`, etc.) defines a scope only for variables declared with the `let` and `const` keywords. **The var keyword is limited to function scope**, meaning that new scope can only be created inside functions.
+> >
+> > ```js
+> > let species = "human";
+> >
+> > if (true) {
+> >   let species = "werewolf";
+> >   console.log(species);
+> > }
+> >
+> > console.log(species);
+> >
+> > -------------------------------------------------------------------------
+> >
+> > var species = "human";
+> >
+> > if (true) {
+> >  var species = "werewolf";
+> >  console.log(species);
+> > }
+> >
+> > console.log(species);
+> > ```
+> >
+> > - `let` and `const`, are **block-scoped**. This means that a new, local scope is created from any kind of block, including `function blocks`, `if` statements, and `for` and `while` loops.
+> > - However in the bottom example, both the global variable and the block-scoped variable end up with the same value, 'werewolf'. This is because instead of creating a new **local variable** with `var`, you are reassigning the same variable in the same scope. **`var` does not recognize if to be part of a different, new scope**.
 
-- `Global` variables are those declared outside of a block
-- `Local` variables are those declared inside of a block
+<br />
+<br />
 
-#### \* function-scoped \*
+---
 
-In this example, the local variable is function-scoped.
+## Hoisting
 
-**Variables declared with the var keyword are always function-scoped**, meaning they recognize functions as having a separate scope. This locally-scoped variable is therefore not accessible from the global scope.
+During compile phase, just microseconds before your code is executed, it is scanned for function and variable declarations.
 
-```js
-// Initialize a global variable
-var species = "human";
+All these functions and variable declarations are added to the memory inside a JavaScript data structure called `Lexical Environment`. **So that they can be used even before they are actually declared in the source code**.
 
-function transform() {
-  // Initialize a local, function-scoped variable
-  var species = "werewolf";
-  console.log(species);
-}
+<br />
 
-console.log(species); // -> "human"
-transform(); // -> "werewolf"
-console.log(species); // -> "human"
-```
+### Lexical Environment
+
+> A `lexical environment` is a data structure that holds **identifier-variable mapping**.
+>
+> - identifier refers to the **name** of variables/functions, and the variable is the **reference** to actual `object` [including function object] or `primitive` value.
+>
+> So in short, a lexical environment is a place where variables and functions live during the program execution.
+
+### Hoisting Functions
+
+> All declarations (`function`, `var`, `let`, `const` and `class`) are hoisted in `JavaScript`, while the `var` declarations are initialized with `undefined`, but `let` and `const` declarations remain uninitialized.
+>
+> <br />
+>
+> **Function Declarations**
+>
+> > `function` declarations are added to the memory during the compile stage, so we are able to access it in our code before the actual function declaration
+> >
+> > ```js
+> > helloWorld(); // -> 'Hello World!'
+> >
+> > function helloWorld() {
+> >   console.log("Hello World!");
+> > }
+> > ```
+> >
+> > - So when the `JavaScript engine` encounters a call to **helloWorld()**, it will look into the `lexical environment`, finds the function and will be able to execute it.
+>
+> **Function Expressions**
+>
+> > Only function declarations are hoisted in JavaScript, function expressions are not hoisted.
+> >
+> > ```js
+> > helloWorld(); // TypeError: helloWorld is not a function
+> >
+> > var helloWorld = function() {
+> >   console.log("Hello World!");
+> > };
+> > ```
+> >
+> > - `JavaScript` only hoist declarations, not initializations (assignments), so the `helloWorld` will be treated as a variable, not as a function. Because `helloWorld` is a variable, the engine will assign it with `undefined` during hoisting.
+>
+> **Hoisting Variables**
+>
+> >

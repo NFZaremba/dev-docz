@@ -8,6 +8,7 @@ const colors = {
     blue: "#1fb6ff",
     darkBlue: "#13161F",
     code: "#22262f",
+    bold: "#ffd703", // used for em
   },
   light: {
     text: "#000000",
@@ -65,8 +66,11 @@ export default {
         borderLeft: `1px solid ${colors.dark.text}`,
       },
       strong: {
-        color: "accent",
+        color: "text",
         // boxShadow: "inset 0 -1px 0 #00b4fc91",
+      },
+      em: {
+        color: colors.dark.bold,
       },
       img: {
         display: "block",
@@ -90,10 +94,6 @@ export default {
       },
       hr: {
         borderBottom: `1px solid ${colors.dark.accent}`,
-      },
-      table: {
-        margin: "0 auto",
-        maxWidth: "80%",
       },
     },
     prism: {
