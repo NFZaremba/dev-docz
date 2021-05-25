@@ -13,13 +13,86 @@ menu: JavaScript
 
 _Scope_ in `JavaScript` refers to the current context of code, which determines the accessibility of `variables`.
 
-<br />
+`JavaScript` has two scopes: _global_ and _local_. Local scope has two variations: the old function scope, and the new block scope introduced with ES6.
+
+- _Global_: variables declared **outside** of a block
+- _Local_: variables declared **inside** of a block
+  - function scope
+  - block scope
+
+### Global Scope
+
+> In a script, the outermost scope is the **global scope**.
+>
+> - The use of global variables is discouraged in `JavaScript`. This is, for example, because they can potentially be overwritten by other scripts, or from elsewhere in your program.
+>
+> ```js
+> // Global Scope
+>
+> const name = "Monique";
+>
+> function sayHi() {
+>   console.log(`Hi ${name}`);
+> }
+>
+> sayHi(); // -> Hi Monique
+> ```
+
+### Local Scope
+
+> _function scope_: defines a scope for variables declared using `var`, `let` and `const`. **Any variable declared within that function is only accessible from that function and any nested functions**.
+>
+> ```js
+> // Initialize a global variable
+> var species = "human";
+>
+> function transform() {
+>   // Initialize a local, function-scoped variable
+>   var species = "werewolf";
+>   console.log(species);
+> }
+>
+> console.log(species); // -> "human"
+> transform(); // -> "werewolf"
+> console.log(species); // -> "human"
+> ```
+>
+> - Variables declared with the `var` keyword are always function-scoped, meaning they **recognize functions as having a separate scope**.This locally-scoped variable is therefore not accessible from the global scope.
+>
+> <br />
+>
+> _block scope_: on the otherhand (any block of curly braces like `if`, `for`, etc.) defines a scope only for variables declared with the `let` and `const` keywords. _not `var` becuase it is limited to function scope_, meaning that new scope can only be created inside functions.
+>
+> ```js
+> let species = "human";
+>
+> if (true) {
+>   let species = "werewolf";
+>   console.log(species); // -> "werewolf"
+> }
+>
+> console.log(species); // -> "human"
+>
+> ----------------------------------
+>
+> var species = "human";
+>
+> if (true) {
+>  var species = "werewolf";
+>  console.log(species); // -> "werewolf"
+> }
+>
+> console.log(species); // -> "werewolf"
+> ```
+>
+> - `let` and `const`, are **block-scoped**. This means that a new, local scope is created from any kind of block, including `function blocks`, `if` statements, and `for` and `while` loops.
+> - However in the bottom example, both the global variable and the block-scoped variable end up with the same value, 'werewolf'. This is because instead of creating a new **local variable** with `var`, you are reassigning the same variable in the same scope. **`var` does not recognize if to be part of a different, new scope**.
 
 ### var, let, and const
 
 > There are three ways to declare a variable in JavaScript: by using `var`, `let` and `const` keywords.
 >
-> - The differences between the three are based on _scope_, _hoisting_, and _reassignment_.
+> - Differences: based on _scope_, _hoisting_, and _reassignment_.
 > - Best practice: use `const` as much as possible, and `let` in the case of loops and reassignment.
 >
 > | Stack   | Heap           | Hoisting | Can Be Reassigned | Can Be Redeclared |
@@ -34,14 +107,14 @@ _Scope_ in `JavaScript` refers to the current context of code, which determines 
 >
 > <br />
 >
-> - _Global_ variables are those declared outside of a block
-> - _Local_ variables are those declared inside of a block
+> - _Global_: variables declared **outside** of a block
+> - _Local_: variables declared **inside** of a block
 >   - function scope
 >   - block scope
 >
 > <br />
 >
-> **Global Scope**
+> ▸ **Global Scope**
 >
 > > In a script, the outermost scope is the **global scope**.
 > >
@@ -59,9 +132,9 @@ _Scope_ in `JavaScript` refers to the current context of code, which determines 
 > > sayHi(); // -> Hi Monique
 > > ```
 >
-> **Local Scope**
+> ▸ **Local Scope**
 >
-> > A **function** in `JavaScript` defines a scope for variables declared using `var`, `let` and `const`. Any variable declared within that `function` is only accessible from that `function` and any nested `functions`.
+> > _function scope_: defines a scope for variables declared using `var`, `let` and `const`. Any variable declared within that `function` is only accessible from that `function` and any nested `functions`.
 > >
 > > ```js
 > > // Initialize a global variable
@@ -82,28 +155,28 @@ _Scope_ in `JavaScript` refers to the current context of code, which determines 
 > >
 > > <br />
 > >
-> > A **code block** on the otherhand (`if`, `for`, etc.) defines a scope only for variables declared with the `let` and `const` keywords. **The var keyword is limited to function scope**, meaning that new scope can only be created inside functions.
+> > _block scope_: on the otherhand (any block of curly braces like `if`, `for`, etc.) defines a scope only for variables declared with the `let` and `const` keywords. _not `var` becuase it is limited to function scope_, meaning that new scope can only be created inside functions.
 > >
 > > ```js
 > > let species = "human";
 > >
 > > if (true) {
 > >   let species = "werewolf";
-> >   console.log(species);
+> >   console.log(species); // -> "werewolf"
 > > }
 > >
-> > console.log(species);
+> > console.log(species); // -> "human"
 > >
-> > -------------------------------------------------------------------------
+> > ----------------------------------
 > >
 > > var species = "human";
 > >
 > > if (true) {
 > >  var species = "werewolf";
-> >  console.log(species);
+> >  console.log(species); // -> "werewolf"
 > > }
 > >
-> > console.log(species);
+> > console.log(species); // -> "werewolf"
 > > ```
 > >
 > > - `let` and `const`, are **block-scoped**. This means that a new, local scope is created from any kind of block, including `function blocks`, `if` statements, and `for` and `while` loops.
@@ -116,46 +189,43 @@ _Scope_ in `JavaScript` refers to the current context of code, which determines 
 
 ## Hoisting
 
-During compile phase, just microseconds before your code is executed, it is scanned for function and variable declarations.
+During compile phase, just microseconds before code execution, it is scanned for _function_ and _variable declarations_.
 
-All these functions and variable declarations are added to the memory inside a JavaScript data structure called `Lexical Environment`. **So that they can be used even before they are actually declared in the source code**.
+All these _declarations_ are added to the memory inside a `JavaScript` data structure called `Lexical Environment`. **So that they can be used even before they are actually declared in the source code**.
 
 <br />
 
 ### Lexical Environment
 
-> A `lexical environment` is a data structure that holds **identifier-variable mapping**.
+> Is a data structure that holds **identifier-variable mapping**, and a place where variables and functions live during the program execution
 >
-> - identifier refers to the **name** of variables/functions, and the variable is the **reference** to actual `object` [including function object] or `primitive` value.
+> - _identifier_: refers to the **name** of variables/functions
+> - _variable_: refers to `object` **references** and `primitive` **values**.
 >
-> So in short, a lexical environment is a place where variables and functions live during the program execution.
+> This is what a lexical environment conceptually look like:
+>
+> ```js
+> LexicalEnvironment = {
+>  Identifier:  <value>,
+>  Identifier:  <function object>
+> }
+> ```
 
-### Hoisting Functions
+### Hoisting
 
-> All declarations (`function`, `var`, `let`, `const` and `class`) are hoisted in `JavaScript`, while the `var` declarations are initialized with `undefined`, but `let` and `const` declarations remain uninitialized.
+> Only declarations (`function`, `var`, `let`, `const` and `class`) are hoisted in `JavaScript` (_not their assignments (value)_).
+>
+> - `var` declarations are initialized with `undefined`
+> - `let` and `const` declarations remain uninitialized.
 >
 > <br />
+
+> ▸ **Expressions** (_not hoisted_)
 >
-> **Function Declarations**
->
-> > `function` declarations are added to the memory during the compile stage, so we are able to access it in our code before the actual function declaration
+> > _function expressions_ are not hoisted, only _declarations_.
 > >
 > > ```js
-> > helloWorld(); // -> 'Hello World!'
-> >
-> > function helloWorld() {
-> >   console.log("Hello World!");
-> > }
-> > ```
-> >
-> > - So when the `JavaScript engine` encounters a call to **helloWorld()**, it will look into the `lexical environment`, finds the function and will be able to execute it.
->
-> **Function Expressions**
->
-> > Only function declarations are hoisted in JavaScript, function expressions are not hoisted.
-> >
-> > ```js
-> > helloWorld(); // TypeError: helloWorld is not a function
+> > helloWorld(); // -> TypeError: helloWorld is not a function
 > >
 > > var helloWorld = function() {
 > >   console.log("Hello World!");
@@ -164,6 +234,22 @@ All these functions and variable declarations are added to the memory inside a J
 > >
 > > - `JavaScript` only hoist declarations, not initializations (assignments), so the `helloWorld` will be treated as a variable, not as a function. Because `helloWorld` is a variable, the engine will assign it with `undefined` during hoisting.
 >
-> **Hoisting Variables**
+> ▸ **Declarations** (_hoisted_)
 >
+> > _function declarations_ are added to the memory during the compile stage, so we are able to access it in our code before the actual function declaration
 > >
+> > ```js
+> > helloWorld(); // -> 'Hello World!'
+> >
+> > function helloWorld() {
+> >   console.log("Hello World!");
+> > }
+> >
+> > ---
+> > // Lexical Environment
+> > lexicalEnvironment = {
+> >  helloWorld: < func >
+> > }
+> > ```
+> >
+> > - So when the `JavaScript engine` encounters a call to **helloWorld()**, it will look into the `lexical environment`, finds the function and will be able to execute it.
