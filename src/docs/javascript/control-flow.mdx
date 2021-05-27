@@ -3,13 +3,13 @@ name: 4. Control Flow
 menu: JavaScript
 ---
 
-# 4. Control Flow
+# Control Flow
 
 <br />
 
----
+## Truthy & Falsey
 
-## 4.0 - Truthy & Falsey
+---
 
 When using an `if` statement or other statements that expect a `Boolean` value (such as the `!` NOT) and the expression given is not a `Boolean` value, `JavaScript` will implicitly coerce and transform the expression into a `Boolean` value.
 
@@ -30,25 +30,18 @@ null
 ''
 ```
 
-<br />
-<br />
+## Coercion
 
 ---
 
-## 4.1 - Coercion
+Type `Coercion` is the conversion of a value from _one type to another_. It can occur:
 
-To understand control flow of `JavaScript`, type `coercion` must be understood.
+- _Explicit_ - when you intentionally want to convert the type.
+- _Implicit_ - when the `JavaScript engine` does it for you.
 
-Type `Coercion` is the conversion of a value from **one type to another**. It can occur:
+### `Explicit Coercion`
 
-- **Explicitly** - when you intentionally want to convert the type.
-- **Implicitly** - when the `JavaScript engine` does it for you.
-
-<br />
-
-### Explicit Coercion
-
-> `Explicit Coercion` is when you type cast a value from one type to another through the use of functions (`wrapper objects`) like`Number()`and`String()`.
+> _Explicit Coercion_ is when you type cast a value from one type to another through the use of functions (`wrapper objects`) like `Number()` and `String()`.
 >
 > ```js
 > String(42); // ->  "42"
@@ -65,7 +58,7 @@ Type `Coercion` is the conversion of a value from **one type to another**. It ca
 
 ### Implicit Coercion
 
-> `Implicit Coercion` is when the JavaScript does the type conversion in an expression for you behind the scenes (using the same functions above). Implicit coercion will mostly take place in an expression with operands of different types.
+> _Implicit Coercion_ is when `JavaScript` handles the type conversion for you behind the scenes (_using the same functions above_). _Implicit coercion_ will mostly take place in an expression with operands of different types.
 
 ### Object Wrapper
 
@@ -78,12 +71,12 @@ Type `Coercion` is the conversion of a value from **one type to another**. It ca
 >
 > **Question**: If `strings` are `primitive` types, how do they have properties?
 >
-> > **Answer**: whenever you try to access a property of a `string` str, `JavaScript` coerces the `string` value to an `object`, by `new String(str)`. This `object` is called a `wrapper object`. It inherits all string methods, and is used to resolve the property reference. Once the property has been resolved, the `wrapper object` is discarded. <br /> (**Note**: the same concept applies to numbers and booleans)
+> > **Answer**: whenever you try to access a property of a `string` str, `JavaScript` coerces the `string` value to an `object`, by `new String(str)`. This `object` is called a `wrapper object`. _It inherits all string methods_, and is used to resolve the property reference. Once the property has been resolved, the `wrapper object` is discarded. <br /> (**Note**: the same concept applies to `numbers` and `booleans`)
 >
 > So the above code translates to this via the `JavaScript engine`...
 >
 > ```js
-> var upper = new String(str).toUpperCase();
+> new String(str).toUpperCase();
 > ```
 >
 > This is essentially the reason why the following piece of code yields an `undefined`:
@@ -93,6 +86,8 @@ Type `Coercion` is the conversion of a value from **one type to another**. It ca
 > str.custom = 1;
 > console.log(str.custom); // -> undefined
 >
+> -------------------------------------------------------------
+>
 > // which translates to
 > var str = "hello";
 > var temp = new String(str); // wrapper object
@@ -100,24 +95,19 @@ Type `Coercion` is the conversion of a value from **one type to another**. It ca
 > // end of the line for temp
 >
 > console.log(str.custom); // creates new temp wrapper object
-> // custom property does not exist on this object
+> // custom property does not exist on this object, thus it is 'undefined'
 > ```
 
-<br />
-<br />
+## Operators
 
 ---
 
-## 4.2 - Operators
-
 In `JavaScript` you have the following main operators:
 
-- **assignment operators**
-- **comparison operators**
-- **arithmetic operators**
-- **logical operators**
-
-<br />
+- _assignment operators_
+- _comparison operators_
+- _arithmetic operators_
+- _logical operators_
 
 ### Assignment Operators (`=, +=, -=, etc`)
 
@@ -145,7 +135,7 @@ In `JavaScript` you have the following main operators:
 > null + undefined; // NaN
 > ```
 >
-> **String conversion**
+> ▸ **String conversion**
 >
 > > If we have two numbers, `JavaScript` will output the sum of those numbers. But if only one of the values is a number, **`JavaScript` will convert both values to strings and concatenate those values**.
 > >
@@ -163,12 +153,8 @@ In `JavaScript` you have the following main operators:
 > > "2" + 15 + 3 // -> "2153" - engine evaluates first operand as string and adds the rest
 > > ```
 >
-> **Number conversion**
+> ▸ **Number conversion**
 >
-> > The rest of the arithmetic operators, such as **subtraction**, **multiplication** or **division** operators have more predictable behavior.
-> >
-> > <br />
-> >
 > > `JavaScript Engine` will use `Number()` method to convert types to a `number`.
 > >
 > > ```js
@@ -185,9 +171,9 @@ In `JavaScript` you have the following main operators:
 > > [] / 2 // -> 0
 > > ```
 >
-> **Boolean conversion**
+> ▸ **Boolean conversion**
 >
-> > Any `true` will be converted to **1** and any `false` to **0**.
+> > Any `true` will be converted to _1_ and any `false` to _0_.
 > >
 > > <br />
 > >
@@ -230,7 +216,7 @@ In `JavaScript` you have the following main operators:
 >
 > <br />
 >
-> **Logical AND (`&&`)**
+> ▸ **Logical AND (`&&`)**
 >
 > > Syntax:
 > >
@@ -238,11 +224,11 @@ In `JavaScript` you have the following main operators:
 > >
 > > Description:
 > >
-> > - If **leftExpr** evaluates to `true`, returns **rightExpr**. <br /> Else it short-circuits and returns **leftExpr** if `falsey`.
+> > - Returns `leftExpr` if `falsey`, otherwise returns `rightExpr`.
 > >
 > > Short-circuit evaluation:
 > >
-> > - If the first expression evaluates to `falsey`, the second expression is not evaluated and will immediatley return the first value.
+> > - The `leftExpr` will immediatley return (short-circuit) if evaluates to `falsey`, `rightExpr` will not even be evaluated.
 > >
 > > ```js
 > > 3 > 0 && -2 > 0; // -> returns false
@@ -258,7 +244,7 @@ In `JavaScript` you have the following main operators:
 > > false && ""; // -> f && f returns false
 > > ```
 >
-> **Logical OR (`||`)**
+> ▸ **Logical OR (`||`)**
 >
 > > Syntax:
 > >
@@ -266,11 +252,11 @@ In `JavaScript` you have the following main operators:
 > >
 > > Description:
 > >
-> > - If **leftExpr** evaluates to `false`, returns **rightExpr**. <br /> Else, it short-circuits and returns **leftExpr** if `truthy`. (**think of it as a fallback!**)
+> > - Returns `leftExpr` if `truthy`, otherwise returns `rightExpr` (**think of it as a fallback!**).
 > >
 > > Short-circuit evaluation:
 > >
-> > - If the first expression evaluates to `truthy`, the second expression is not evaluated and will immediatley return the first value.
+> > - The `leftExpr` will immediatley return (short-circuit) if evaluates to `truthy`, `rightExpr` will not even be evaluated.
 > >
 > > ```js
 > > true || true; // -> t || t returns true
@@ -285,7 +271,7 @@ In `JavaScript` you have the following main operators:
 > > false || varObject; // f || object returns varObject
 > > ```
 >
-> **Logical NOT (`!`) and Double NOT (`!!`)**
+> ▸ **Logical NOT (`!`) and Double NOT (`!!`)**
 >
 > > Syntax:
 > >
@@ -293,7 +279,7 @@ In `JavaScript` you have the following main operators:
 > >
 > > Description:
 > >
-> > - Returns `false` if its single operand evaluates to `true`. <br /> Returns `true` if operand can be converted to `false`.
+> > - Returns `false` if its single operand evaluates to `true`, otherwise returns `true` if operand can be converted to `false`.
 > >
 > > ```js
 > > // NOT (!)
@@ -313,7 +299,7 @@ In `JavaScript` you have the following main operators:
 > > !!Boolean(false); // -> false
 > > ```
 >
-> **Nullish coalescing (`??`)**
+> ▸ **Nullish coalescing (`??`)**
 >
 > > Syntax:
 > >
@@ -321,8 +307,8 @@ In `JavaScript` you have the following main operators:
 > >
 > > Description:
 > >
-> > - If **leftExpr** evaluates to `null` or `undefined`, returns **rightExpr**. <br /> Else, it short-circuits and returns **rightExpr** if its anything other than `null` or `undefined`.
-> > - This can be contrasted with the `logical OR (||)` operator, which returns the **rightExpr** if the **leftExpr** is any `falsy` value, not only `null` or `undefined`.
+> > - If `leftExpr` evaluates to `null` or `undefined`, returns `rightExpr`.
+> > - This can be contrasted with the `logical OR (||)` operator.
 > >
 > > This fixes the issue when you are expecting a `falsy` value like `0` or `''` when using the `Logical OR (||)` when setting a default value.
 > >
@@ -332,17 +318,12 @@ In `JavaScript` you have the following main operators:
 > > 42 ?? 0; // -> 42
 > > ```
 
-<br />
-<br />
-
----
-
 ## Loops
 
-<br />
-<br />
-
 ---
+
+<br />
+<br />
 
 #### Links:
 

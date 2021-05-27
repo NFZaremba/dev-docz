@@ -7,89 +7,81 @@ menu: JavaScript
 
 <br />
 
----
-
 ## Memory Life Cycle
 
-In `JavaScript`, memory life cycle is composed of 3 steps:
-
-1. **Memory Allocation** - When you assign a variable or create a function or object some amount of memory has to be allocated for it.
-2. **Memory Use** - Reading from variables or changing values is reading from, and write to, memory.
-3. **Memory Release** - When you no longer use some function or object, that memory is released via **Garbage Collection**.
-
-But where is the memory allocation happening?...
-
-<br />
-<br />
-
 ---
+
+- In `JavaScript`, memory life cycle is composed of 3 steps:
+
+  1. _Memory Allocation_ - When you assign a variable or create a function or object some amount of memory has to be allocated for it.
+  2. _Memory Use_ - Reading from variables or changing values is reading from, and write to, memory.
+  3. _Memory Release_ - When you no longer use some function or object, that memory is released via _Garbage Collection_.
 
 ## Memory Heap and Call Stack
 
-`JavaScript engines` have two places where they can store data: The **memory heap** and **stack** located in the `RAM`.
+---
 
-| Stack                              | Heap                      |
+- `JavaScript engines` have two places where they can store data: The `memory heap` and `stack` located in the `RAM`.
+
+### `Stack` - _static memory allocation_
+
+> - The `stack` is where static data is stored, including `primitive` data types and `references` (_these references point to objects and functions you've created_)
+> - The static data have fixed sizes and so the `JavaScript engine` knows how much memory to allocate before execution.
+> - Allocating memory during compile time is known as _static memory allocation_.
+
+### `Heap` - _dynamic memory allocation_
+
+> - The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
+> - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
+> - Allocating memory during runtime is known as _dynamic memory allocation_.
+
+| _Stack_                            | _Heap_                    |
 | ---------------------------------- | ------------------------- |
 | Primitive values and references    | Objects and functions     |
 | Size is known at compile time      | Size is known at run time |
 | Allocates a fixed amount of memory | No limit per object       |
 
-<br />
-
-### Stack - `static memory allocation`
-
-> - The `stack` is where static data is stored, including `primitive` data types and `references` (**these references point to objects and functions you've created**)
-> - The static data have fixed sizes and so the `JavaScript engine` knows how much memory to allocate before execution.
-> - Allocating memory during compile time is known as **static memory allocation**.
-
-### Heap - `dynamic memory allocation`
-
-> - The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
-> - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
-> - Allocating memory during runtime is known as **dynamic memory allocation**.
-
-<br />
-<br />
+## Memory Allocation
 
 ---
 
-## Memory Allocation
+- Non-primitive data types behave differently compared to primitive data types.
 
-Non-primitive JS data types behave differently compared to primitive JS data types.
+### `Primitives`
 
-<br />
-
-### Primitives
-
-> Let’s start off with a simple example. Below, we declare a variable called `myNumber` and initialize it with a value of `23`.
+> **Simple Example**
 >
-> ```js
-> let myNumber = 23;
-> ```
+> > - Let’s start off with a simple example. Below, we declare a variable called `myNumber` and initialize it with a value of `23`.
+> >
+> >   ```js
+> >   let myNumber = 23;
+> >   ```
+> >
+> > - When this code executes, `JavaScript Engine` will...
+> >
+> >   1.  Create a unique identifier for your variable `myNumber`.
+> >   2.  Allocate an address in memory (_will be assigned at runtime_).
+> >   3.  Store a value at the address allocated `23`.
+> >
+> >   ![example 1](https://miro.medium.com/max/750/1*IiejRUFbks-TaOzJJvdoVw.jpeg)
+> >
+> >   4.  While we would colloquially say, _“myNumber equals 23”_, more technically, `myNumber` equals the memory address that holds the value `23`. This >is a crucial distinction to understand.
+> >
+> > <br />
+> >
+> > - If we were to create a new variable called `newVar` and assign it `myNumber` …
+> >
+> >   ```js
+> >   let newVar = myNumber;
+> >   ```
+> >
+> >   - … since `myNumber` technically equals _“0012CCGWH80”_, `newVar` would also equal _“0012CCGWH80”_, which is the memory address that holds the value `23`. Ultimately, this has the intended effect of colloquially saying, _“newVar is now equal to 23.”_
+> >
+> > ![example 2](https://miro.medium.com/max/750/1*AaUqtuwa2BZiI73bV9RHmA.jpeg)
+> >
+> > <br />
 >
-> When this code executes, `JavaScript Engine` will...
->
-> 1.  Create a unique identifier for your variable `myNumber`.
-> 2.  Allocate an address in memory (**will be assigned at runtime**).
-> 3.  Store a value at the address allocated `23`.
->
-> ![example 1](https://miro.medium.com/max/750/1*IiejRUFbks-TaOzJJvdoVw.jpeg)
->
-> While we would colloquially say, **“myNumber equals 23”**, more technically, `myNumber` equals the memory address that holds the value `23`. This is a crucial distinction to understand.
->
-> If we were to create a new variable called `newVar` and assign it `myNumber…`
->
-> ```js
-> let newVar = myNumber;
-> ```
->
-> … since `myNumber` technically equals **“0012CCGWH80”**, `newVar` would also equal **“0012CCGWH80”**, which is the memory address that holds the value `23`. Ultimately, this has the intended effect of colloquially saying, **“newVar is now equal to 23.”**
->
-> ![example 2](https://miro.medium.com/max/750/1*AaUqtuwa2BZiI73bV9RHmA.jpeg)
->
-> <br />
->
-> #### Here’s another example:
+> **Here’s another example:**
 >
 > Take a look at the code below...
 >
@@ -116,13 +108,11 @@ Non-primitive JS data types behave differently compared to primitive JS data typ
 > // -> Primitive values are immutable, which means that instead of changing the original value, JavaScript creates a new one.
 > ```
 
-<br />
-
-### References
+### `References`
 
 > All `variables` first point to the `stack`. In case it's a non-primitive value, the `stack` contains a `reference` to the `object` in the `heap`.
 >
-> The memory of the `heap` is not ordered in any particular way, which is why we need to keep a `reference` to it in the stack. **You can think of references as addresses and the objects in the `heap` as houses that these addresses belong to**.
+> The memory of the `heap` is not ordered in any particular way, which is why we need to keep a `reference` to it in the stack. _You can think of references as addresses and the objects in the `heap` as houses that these addresses belong to_.
 >
 > > Remember that JavaScript stores objects and functions in the `heap`. `Primitive values` and `references` are stored in the `stack`.
 >
@@ -137,9 +127,9 @@ Non-primitive JS data types behave differently compared to primitive JS data typ
 > This is what happens in memory:
 >
 > 1.  Create a unique identifier for your variable `myArray`.
-> 2.  Allocate an address in memory (**will be assigned at runtime**).
-> 3.  Store a value of a memory address allocated on the heap (**will be assigned at runtime**).
-> 4.  The memory address on the heap stores the value assigned (**the empty `array []`**).
+> 2.  Allocate an address in memory (_will be assigned at runtime_).
+> 3.  Store a value of a memory address allocated on the heap (_will be assigned at runtime_).
+> 4.  The memory address on the heap stores the value assigned (_the empty `array []`_).
 >
 > ![example 4](https://miro.medium.com/max/750/1*CPnnVIgE0tQVbxIja_C-_A.jpeg)
 >
@@ -175,67 +165,55 @@ Non-primitive JS data types behave differently compared to primitive JS data typ
 >
 > Note above how `person` and `newPerson` both point to the same object.
 
-<br />
-<br />
+## Garbage Collection
 
 ---
 
-## Garbage Collection
+- The last step is releasing memory and this is where `garbage collection` comes into play (which is also handled by the `JavaScript Engine`).
 
-The last step is releasing memory and this is where `garbage collection` comes into play (**which is also handled by the `JavaScript Engine`**).
+- _Algorithms_ are used to pinpoint unneeded memory that needs to be released. The _mark-and-sweep algorithm_ has been implemented in all modern browsers since 2012.
 
-- **Algorithms** are used to pinpoint unneeded memory that needs to be released. The **mark-and-sweep algorithm** has been implemented in all modern browsers since 2012.
+### `Mark-and-sweep algorithm`
 
-<br />
-
-### Mark-and-sweep algorithm
-
-> - The mark-and-sweep algorithm has a solution to cyclic dependencies. Instead of simply counting the `references` to a given `object`, it detects if they are **reachable from the root object**.
+> - The mark-and-sweep algorithm has a solution to cyclic dependencies. Instead of simply counting the `references` to a given `object`, it detects if they are _reachable from the root object_.
 > - The `root` in the browser is the `window` object, while in NodeJS this is `global`.
-> - The algorithm **marks the `objects` that aren't reachable** as garbage, and **sweeps (collects) them afterward**. `Root objects` will never be collected.
+> - The algorithm _marks the `objects` that aren't reachable_ as garbage, and _sweeps (collects) them afterward_. `Root objects` will never be collected.
 >
 > ![mark-and-sweep algorithm](https://felixgerschau.com/static/87b4e1eb66afc84d49da13af8e897367/c1b63/garbage-collectoion-algorithm.png)
 
-### Trade-offs
+### `Trade-offs`
 
 > Automatic `garbage collection` allows us to focus on building applications instead of losing time with memory management. However, there are some tradeoffs that we need to be aware of.
 >
-> - **Memory usage**
->   - Given that the algorithms can't know when exactly memory won't be needed anymore, **JavaScript applications may use more memory than they actually need**.
+> - `Memory usage`
+>   - Given that the algorithms can't know when exactly memory won't be needed anymore, _JavaScript applications may use more memory than they actually need_.
 >   - Even though `objects` are marked as garbage, it's up to the `garbage collector` to decide when and if the allocated memory will be collected.
 >   - If you need your application to be as memory efficient as possible, you're better off with a lower-level language. But keep in mind that this comes with its own set of trade-offs.
-> - **Performance**
+> - `Performance`
 >   - The algorithms that collect garbage for us usually run periodically to clean unused `objects`.
 >   - The issue with this is that we, the developers, don't know when exactly this will happen. Collecting a lot of garbage or collecting garbage frequently might impact performance since it needs a certain amount of computation power to do so.
 
-<br />
-<br />
+## Memory leaks
 
 ---
-
-## Memory leaks
 
 Here are the most common memory leaks:
 
-<br />
-
-### Global variables
+### `Global variables`
 
 > - Storing data in `global variables` is probably the most common type of memory leak.
-> - Avoid this by running your code in **strict mode**.
+> - Avoid this by running your code in _strict mode_.
 > - You can certainly make use of `global variables`, but make sure you free space up once you don't need the data anymore.
 > - To release memory, assign the `global variable` to `null`.
->   > **Note**: ES6 modules are JavaScript files that executes in **strict mode only**. It means that any variables or functions declared in the module won’t be added automatically to the global scope.
+>   > _Note_: ES6 modules are JavaScript files that executes in _strict mode only_. It means that any variables or functions declared in the module won’t be added automatically to the global scope.
 
-#### Forgotten timers and callbacks
+#### `Forgotten timers and callbacks`
 
 > - Forgetting about `timers` and `callbacks` can make the memory usage of your application go up. Especially in Single Page Applications (`SPAs`), you have to be careful when adding `event listeners` and `callbacks` dynamically.
-> - **Make sure to clear and remove any `listeners` or `timers`**.
+> - _Make sure to clear and remove any `listeners` or `timers`_.
 
 <br />
 <br />
-
----
 
 #### Links:
 

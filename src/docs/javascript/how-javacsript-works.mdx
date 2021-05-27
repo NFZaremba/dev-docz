@@ -7,77 +7,66 @@ menu: JavaScript
 
 <br />
 
----
-
 ## JavaScript Engine vs Runtime Environment
 
-In web development, each browser has a `JavaScript Runtime Environment`, and in that runtime is a `JavaScript engine` that parses the code.
+---
+
+- In web development, each browser has a `JavaScript Runtime Environment`, and in that runtime is a `JavaScript engine` that parses the code.
 
 - `AJAX`, the `DOM tree`, and other `API’s`, are not part of `JavaScript`, they are just objects with properties and methods, provided by the browser and made available in the browser’s `JS Runtime Environment`.
 
-<br />
-<br />
-
----
-
 ## JavaScript Engine
 
-A `JavaScript engine` is a program or an `interpreter` which **parses and executes JavaScript code**.
-
-It can be implemented as a standard `interpreter`, or `just-in-time compiler` that compiles `JavaScript` to `bytecode` in some form.
-
-When running a `JavaScript` program, two regions of memory are allocated on the machine's `RAM` (Random Access Memory), to store things like the `runtime`, `variables` and `objects` that you reference in your code. The `Heap` and `Stack`.
-
-<br />
-<br />
-
 ---
+
+- A `JavaScript engine` is a program or an `interpreter` which _parses and executes JavaScript code_.
+
+- It can be implemented as a standard `interpreter`, or `just-in-time compiler` that compiles `JavaScript` to `bytecode` in some form.
+
+- When running a `JavaScript` program, two regions of memory are allocated on the machine's `RAM` (Random Access Memory), to store things like the `runtime`, `variables` and `objects` that you reference in your code. The `Heap` and `Stack`.
 
 ## Runtime Environment
 
-Provides additional **scripts/features/API's** at runtime to build JavaScript based software.
+---
 
-- `Browser` - DOM API, Fetch API, Timer (setTimeout/setInterval), Storage (local storage), etc.
-- `Server Environment` - File System, Network, Console, etc
+- Provides additional _scripts/features/API's_ at runtime to build JavaScript based software.
 
-Think of the `JavaScript runtime environment` as a big container. Within the big container are other smaller containers. As the `JavaScript engine` parses the code it starts putting pieces of it into different containers.
+  - `Browser` - DOM API, Fetch API, Timer (setTimeout/setInterval), Storage (local storage), etc.
+  - `Server Environment` - File System, Network, Console, etc
+
+- Think of the `JavaScript runtime environment` as a big container. Within the big container are other smaller containers. As the `JavaScript engine` parses the code it starts putting pieces of it into different containers.
 
 ![JS Runtime Environment](https://miro.medium.com/max/700/1*zeKjWCjyAGZ9JN4fvnWsiA.png)
 
-### Runtime Environment Containers:
+### `Memory Heap`
 
-> **Memory Heap**
->
-> > - Unstructured memory pool where we can store complex objects.
-> > - Is `Garbage Collected`.
->
-> **Call Stack**
->
-> > - LIFO principle - last-in-first-out.
-> > - Helps keep track of where we are in the code so that we can run the code in order.
-> > - The call stack is designed to be a high performance continuous region of memory used to execute functions.
-> > - When you call a function, it creates a frame in the stack that contains a copy of its local variables.
->
-> **Web API Container**
->
-> > - Calls that were sent to the `Web API` container from the `Stack`, like event listeners, HTTP/AJAX requests, or timing functions, sit there until an action is triggered.
-> > - Once triggered, a 'callback function' is sent to the final container, the `callback queue`.
->
-> **Callback Queue**
->
-> > - The `Queue` is a FIFO (first in first out) data structure.
-> > - The `Callback Queue` will store all the callback functions in the order in which they were added. It will 'wait' until the `Stack` is completely empty.
->
-> **Event Loop**
->
-> > - The `Event Loop` is implemented in runtime environment.
-> > - Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
+> - Unstructured memory pool where we can store complex objects.
+> - Is `Garbage Collected`.
 
-<br />
-<br />
+### `Call Stack`
 
----
+> - LIFO principle - last-in-first-out.
+> - Helps keep track of where we are in the code so that we can run the code in order.
+> - The call stack is designed to be a high performance continuous region of memory used to execute functions.
+> - When you call a function, it creates a frame in the stack that contains a copy of its local variables.
+
+### `Web API Container`
+
+> - Calls that were sent to the `Web API` container from the `Stack`, like event listeners, HTTP/AJAX requests, or timing functions, sit there until an action is triggered.
+> - Once triggered, a 'callback function' is sent to the final container, the `callback queue`.
+
+### `Callback Queue`
+
+> - The `Queue` is a FIFO (first in first out) data structure.
+> - The `Callback Queue` will store all the callback functions in the order in which they were added. It will 'wait' until the `Stack` is completely empty.
+
+### `Event Loop`
+
+> - The `Event Loop` is implemented in runtime environment.
+> - Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
 
 ## Blocking vs Non-Blocking I/O
 
-Blocking is when the execution of additional `JavaScript` in the `Node.js` process must wait until a non-JavaScript operation completes. This happens because the `event loop` is unable to continue running `JavaScript` while a blocking operation is occurring.
+---
+
+- Blocking is when the execution of additional `JavaScript` in the `Node.js` process must wait until a non-JavaScript operation completes. This happens because the `event loop` is unable to continue running `JavaScript` while a blocking operation is occurring.

@@ -7,85 +7,66 @@ menu: JavaScript
 
 <br />
 
----
-
 ## High Level
 
-`JavaScript` is considered **high-level** because it does not require direct interaction with the operating system, hardware.
-
-In addition, it does **not require memory-management** like C/C++ because the runtime always uses `garbage-collection`.
-
-<br />
-<br />
-
 ---
+
+- `JavaScript` is considered _high-level_ because it does not require direct interaction with the operating system, hardware.
+
+- In addition, it does _not require memory-management_ like `C/C++` because the runtime always uses `garbage-collection`.
 
 ## Interpreted or Just-in-Time Compiled
 
-Originally, it was only `interpreted`, but modern `JavaScript engines` like V8, Spidermonkey, and Nitro use various techniques to perform `Just-in-Time Compilation (JIT)` for better performance.
-
-<br />
-
-### `Interpreted`
-
-> means the source code is **converted** to `bytecode` line-by-line and executed at runtime (as opposed to being compiled to a machine code binary at build time).
-
-### `JIT compilation`
-
-> differs from a compiler in that it compiles to native machine code just before the code is supposed to run, hence the name.
-
-<br />
-<br />
-
 ---
+
+- Originally, it was only _interpreted_, but modern `JavaScript engines` like V8, Spidermonkey, and Nitro use various techniques to perform _Just-in-Time Compilation (JIT)_ for better performance.
+
+> ### **Interpreted**
+>
+> means the source code is _converted_ to `bytecode` line-by-line and executed at runtime (_as opposed to being compiled to a machine code binary at build time_).
+
+> ### **JIT compilation**
+>
+> differs from a compiler in that it compiles to native machine code just before the code is supposed to run, hence the name.
 
 ## Multi-Paradigm
 
-Means the language is general-purpose or flexible.
+---
 
-`JavaScript` can be used for [declarative **(functional)** **or** imperative **(object-oriented)**](https://codeburst.io/declarative-vs-imperative-programming-a8a7c93d9ad2) programming styles.
+- Means the language is general-purpose or flexible.
 
-<br />
+- `JavaScript` can be used for [declarative **(functional)** **or** imperative **(object-oriented)**](https://codeburst.io/declarative-vs-imperative-programming-a8a7c93d9ad2) programming styles.
 
-### `Declarative Programming`
-
+> ### **Declarative Programming**
+>
 > is like asking your friend to draw a landscape. You don’t care how they draw it, that’s up to them.
 
-### `Imperative Programming`
-
+> ### **Imperative Programming**
+>
 > is like your friend listening to Bob Ross tell them how to paint a landscape. While good ole Bob Ross isn’t exactly commanding, he is giving them step by step directions to get the desired result.
-
-<br />
-<br />
-
----
 
 ## Dynamic Weakly Typed
 
-`JavaScript` is **dynamic weakly typed** language, meaning you do not explicitly annotate variables with types (`string`, `int`, etc) and the true types are **not known until runtime**.
-
-<br />
-<br />
-
 ---
+
+- `JavaScript` is **dynamic weakly typed** language, meaning you do not explicitly annotate variables with types (`string`, `int`, etc) and the true types are **not known until runtime**.
 
 ## Prototypal Inheritance
 
-`Objects` can inherit behaviors from other `objects`.
-
-This differs from `classical inheritance` where you define a `class` or blueprint for each `object` and instantiate it.
-
-<br />
-<br />
-
 ---
+
+- `Objects` can inherit behaviors from other `objects`.
+
+- This differs from `classical inheritance` where you define a `class` or blueprint for each `object` and instantiate it.
 
 ## Event-Loop Concurrency Model
 
-### `Single-Threaded`
+---
 
+> ### **Single-Threaded**
+>
 > means that `JavaScript` can only run one instruction at a time, even if your CPU has multiple cores and available threads. So how does `JavaScript` handle jobs concurrently?
 
-### `Event Loop`
-
+> ### **Event Loop**
+>
 > refers to a feature implemented by `JavaScript engines` like V8 that allow `JavaScript` to offload tasks to separate threads. Browser and Node APIs execute long-running tasks separately from the the main `JavaScript` thread, then enqueue a callback function (which you define) to run on the main thread when the task is complete. This is why `JavaScript` is called `non-blocking` because it should only ever wait for `synchronous` code from your `JavaScript` functions. Think of the `Event Loop` as message queue between the single `JavaScript` thread and the OS.

@@ -3,14 +3,11 @@ const colors = {
     background: "#12181b", // used for main container bg
     text: "#fff",
     paragraph: "#b2becd", // used for paragraphs, ul, ol, etc.
-    accent: "#9166cc", // used for inlinecode text color
+    accent: "#1fb6ff", // used for inlinecode text color
     muted: "#2d2d2d", // used for inlinecode background color
-    blue: "#1fb6ff",
-    darkBlue: "#13161F",
-    code: "#22262f",
-    bold: "#ffd703", // used for em
   },
   light: {
+    background: "#f7f6f3",
     text: "#000000",
     paragraph: "#828282",
     accent: "#c7254e",
@@ -31,28 +28,38 @@ export default {
         dark: {
           ...colors.dark,
           header: {
+            // bg: colors.dark.darkBlue,
+          },
+          sidebar: {
+            // bg: colors.dark.darkBlue,
+            navGroup: "text",
+            navLinkActive: colors.dark.accent,
+            tocLink: colors.dark.accent,
+            tocLinkActive: colors.dark.accent,
+          },
+        },
+        light: {
+          ...colors.light,
+          header: {
             bg: colors.dark.darkBlue,
           },
           sidebar: {
             bg: colors.dark.darkBlue,
             navGroup: "text",
-            navLinkActive: colors.dark.blue,
-            tocLink: colors.dark.blue,
-            tocLinkActive: colors.dark.blue,
+            navLinkActive: colors.dark.accent,
+            tocLink: colors.dark.accent,
+            tocLinkActive: colors.dark.accent,
           },
-        },
-        light: {
-          ...colors.light,
         },
       },
     },
     styles: {
       h1: {
-        color: colors.dark.blue,
+        color: "accent",
       },
       inlineCode: {
         bg: "muted",
-        color: "blue",
+        color: "accent",
         padding: "2px 4px",
         borderRadius: "4px",
         fontWeight: 700,
@@ -62,21 +69,28 @@ export default {
         marginLeft: "30px",
         paddingTop: "0",
         paddingBottom: "0",
+        paddingLeft: "25px",
         bg: "none",
-        borderLeft: `1px solid ${colors.dark.text}`,
+        borderLeft: "1px solid",
       },
       strong: {
         color: "text",
-        // boxShadow: "inset 0 -1px 0 #00b4fc91",
+        // bg: "muted",
+        // padding: "2px 4px",
+        // borderRadius: "4px",
+        fontWeight: 700,
       },
       em: {
-        color: colors.dark.bold,
+        color: "#ffe000",
+        fontStyle: "italic",
+        fontWeight: 700,
       },
       img: {
         display: "block",
-        marginTop: "20px",
-        maxWidth: "80%",
+        // marginTop: "20px",
+        // maxWidth: "80%",
         objectFit: "cover",
+        width: "100%",
         margin: "0 auto",
         marginTop: "2.5rem",
         marginBottom: "2.5rem",
@@ -91,26 +105,28 @@ export default {
       ul: {
         color: "paragraph",
         paddingLeft: "25px",
+        listStyleType: "square",
       },
       hr: {
-        borderBottom: `1px solid ${colors.dark.accent}`,
+        borderBottom: `1px solid`,
+        borderBottomColor: "#67788a",
       },
     },
     prism: {
       dark: {
         plain: {
-          backgroundColor: colors.dark.code,
           whiteSpace: "pre-wrap",
+          backgroundColor: "#22262f",
         },
-        // styles: [
-        //   {
-        //     types: ["comment"],
-        //     style: {
-        //       color: "rgb(255, 55, 1)",
-        //       fontStyle: "italic",
-        //     },
-        //   },
-        // ],
+        styles: [
+          {
+            types: ["comment"],
+            style: {
+              color: "rgb(255, 55, 1)",
+              fontStyle: "italic",
+            },
+          },
+        ],
       },
       light: {
         plain: {
