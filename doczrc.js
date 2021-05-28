@@ -12,7 +12,9 @@ const colors = {
     paragraph: "#828282",
     accent: "#c7254e",
     muted: "#f9f2f4",
+    gray: "#67788a",
   },
+  common: { gray: "#67788a" },
 };
 
 export default {
@@ -27,11 +29,7 @@ export default {
       modes: {
         dark: {
           ...colors.dark,
-          header: {
-            // bg: colors.dark.darkBlue,
-          },
           sidebar: {
-            // bg: colors.dark.darkBlue,
             navGroup: "text",
             navLinkActive: colors.dark.accent,
             tocLink: colors.dark.accent,
@@ -40,11 +38,7 @@ export default {
         },
         light: {
           ...colors.light,
-          header: {
-            bg: colors.dark.darkBlue,
-          },
           sidebar: {
-            bg: colors.dark.darkBlue,
             navGroup: "text",
             navLinkActive: colors.dark.accent,
             tocLink: colors.dark.accent,
@@ -54,6 +48,12 @@ export default {
       },
     },
     styles: {
+      Container: {
+        "> h2": {
+          borderBottom: "2px dashed #2a2e35",
+          paddingBottom: ".7em",
+        },
+      },
       h1: {
         color: "accent",
       },
@@ -66,12 +66,17 @@ export default {
         fontSize: ".85em",
       },
       blockquote: {
-        marginLeft: "30px",
+        // marginLeft: "30px",
         paddingTop: "0",
         paddingBottom: "0",
         paddingLeft: "25px",
         bg: "none",
-        borderLeft: "1px solid",
+        borderLeft: "1px solid #38393a",
+        borderTop: "1px solid #38393a",
+        boxShadow: "-5px -7px 5px #29292940",
+        "> p": {
+          mb: "10px",
+        },
       },
       strong: {
         color: "text",
@@ -79,6 +84,7 @@ export default {
         // padding: "2px 4px",
         // borderRadius: "4px",
         fontWeight: 700,
+        // boxShadow: `inset 0 -1px 0 ${colors.common.gray}`,
       },
       em: {
         color: "#ffe000",
@@ -88,9 +94,8 @@ export default {
       img: {
         display: "block",
         // marginTop: "20px",
-        // maxWidth: "80%",
+        maxWidth: "80%",
         objectFit: "cover",
-        width: "100%",
         margin: "0 auto",
         marginTop: "2.5rem",
         marginBottom: "2.5rem",
@@ -108,8 +113,7 @@ export default {
         listStyleType: "square",
       },
       hr: {
-        borderBottom: `1px solid`,
-        borderBottomColor: "#67788a",
+        borderBottom: `1px solid ${colors.common.gray}`,
       },
     },
     prism: {
@@ -118,15 +122,15 @@ export default {
           whiteSpace: "pre-wrap",
           backgroundColor: "#22262f",
         },
-        styles: [
-          {
-            types: ["comment"],
-            style: {
-              color: "rgb(255, 55, 1)",
-              fontStyle: "italic",
-            },
-          },
-        ],
+        // styles: [
+        //   {
+        //     types: ["comment"],
+        //     style: {
+        //       color: "rgb(255, 55, 1)",
+        //       fontStyle: "italic",
+        //     },
+        //   },
+        // ],
       },
       light: {
         plain: {
