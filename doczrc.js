@@ -75,7 +75,7 @@ export default {
         borderTop: "1px solid #38393a",
         boxShadow: "-5px -7px 5px #29292940",
         "> p": {
-          mb: "10px",
+          mb: "16px",
         },
       },
       strong: {

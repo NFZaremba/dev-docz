@@ -25,6 +25,12 @@ In `JavaScript`, memory life cycle is composed of 3 steps:
 
 `JavaScript engines` have two places where they can store data: The `memory heap` and `stack` located in the `RAM`.
 
+| **Stack**                          | **Heap**                  |
+| ---------------------------------- | ------------------------- |
+| Primitive values and references    | Objects and functions     |
+| Size is known at compile time      | Size is known at run time |
+| Allocates a fixed amount of memory | No limit per object       |
+
 > ### **Stack** - _static memory allocation_
 >
 > - The `stack` is where static data is stored, including `primitive` data types and `references` (_these references point to objects and functions you've created_)
@@ -36,12 +42,6 @@ In `JavaScript`, memory life cycle is composed of 3 steps:
 > - The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
 > - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
 > - Allocating memory during runtime is known as _dynamic memory allocation_.
-
-| **Stack**                          | **Heap**                  |
-| ---------------------------------- | ------------------------- |
-| Primitive values and references    | Objects and functions     |
-| Size is known at compile time      | Size is known at run time |
-| Allocates a fixed amount of memory | No limit per object       |
 
 <br />
 
