@@ -1,5 +1,5 @@
 ---
-name: 5. Scope, Hoisting, & Closures
+name: 5. Advanced
 menu: JavaScript
 ---
 
@@ -104,9 +104,9 @@ _Scope_ in `JavaScript` refers to the current context of code, which determines 
 
 ## Hoisting
 
-During compile phase, just microseconds before code execution, it is scanned for _function_ and _variable declarations_.
+During compile phase, just microseconds before code execution, it is scanned for _declarations_ (`functions` & `variables`).
 
-All these _declarations_ are added to the memory inside a `JavaScript` data structure called `Lexical Environment`. **So that they can be used even before they are actually declared in the source code**.
+All these declarations are added to the memory inside a `JavaScript` data structure called `Lexical Environment`. _So that they can be used even before they are actually declared in the source code_.
 
 > ### **Lexical Environment**
 >
@@ -129,7 +129,7 @@ All these _declarations_ are added to the memory inside a `JavaScript` data stru
 > Only declarations (`function`, `var`, `let`, `const` and `class`) are hoisted in `JavaScript` _not their assignments_ (`value`).
 >
 > - `var` declarations are initialized with `undefined`
-> - `let` and `const` declarations remain uninitialized.
+> - `let` and `const` declarations _remain uninitialized_.
 >
 > > #### **Function Expressions**: _not hoisted_
 > >
@@ -143,7 +143,7 @@ All these _declarations_ are added to the memory inside a `JavaScript` data stru
 > > };
 > > ```
 > >
-> > `JavaScript` only hoist declarations, not initializations (assignments), so the `helloWorld` will be treated as a variable, not as a function. Because `helloWorld` is a variable, the engine will assign it with `undefined` during hoisting.
+> > `JavaScript` only hoist declarations, not initializations (assignments), so the `helloWorld` will be _treated as a variable_, not as a function. Because `helloWorld` is a variable, the engine will assign it with `undefined` during hoisting.
 >
 > > #### **Function Declarations**: _hoisted_
 > >
@@ -177,7 +177,7 @@ All these _declarations_ are added to the memory inside a `JavaScript` data stru
 > >
 > > When `JavaScript engine` finds a `var` variable declaration during the compile phase, it will add that variable to the `lexical environment` and initialize it with `undefined` and later during the execution when it reaches the line where the actual assignment is done in the code, it will assign that value to the variable.
 >
-> > #### **let/const**: _hoisted_
+> > #### **let / const**: _hoisted_
 > >
 > > So are `let` and `const` variables not hoisted?
 > >
@@ -221,3 +221,66 @@ All these _declarations_ are added to the memory inside a `JavaScript` data stru
 > > Now if we try to access the variable before it is declared, the `JavaScript engine` will try to fetch the value of the variable from the `lexical environment`, because the variable is _uninitialized_, it will throw a reference error.
 > >
 > > During the execution, when the engine reaches the line where the variable was declared, it will try to evaluate its _binding (value)_, because the variable has no value associated with it, it will assign it `undefined`.
+>
+> > #### **Class Declarations**: _hoisted_
+> >
+> > Just like `let` and `const` declarations, `classes` in `JavaScript` are also hoisted and _remain uninitialized_ until evaluation. So they are also affected by the _“Temporal Dead Zone”_...
+> >
+> > ```js
+> > let peter = new Person("Peter", 25); // -> ReferenceError: Person is not defined
+> >
+> > console.log(peter);
+> >
+> > class Person {
+> >   constructor(name, age) {
+> >     this.name = name;
+> >     this.age = age;
+> >   }
+> > }
+> > ```
+> >
+> > So to access the classes, you have to declare them first...
+> >
+> > ```js
+> > class Person {
+> >   constructor(name, age) {
+> >     this.name = name;
+> >     this.age = age;
+> >   }
+> > }
+> > let peter = new Person("Peter", 25);
+> > console.log(peter); // -> Person { name: 'Peter', age: 25 }
+> > ```
+>
+> > #### **Class Expressions**: _not hoisted_
+> >
+> > Just like function expressions, class expressions are also not hoisted.
+> >
+> > This will not work...
+> >
+> > ```js
+> > let peter = new Person("Peter", 25); // -> ReferenceError: Person is not defined
+> >
+> > console.log(peter);
+> >
+> > let Person = class {
+> >   constructor(name, age) {
+> >     this.name = name;
+> >     this.age = age;
+> >   }
+> > };
+> > ```
+> >
+> > ...correct way is to declare them before evaluation.
+> >
+> > ```js
+> > let Person = class {
+> >   constructor(name, age) {
+> >     this.name = name;
+> >     this.age = age;
+> >   }
+> > };
+> >
+> > let peter = new Person("Peter", 25);
+> > console.log(peter); // -> Person { name: 'Peter', age: 25 }
+> > ```
