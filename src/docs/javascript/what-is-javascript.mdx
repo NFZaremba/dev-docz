@@ -13,8 +13,6 @@ menu: JavaScript
 
 In addition, it does _not require memory-management_ like `C/C++` because the runtime always uses `garbage-collection`.
 
-<br />
-
 ## Interpreted or Just-in-Time Compiled
 
 Originally, it was only _interpreted_, but modern `JavaScript engines` like V8, Spidermonkey, and Nitro use various techniques to perform _Just-in-Time Compilation (JIT)_ for better performance.
@@ -26,8 +24,6 @@ Originally, it was only _interpreted_, but modern `JavaScript engines` like V8, 
 > ### **JIT compilation**
 >
 > Differs from a compiler in that it compiles to native machine code just before the code is supposed to run, hence the name.
-
-<br />
 
 ## Multi-Paradigm
 
@@ -43,13 +39,9 @@ Means the language is general-purpose or flexible.
 >
 > Example: is like your friend listening to Bob Ross tell them how to paint a landscape. While good ole Bob Ross isn’t exactly commanding, he is giving them step by step directions to get the desired result.
 
-<br />
-
 ## Dynamic Weakly Typed
 
 `JavaScript` is _dynamic weakly typed_ language, meaning you do not explicitly annotate variables with types (`string`, `int`, etc) and the true types are _not known until runtime_.
-
-<br />
 
 ## Prototypal Inheritance
 
@@ -57,9 +49,11 @@ Means the language is general-purpose or flexible.
 
 This differs from `classical inheritance` where you define a `class` or blueprint for each `object` and instantiate it.
 
-<br />
-
 ## Event-Loop Concurrency Model
+
+> ### **Blocking vs Non-Blocking I/O**
+>
+> Blocking is when the execution of additional `JavaScript` in the `Node.js` process must wait until a non-JavaScript operation completes. This happens because the `event loop` is unable to continue running `JavaScript` while a blocking operation is occurring.
 
 > ### **Single-Threaded**
 >

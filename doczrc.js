@@ -14,7 +14,13 @@ const colors = {
     muted: "#f9f2f4",
     gray: "#67788a",
   },
-  common: { gray: "#67788a" },
+  common: {
+    gray: "#67788a",
+    white: "#fff",
+    shadow: "#00000040",
+    black: "#000",
+    green: "#00ff08",
+  },
 };
 
 export default {
@@ -50,8 +56,29 @@ export default {
     styles: {
       Container: {
         "> h2": {
-          borderBottom: "2px dashed #2a2e35",
-          paddingBottom: ".7em",
+          position: "relative",
+          fontSize: "1.5em",
+          fontWeight: "bold",
+          padding: "0px 20px 0px 70px",
+          margin: "30px 10px 20px -26px",
+          color: colors.common.white,
+          background:
+            "linear-gradient( 90deg, rgb(216 0 255 / 50%) , rgba(0 220 255 / 50%))",
+          textShadow: `0px 1px 2px ${colors.common.black}`,
+          // -webkit-box-shadow: 0px 2px 4px #888,
+          // -moz-box-shadow: 0px 2px 4px #888,
+          boxShadow: "0px 2px 4px #3b4048",
+          ":after": {
+            content: '" "',
+            position: "absolute",
+            width: 0,
+            height: 0,
+            left: 0,
+            top: "100%",
+            borderWidth: "5px 10px",
+            borderStyle: "solid",
+            borderColor: "#666 #666 transparent transparent",
+          },
         },
       },
       h1: {
@@ -66,28 +93,47 @@ export default {
         fontSize: ".85em",
       },
       blockquote: {
-        // marginLeft: "30px",
+        marginLeft: "10px",
         paddingTop: "0",
-        paddingBottom: "0",
+        paddingBottom: "1px",
         paddingLeft: "25px",
         bg: "none",
-        borderLeft: "1px solid #38393a",
-        borderTop: "1px solid #38393a",
-        boxShadow: "-5px -7px 5px #29292940",
+        borderLeft: `1px solid ${colors.dark.accent}`,
+        borderTop: `1px solid ${colors.dark.accent}`,
+        boxShadow: `-5px -7px 5px ${colors.common.shadow}`,
+        background:
+          "linear-gradient( 90deg,rgb(216 0 255 / 50%) ,rgba(0 220 255 / 50%))",
         "> p": {
           mb: "16px",
+        },
+        "> h3": {
+          "> a": {
+            position: "relative",
+            background: colors.common.black,
+            padding: "10px",
+            marginLeft: "-46px",
+            boxShadow: "0px 2px 4px #3b4048",
+            ":after": {
+              content: '" "',
+              position: "absolute",
+              width: 0,
+              height: 0,
+              left: 0,
+              top: "100%",
+              borderWidth: "5px 10px",
+              borderStyle: "solid",
+              borderColor: "#666 #666 transparent transparent",
+            },
+          },
         },
       },
       strong: {
         color: "text",
-        // bg: "muted",
-        // padding: "2px 4px",
-        // borderRadius: "4px",
         fontWeight: 700,
         // boxShadow: `inset 0 -1px 0 ${colors.common.gray}`,
       },
       em: {
-        color: "#ffe000",
+        color: colors.common.green,
         fontStyle: "italic",
         fontWeight: 700,
       },
