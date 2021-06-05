@@ -5,7 +5,7 @@ menu: JavaScript
 
 # Advanced: Scope, Hoisting, & Closures
 
-<br />
+---
 
 ## Scope
 
@@ -49,7 +49,7 @@ _Scope_ in `JavaScript` refers to the current context of code, which determines 
 > | `let`   | Block scope    | No       | Yes               | No                |
 > | `const` | Block scope    | No       | No                | No                |
 >
-> > #### **function scope**: `var`, `let` `const`
+> > #### **function scope**: _var_, _let_, _const_
 > >
 > > Defines a scope for variables declared using `var`, `let` and `const`. _Any variable declared within that function is only accessible from that function and any nested functions_.
 > >
@@ -100,8 +100,6 @@ _Scope_ in `JavaScript` refers to the current context of code, which determines 
 > >
 > > However in the bottom example, both the global variable and the block-scoped variable end up with the same value, 'werewolf'. This is because instead of creating a new _local variable_ with `var`, you are reassigning the same variable in the same scope. _`var` does not recognize if to be part of a different, new scope_.
 
-<br />
-
 ## Hoisting
 
 During compile phase, just microseconds before code execution, it is scanned for _declarations_ (`functions` & `variables`).
@@ -130,6 +128,14 @@ All these declarations are added to the memory inside a `JavaScript` data struct
 >
 > - `var` declarations are initialized with `undefined`
 > - `let` and `const` declarations _remain uninitialized_.
+>
+> **Overview**
+>
+> - `var` variables are function scoped.
+> - `let` and `const` variables are block scoped (this includes functions too).
+> - All declarations — `classes`, `functions` and `variables` — are hoisted to the top of the containing scope, before any part of your code is executed.
+> - Functions are hoisted first, then variables.
+> - Function declarations have priority over variable declarations, but not over variable assignments.
 >
 > > #### **Function Expressions**: _not hoisted_
 > >

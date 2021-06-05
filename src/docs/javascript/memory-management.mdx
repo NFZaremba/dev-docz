@@ -5,7 +5,7 @@ menu: JavaScript
 
 # Memory Management
 
-<br />
+---
 
 ## Memory Life Cycle
 
@@ -18,8 +18,6 @@ In `JavaScript`, memory life cycle is composed of 3 steps:
 > 2. **Memory Use** - Reading from variables or changing values is reading from, and write to, memory.
 >
 > 3. **Memory Release** - When you no longer use some function or object, that memory is released via _Garbage Collection_.
-
-<br />
 
 ## Memory Heap and Call Stack
 
@@ -42,8 +40,6 @@ In `JavaScript`, memory life cycle is composed of 3 steps:
 > - The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
 > - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
 > - Allocating memory during runtime is known as _dynamic memory allocation_.
-
-<br />
 
 ## Memory Allocation
 
@@ -151,8 +147,6 @@ All `variables` first point to the `stack`. In case it's a non-primitive value, 
 >
 > Note above how `person` and `newPerson` both point to the same object.
 
-<br />
-
 ## Garbage Collection
 
 The last step is releasing memory and this is where `garbage collection` comes into play (which is also handled by the `JavaScript Engine`).
@@ -183,8 +177,6 @@ _Algorithms_ are used to pinpoint unneeded memory that needs to be released. The
 > >
 > > - The algorithms that collect garbage for us usually run periodically to clean unused `objects`.
 > > - The issue with this is that we, the developers, don't know when exactly this will happen. Collecting a lot of garbage or collecting garbage frequently might impact performance since it needs a certain amount of computation power to do so.
-
-<br />
 
 ## Memory leaks
 

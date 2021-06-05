@@ -5,7 +5,7 @@ menu: JavaScript
 
 # Control Flow
 
-<br />
+---
 
 ## Coercion
 
@@ -63,9 +63,9 @@ null
 > console.log(str.toUpperCase()); // -> HELLO
 > ```
 >
-> > #### **Question**: If `strings` are `primitive` types, how do they have properties?
-> >
-> > - **Answer**: whenever you try to access a property of a `string` str, `JavaScript` coerces the `string` value to an `object`, by `new String(str)`. This `object` is called a `wrapper object`. _It inherits all string methods_, and is used to resolve the property reference. Once the property has been resolved, the `wrapper object` is discarded. <br /> (**Note**: the same concept applies to `numbers` and `booleans`)
+> **Question**: If `strings` are `primitive` types, how do they have properties?
+>
+> - **Answer**: whenever you try to access a property of a `string` str, `JavaScript` coerces the `string` value to an `object`, by `new String(str)`. This `object` is called a `wrapper object`. _It inherits all string methods_, and is used to resolve the property reference. Once the property has been resolved, the `wrapper object` is discarded. <br /> (**Note**: the same concept applies to `numbers` and `booleans`)
 >
 > So the above code translates to this via the `JavaScript engine`...
 >
@@ -91,8 +91,6 @@ null
 > console.log(str.custom); // creates new temp wrapper object
 > // custom property does not exist on this object, thus it is 'undefined'
 > ```
-
-<br />
 
 ## Operators
 
@@ -309,8 +307,6 @@ In `JavaScript` you have the following main operators:
 > > "" ?? "default for B"; // -> ""
 > > 42 ?? 0; // -> 42
 > > ```
-
-<br />
 
 ## Loops
 
