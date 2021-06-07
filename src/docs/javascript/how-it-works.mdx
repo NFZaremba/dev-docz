@@ -20,6 +20,21 @@ _AJAX_, the _DOM tree_, and other API’s, are not part of `JavaScript`, they ar
 > It can be implemented as a standard `interpreter`, or `just-in-time compiler` that compiles `JavaScript` to `bytecode` in some form.
 >
 > When running a `JavaScript` program, two regions of memory are allocated on the machine's `RAM` (Random Access Memory), to store things like the `runtime`, `variables` and `objects` that you reference in your code. The `Heap` and `Stack`.
+>
+> > ### **Stack** - _static memory allocation_
+> >
+> > - Data structure that follows the _Last In First Out (LIFO)_ principle (the last item to enter the stack will be the first item to be removed from the stack).
+> > - Stores the `execution context` for each function, which stores `primitive` types and `references` _[these references point to objects and functions you've created]_.
+> > - Static data have fixed sizes: `JavaScript engine` knows how much memory to allocate before execution.
+> > - Allocating memory during compile time is known as _static memory allocation_.
+> >
+> > #### **Execution Context**
+>
+> > ### **Heap** - _dynamic memory allocation_
+> >
+> > - The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
+> > - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
+> > - Allocating memory during runtime is known as _dynamic memory allocation_.
 
 > ### **Runtime Environment**
 >
@@ -58,7 +73,3 @@ _AJAX_, the _DOM tree_, and other API’s, are not part of `JavaScript`, they ar
 > >
 > > - The `Event Loop` is implemented in runtime environment.
 > > - Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
-
-## Execution Context
-
-How does JavaScript code get executed?
