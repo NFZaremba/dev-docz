@@ -3,18 +3,15 @@ name: JavaScript
 menu: Docs
 ---
 
-##### Table of Contents
+[ What is JavaScript](#what-is-javascript)
 
-- [ What is JavaScript](#what-is-javascript)
-- [ How JavaScript Works](#how-javaScript-works)
+[ How JavaScript Works](#how-javaScript-works)
 
 <br />
 <br />
 <a name="what-is-javascript" />
 
 > # What is JavaScript?
->
-> ---
 >
 > - [High Level](#high-level)
 > - [Interpreted or Just-in-Time Compiled](#interpreted-or-just-in-time-compiled)
@@ -23,37 +20,38 @@ menu: Docs
 > - [Prototypal Inheritance](#prototypal-inheritance)
 > - [Event-Loop Concurrency Model](#event-loop-concurrency-model)
 >
+> ---
+>
 > ## High Level
 >
 > `JavaScript` is considered _high-level_ because it does not require direct interaction with the operating system, hardware.
 >
-> In addition, it does _not require memory-management_ like `C/C++` because the runtime always uses `garbage-collection`.
+> It also does _not require memory-management_ like `C/C++` because the runtime always uses `garbage-collection`.
 >
 > ## Interpreted or Just-in-Time Compiled
 >
 > Originally, it was only _interpreted_, but modern `JavaScript engines` like V8, Spidermonkey, and Nitro use various techniques to perform _Just-in-Time Compilation (JIT)_ for better performance.
 >
-> ### **Interpreted**
+> > ### Interpreted
+> >
+> > Means the source code is **converted** to `bytecode` line-by-line and executed at runtime _[as opposed to being compiled to machine code binary at build time]_.
 >
-> Means the source code is _converted_ to `bytecode` line-by-line and executed at runtime (_as opposed to being compiled to a machine code binary at build time_).
->
-> ### **JIT compilation**
->
-> Differs from a compiler in that it compiles to native machine code just before the code is supposed to run, hence the name.
+> > ### JIT compilation
+> >
+> > Differs from a compiler in that it compiles to native machine code just before the code is supposed to run, hence the name.
 >
 > ## Multi-Paradigm
 >
 > Means the language is general-purpose or flexible.
+> `JavaScript` can be used for [declarative (functional) or imperative (object-oriented)](https://codeburst.io/declarative-vs-imperative-programming-a8a7c93d9ad2) programming styles.
 >
-> `JavaScript` can be used for [declarative **(functional)** **or** imperative **(object-oriented)**](https://codeburst.io/declarative-vs-imperative-programming-a8a7c93d9ad2) programming styles.
+> > ### Declarative Programming
+> >
+> > _Example_: is like asking your friend to draw a landscape. You don’t care how they draw it, that’s up to them.
 >
-> ### **Declarative Programming**
->
-> Example: is like asking your friend to draw a landscape. You don’t care how they draw it, that’s up to them.
->
-> ### **Imperative Programming**
->
-> Example: is like your friend listening to Bob Ross tell them how to paint a landscape. While good ole Bob Ross isn’t exactly commanding, he is giving them step by step directions to get the desired result.
+> > ### Imperative Programming
+> >
+> > _Example_: is like your friend listening to Bob Ross tell them how to paint a landscape. While good ole Bob Ross isn’t exactly commanding, he is giving them step by step directions to get the desired result.
 >
 > ## Dynamic Weakly Typed
 >
@@ -67,28 +65,30 @@ menu: Docs
 >
 > ## Event-Loop Concurrency Model
 >
-> ### **Blocking vs Non-Blocking I/O**
+> > ### Blocking vs Non-Blocking I/O
+> >
+> > Blocking is when the execution of additional `JavaScript` in the `Node.js` process must wait until a non-JavaScript operation completes. This happens because the `event loop` is unable to continue running `JavaScript` while a blocking operation is occurring.
 >
-> Blocking is when the execution of additional `JavaScript` in the `Node.js` process must wait until a non-JavaScript operation completes. This happens because the `event loop` is unable to continue running `JavaScript` while a blocking operation is occurring.
+> > ### Single-Threaded
+> >
+> > `JavaScript` can only run one instruction at a time, even if your CPU has multiple cores and available threads. So how does `JavaScript` handle jobs concurrently?
 >
-> ### **Single-Threaded**
->
-> `JavaScript` can only run one instruction at a time, even if your CPU has multiple cores and available threads. So how does `JavaScript` handle jobs concurrently?
->
-> ### **Event Loop**
->
-> Refers to a feature implemented by `JavaScript engines` like V8 that allow `JavaScript` to offload tasks to separate threads. Browser and Node APIs execute long-running tasks separately from the the main `JavaScript` thread, then enqueue a callback function (which you define) to run on the main thread when the task is complete. This is why `JavaScript` is called `non-blocking` because it should only ever wait for `synchronous` code from your `JavaScript` functions. Think of the `Event Loop` as message queue between the single `JavaScript` thread and the OS.
+> > ### Event Loop
+> >
+> > Refers to a feature implemented by `JavaScript engines` like V8 that allow `JavaScript` to offload tasks to separate threads. Browser and Node APIs execute long-running tasks separately from the the main `JavaScript` thread, then enqueue a callback function (which you define) to run on the main thread when the task is complete. This is why `JavaScript` is called `non-blocking` because it should only ever wait for `synchronous` code from your `JavaScript` functions. Think of the `Event Loop` as message queue between the single `JavaScript` thread and the OS.
 
 <br />
 <a name="how-javaScript-works" />
 
 > # How JavaScript Works
 >
+> - [JavaScript Engine](#javaScript-engine)
+>
 > ---
 >
 > ## JavaScript Engine
 >
-> In web development, each browser has a `JavaScript Runtime Environment`, and in that runtime is a `JavaScript engine` that parses the code.
+> In web development, each browser has a `JavaScript Runtime Environment`, and in that runtime is a `JavaScript engine` **that parses the code**.
 >
 > It can be implemented as a standard `interpreter`, or `just-in-time compiler` that compiles `JavaScript` to `bytecode` in some form.
 >
@@ -96,24 +96,24 @@ menu: Docs
 >
 > - The `Heap` and `Stack`.
 >
-> ### **Stack** - _static memory allocation_
+> > ### Stack - _static memory allocation_
+> >
+> > - Data structure that follows the _Last In First Out (LIFO)_ principle (the last item to enter the stack will be the first item to be removed from the stack).
+> > - Stores the `execution context` for each function, which stores `primitive` types and `references` _[these references point to objects and functions you've created]_.
+> > - Static data have fixed sizes: `JavaScript engine` knows how much memory to allocate before execution.
+> > - Allocating memory during compile time is known as _static memory allocation_.
+> >
+> > #### Execution Context
+> >
+> > By default, at the bottom of the ECS, we have a global execution context which deals with all the code in the global scope. Each function has its own execution context called functional execution context which gets inserted on the top of ECS as and when the function is called in the code. If the same function is called twice like in recursion, it will have two different functional execution context in the ECS.
 >
-> - Data structure that follows the _Last In First Out (LIFO)_ principle (the last item to enter the stack will be the first item to be removed from the stack).
-> - Stores the `execution context` for each function, which stores `primitive` types and `references` _[these references point to objects and functions you've created]_.
-> - Static data have fixed sizes: `JavaScript engine` knows how much memory to allocate before execution.
-> - Allocating memory during compile time is known as _static memory allocation_.
+> > ### Heap - _dynamic memory allocation_
+> >
+> > - The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
+> > - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
+> > - Allocating memory during runtime is known as _dynamic memory allocation_.
 >
-> #### **Execution Context**
->
-> By default, at the bottom of the ECS, we have a global execution context which deals with all the code in the global scope. Each function has its own execution context called functional execution context which gets inserted on the top of ECS as and when the function is called in the code. If the same function is called twice like in recursion, it will have two different functional execution context in the ECS.
->
-> ### **Heap** - _dynamic memory allocation_
->
-> - The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
-> - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
-> - Allocating memory during runtime is known as _dynamic memory allocation_.
->
-> ## **Runtime Environment**
+> ## Runtime Environment
 >
 > _AJAX_, the _DOM tree_, and other API’s, are not part of `JavaScript`, they are just objects with properties and methods, _provided by the browser_ and made available in the browser’s `JavaScript Runtime Environment`.
 >
@@ -126,29 +126,29 @@ menu: Docs
 >
 > ![JS Runtime Environment](https://miro.medium.com/max/700/1*zeKjWCjyAGZ9JN4fvnWsiA.png)
 >
-> ### **Memory Heap**
+> > ### Memory Heap
+> >
+> > - Unstructured memory pool where we can store complex objects.
+> > - Is `Garbage Collected`.
 >
-> - Unstructured memory pool where we can store complex objects.
-> - Is `Garbage Collected`.
+> > ### Call Stack
+> >
+> > - LIFO principle - last-in-first-out.
+> > - Helps keep track of where we are in the code so that we can run the code in order.
+> > - The call stack is designed to be a high performance continuous region of memory used to execute functions.
+> > - When you call a function, it creates a frame in the stack that contains a copy of its local variables.
 >
-> ### **Call Stack**
+> > ### Web API Container
+> >
+> > - Calls that were sent to the `Web API` container from the `Stack`, like event listeners, HTTP/AJAX requests, or timing functions, sit there until an action is triggered.
+> > - Once triggered, a 'callback function' is sent to the final container, the `callback queue`.
 >
-> - LIFO principle - last-in-first-out.
-> - Helps keep track of where we are in the code so that we can run the code in order.
-> - The call stack is designed to be a high performance continuous region of memory used to execute functions.
-> - When you call a function, it creates a frame in the stack that contains a copy of its local variables.
+> > ### Callback Queue
+> >
+> > - The `Queue` is a FIFO (first in first out) data structure.
+> > - The `Callback Queue` will store all the callback functions in the order in which they were added. It will 'wait' until the `Stack` is completely empty.
 >
-> ### **Web API Container**
->
-> - Calls that were sent to the `Web API` container from the `Stack`, like event listeners, HTTP/AJAX requests, or timing functions, sit there until an action is triggered.
-> - Once triggered, a 'callback function' is sent to the final container, the `callback queue`.
->
-> ### **Callback Queue**
->
-> - The `Queue` is a FIFO (first in first out) data structure.
-> - The `Callback Queue` will store all the callback functions in the order in which they were added. It will 'wait' until the `Stack` is completely empty.
->
-> ### **Event Loop**
->
-> - The `Event Loop` is implemented in runtime environment.
-> - Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
+> > ### Event Loop
+> >
+> > - The `Event Loop` is implemented in runtime environment.
+> > - Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
