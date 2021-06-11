@@ -54,55 +54,20 @@ export default {
       },
     },
     styles: {
-      // Container: {
-      //   "> h1": {
-      //     position: "relative",
-      //     fontSize: "1.5em",
-      //     fontWeight: "bold",
-      //     padding: "10px 0px 10px 70px",
-      //     margin: "30px -26px 20px -26px",
-      //     color: colors.common.white,
-      //     background: "linear-gradient( 90deg,rgb(0 0 0) ,rgb(98 0 255))",
-      //     textShadow: `0px 1px 2px ${colors.common.black}`,
-      //     boxShadow: "0px 2px 4px #3b4048",
-      //     ":after": {
-      //       content: '" "',
-      //       position: "absolute",
-      //       width: 0,
-      //       height: 0,
-      //       left: 0,
-      //       top: "100%",
-      //       borderWidth: "5px 10px",
-      //       borderStyle: "solid",
-      //       borderColor: "#666 #666 transparent transparent",
-      //     },
-      //     ":before": {
-      //       content: '" "',
-      //       position: "absolute",
-      //       width: 0,
-      //       height: 0,
-      //       left: "calc(100% - 20px);",
-      //       top: "100%",
-      //       borderWidth: "5px 10px",
-      //       borderStyle: "solid",
-      //       borderColor: "#666 #666 transparent transparent",
-      //       transform: "scale(-1, 1)",
-      //     },
-      //   },
-      // },
       blockquote: {
-        marginLeft: "15px",
-        marginLeft: "15px",
         paddingTop: "0",
-        paddingBottom: "1px",
+        paddingBottom: "10px",
         paddingLeft: "25px",
         paddingRight: "25px",
+        marginTop: 0,
+        marginBottom: 0,
         bg: "none",
-        boxShadow: `6px 5px 10px ${colors.common.shadow}`,
+        // boxShadow: `6px 5px 10px ${colors.common.shadow}`,
         background: "#fff",
         border: "none",
         "> h1": {
           position: "relative",
+          fontStyle: "normal",
           fontSize: "2.5em",
           fontWeight: "bold",
           padding: "20px 0px 20px 25px",
@@ -135,91 +100,82 @@ export default {
           },
         },
         " > h2": {
+          fontStyle: "normal",
           marginTop: "3rem",
+          borderTop: `1px solid ${colors.common.black}`,
           "> a": {
             color: colors.common.white,
             position: "relative",
             background: colors.common.black,
-            padding: "10px 20px",
-            marginLeft: "-45px",
+            padding: "7px 20px",
+            marginLeft: "-15px",
             boxShadow: `2px 2px 4px ${colors.common.purple}`,
-            borderTopRightRadius: "30px",
             borderBottomRightRadius: "30px",
             color: colors.common.white,
-            ":after": {
-              content: '" "',
-              position: "absolute",
-              width: 0,
-              height: 0,
-              left: 0,
-              top: "100%",
-              borderWidth: "5px 10px",
-              borderStyle: "solid",
-              borderColor: "#666 #666 transparent transparent",
-            },
           },
         },
         "> h3": {
-          "> a": {
-            position: "relative",
-            background: colors.common.black,
-            padding: "5px 20px",
-            marginLeft: "-35px",
-            boxShadow: `0px 2px 4px ${colors.common.shadow}`,
-            borderBottomRightRadius: "30px",
-            color: colors.common.white,
-            ":after": {
-              content: '" "',
-              position: "absolute",
-              width: 0,
-              height: 0,
-              left: 0,
-              top: "100%",
-              borderWidth: "3px 5px",
-              borderStyle: "solid",
-              borderColor: "#666 #666 transparent transparent",
-            },
-          },
+          fontStyle: "normal",
+          marginBottom: "10px",
+          fontWeight: 900,
+          fontSize: "1.7rem",
+          color: colors.common.black,
         },
         "> h4": {
-          "> a": {
-            color: colors.common.black,
-            // position: "relative",
-            // background: "linear-gradient( 90deg,rgb(0 0 0) ,rgb(98 0 255))",
-            // padding: "10px 20px",
-            // marginLeft: "-2px",
-            // boxShadow: "0px 2px 4px #3b4048",
-            // borderTopRightRadius: "30px",
-            // borderBottomRightRadius: "30px",
-          },
+          fontStyle: "normal",
+          fontWeight: 900,
+          marginBottom: "10px",
+          fontSize: "1.5rem",
+          color: colors.common.black,
+        },
+        "> blockquote": {
+          borderLeft: `2px solid ${colors.common.black}`,
+          marginLeft: "5px",
+          paddingTop: 0,
+          paddingBottom: 0,
         },
         "> p": {
           mb: "10px",
         },
+        "> ul": {
+          mb: "10px",
+        },
+        "> ol": {
+          mb: "10px",
+        },
         "> table": {
-          color: "#fff",
+          color: colors.common.black,
+          padding: "20px 25px",
+          maxWidth: "84%",
+          marginLeft: "auto",
+          marginRight: "auto",
+          boxShadow: `6px 5px 10px ${colors.common.shadow}`,
+        },
+        "> .comment": {
+          color: "red",
         },
       },
       inlineCode: {
-        bg: "muted",
-        color: colors.common.green,
+        bg: "#0000001a",
+        color: colors.common.purple,
         padding: "2px 6px",
         borderRadius: "4px",
         fontSize: ".85em",
+        fontWeight: 900,
       },
       a: {
         color: colors.common.purple,
       },
       strong: {
-        fontStyle: "italic",
+        fontStyle: "normal",
         color: "text",
-        fontWeight: 900,
-        boxShadow: `inset 0 -4px 0 ${colors.common.green}`,
+        fontWeight: 700,
+        boxShadow: `inset 0 -3px 0 ${colors.common.green}`,
       },
       em: {
-        fontStyle: "italic",
+        fontStyle: "normal",
         color: colors.common.purple,
-        fontWeight: 900,
+        fontWeight: 700,
       },
       img: {
         display: "block",
@@ -238,14 +194,14 @@ export default {
       ol: {
         color: "text",
         paddingLeft: "25px",
-        fontWeight: 600,
+        fontWeight: 500,
         marginBottom: "10px",
       },
       ul: {
         color: "text",
         paddingLeft: "25px",
         listStyleType: "square",
-        fontWeight: 600,
+        fontWeight: 500,
       },
       hr: {
         borderBottom: `1px solid ${colors.common.gray}`,
@@ -257,6 +213,105 @@ export default {
           whiteSpace: "pre-wrap",
           backgroundColor: "#22262f",
         },
+        styles: [
+          {
+            types: ["changed"],
+            style: {
+              color: "rgb(162, 191, 252)",
+              fontStyle: "italic",
+            },
+          },
+          {
+            types: ["deleted"],
+            style: {
+              color: "rgba(239, 83, 80, 0.56)",
+              fontStyle: "italic",
+            },
+          },
+          {
+            types: ["inserted", "attr-name"],
+            style: {
+              color: "rgb(173, 219, 103)",
+              fontStyle: "italic",
+            },
+          },
+          {
+            types: ["comment"],
+            style: {
+              color: "#00db08",
+              fontStyle: "italic",
+            },
+          },
+          {
+            types: ["string", "url"],
+            style: {
+              color: "rgb(173, 219, 103)",
+            },
+          },
+          {
+            types: ["variable"],
+            style: {
+              color: "rgb(214, 222, 235)",
+            },
+          },
+          {
+            types: ["number"],
+            style: {
+              color: "rgb(247, 140, 108)",
+            },
+          },
+          {
+            types: ["builtin", "char", "constant", "function"],
+            style: {
+              color: "rgb(130, 170, 255)",
+            },
+          },
+          {
+            // This was manually added after the auto-generation
+            // so that punctuations are not italicised
+            types: ["punctuation"],
+            style: {
+              color: "rgb(199, 146, 234)",
+            },
+          },
+          {
+            types: ["selector", "doctype"],
+            style: {
+              color: "rgb(199, 146, 234)",
+              fontStyle: "italic",
+            },
+          },
+          {
+            types: ["class-name"],
+            style: {
+              color: "rgb(255, 203, 139)",
+            },
+          },
+          {
+            types: ["tag", "operator", "keyword"],
+            style: {
+              color: "rgb(127, 219, 202)",
+            },
+          },
+          {
+            types: ["boolean"],
+            style: {
+              color: "rgb(255, 88, 116)",
+            },
+          },
+          {
+            types: ["property"],
+            style: {
+              color: "rgb(128, 203, 196)",
+            },
+          },
+          {
+            types: ["namespace"],
+            style: {
+              color: "rgb(178, 204, 214)",
+            },
+          },
+        ],
       },
       light: {
         plain: {

@@ -7,6 +7,10 @@ menu: Docs
 
 [ How JavaScript Works](#how-javaScript-works)
 
+[Memory Management](#memory-management)
+
+[Control Flow](#control-flow)
+
 <br />
 <br />
 <a name="what-is-javascript" />
@@ -20,8 +24,6 @@ menu: Docs
 > - [Prototypal Inheritance](#prototypal-inheritance)
 > - [Event-Loop Concurrency Model](#event-loop-concurrency-model)
 >
-> ---
->
 > ## High Level
 >
 > `JavaScript` is considered _high-level_ because it does not require direct interaction with the operating system, hardware.
@@ -32,12 +34,12 @@ menu: Docs
 >
 > Originally, it was only _interpreted_, but modern `JavaScript engines` like V8, Spidermonkey, and Nitro use various techniques to perform _Just-in-Time Compilation (JIT)_ for better performance.
 >
-> > ### Interpreted
-> >
+> ### Interpreted
+>
 > > Means the source code is **converted** to `bytecode` line-by-line and executed at runtime _[as opposed to being compiled to machine code binary at build time]_.
 >
-> > ### JIT compilation
-> >
+> ### JIT compilation
+>
 > > Differs from a compiler in that it compiles to native machine code just before the code is supposed to run, hence the name.
 >
 > ## Multi-Paradigm
@@ -45,13 +47,13 @@ menu: Docs
 > Means the language is general-purpose or flexible.
 > `JavaScript` can be used for [declarative (functional) or imperative (object-oriented)](https://codeburst.io/declarative-vs-imperative-programming-a8a7c93d9ad2) programming styles.
 >
-> > ### Declarative Programming
-> >
-> > _Example_: is like asking your friend to draw a landscape. You don’t care how they draw it, that’s up to them.
+> ### Declarative Programming
 >
-> > ### Imperative Programming
-> >
-> > _Example_: is like your friend listening to Bob Ross tell them how to paint a landscape. While good ole Bob Ross isn’t exactly commanding, he is giving them step by step directions to get the desired result.
+> > Example: is like asking your friend to draw a landscape. You don’t care how they draw it, that’s up to them.
+>
+> ### Imperative Programming
+>
+> > Example: is like your friend listening to Bob Ross tell them how to paint a landscape. While good ole Bob Ross isn’t exactly commanding, he is giving them step by step directions to get the desired result.
 >
 > ## Dynamic Weakly Typed
 >
@@ -65,16 +67,16 @@ menu: Docs
 >
 > ## Event-Loop Concurrency Model
 >
-> > ### Blocking vs Non-Blocking I/O
-> >
+> ### Blocking vs Non-Blocking I/O
+>
 > > Blocking is when the execution of additional `JavaScript` in the `Node.js` process must wait until a non-JavaScript operation completes. This happens because the `event loop` is unable to continue running `JavaScript` while a blocking operation is occurring.
 >
-> > ### Single-Threaded
-> >
+> ### Single-Threaded
+>
 > > `JavaScript` can only run one instruction at a time, even if your CPU has multiple cores and available threads. So how does `JavaScript` handle jobs concurrently?
 >
-> > ### Event Loop
-> >
+> ### Event Loop
+>
 > > Refers to a feature implemented by `JavaScript engines` like V8 that allow `JavaScript` to offload tasks to separate threads. Browser and Node APIs execute long-running tasks separately from the the main `JavaScript` thread, then enqueue a callback function (which you define) to run on the main thread when the task is complete. This is why `JavaScript` is called `non-blocking` because it should only ever wait for `synchronous` code from your `JavaScript` functions. Think of the `Event Loop` as message queue between the single `JavaScript` thread and the OS.
 
 <br />
@@ -83,8 +85,7 @@ menu: Docs
 > # How JavaScript Works
 >
 > - [JavaScript Engine](#javaScript-engine)
->
-> ---
+> - [Runtime Environment](#runtime-environment)
 >
 > ## JavaScript Engine
 >
@@ -92,26 +93,29 @@ menu: Docs
 >
 > It can be implemented as a standard `interpreter`, or `just-in-time compiler` that compiles `JavaScript` to `bytecode` in some form.
 >
-> There are two regions of memory that are allocated on the machine's `RAM` (Random Access Memory) when a js program is ran: it stores things like the `runtime`, `variables` and `objects` that you reference in your code.
+> There are two regions of memory that are allocated on the machine's `RAM` (Random Access Memory) when a js program is ran: it stores things like the `runtime`, `variables` and `objects` that you reference in your code in the `Heap` and `Stack`.
 >
-> - The `Heap` and `Stack`.
+> ### Stack - _static memory allocation_
 >
-> > ### Stack - _static memory allocation_
+> > Data structure that follows the _Last In First Out (LIFO)_ principle (the last item to enter the stack will be the first item to be removed from the stack).
 > >
-> > - Data structure that follows the _Last In First Out (LIFO)_ principle (the last item to enter the stack will be the first item to be removed from the stack).
-> > - Stores the `execution context` for each function, which stores `primitive` types and `references` _[these references point to objects and functions you've created]_.
+> > Stores the `execution context` for each function, which stores `primitive` types and `references` _[these references point to objects and functions you've created]_.
+> >
+> > Allocating memory _during compile time_ is known as **static memory allocation**.
+> >
 > > - Static data have fixed sizes: `JavaScript engine` knows how much memory to allocate before execution.
-> > - Allocating memory during compile time is known as _static memory allocation_.
 > >
 > > #### Execution Context
 > >
 > > By default, at the bottom of the ECS, we have a global execution context which deals with all the code in the global scope. Each function has its own execution context called functional execution context which gets inserted on the top of ECS as and when the function is called in the code. If the same function is called twice like in recursion, it will have two different functional execution context in the ECS.
 >
-> > ### Heap - _dynamic memory allocation_
+> ### Heap - _dynamic memory allocation_
+>
+> > The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
 > >
-> > - The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
-> > - Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
-> > - Allocating memory during runtime is known as _dynamic memory allocation_.
+> > Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
+> >
+> > Allocating memory during runtime is known as _dynamic memory allocation_.
 >
 > ## Runtime Environment
 >
@@ -126,29 +130,874 @@ menu: Docs
 >
 > ![JS Runtime Environment](https://miro.medium.com/max/700/1*zeKjWCjyAGZ9JN4fvnWsiA.png)
 >
-> > ### Memory Heap
-> >
-> > - Unstructured memory pool where we can store complex objects.
-> > - Is `Garbage Collected`.
+> ### Memory Heap
 >
-> > ### Call Stack
+> > Unstructured memory pool where we can store complex objects, and is `Garbage Collected`.
+>
+> ### Call Stack
+>
+> > _LIFO principle_ - last-in-first-out.
 > >
-> > - LIFO principle - last-in-first-out.
-> > - Helps keep track of where we are in the code so that we can run the code in order.
-> > - The call stack is designed to be a high performance continuous region of memory used to execute functions.
+> > The call `stack` is designed to be a high performance continuous region of memory used to execute functions, and helps keep track of where we are in the code so that we can run the code in order.
+> >
 > > - When you call a function, it creates a frame in the stack that contains a copy of its local variables.
 >
-> > ### Web API Container
-> >
-> > - Calls that were sent to the `Web API` container from the `Stack`, like event listeners, HTTP/AJAX requests, or timing functions, sit there until an action is triggered.
-> > - Once triggered, a 'callback function' is sent to the final container, the `callback queue`.
+> ### Web API Container
 >
-> > ### Callback Queue
+> > Calls that were sent to the `Web API` container from the `Stack`, like _event listeners_, _HTTP/AJAX_ requests, or _timing_ functions, sit there until an action is triggered.
 > >
-> > - The `Queue` is a FIFO (first in first out) data structure.
-> > - The `Callback Queue` will store all the callback functions in the order in which they were added. It will 'wait' until the `Stack` is completely empty.
+> > - Once triggered, a _callback function_ is sent to the final container, the `callback queue`.
 >
-> > ### Event Loop
+> ### Callback Queue
+>
+> > The `Queue` is a FIFO (first in first out) data structure.
 > >
-> > - The `Event Loop` is implemented in runtime environment.
-> > - Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
+> > The `Callback Queue` will store all the callback functions in the order in which they were added. It will **wait** until the `Stack` is completely empty.
+>
+> ### Event Loop
+>
+> > The `Event Loop` is implemented in `runtime environment`.
+> >
+> > Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
+
+<br />
+<a name="memory-management" />
+
+> # Memory Management
+>
+> - [Memory Life Cycle](#memory-life-cycle)
+> - [Memory Allocation](#memory-allocation)
+> - [Garbage Collection](#garbage-collection)
+> - [Memory Leaks](#memory-leaks)
+>
+> ## Memory Life Cycle
+>
+> In `JavaScript`, memory life cycle is composed of 3 steps:
+>
+> 1.  _Memory Allocation_ - When you assign a variable or create a function or object some amount of memory has to be allocated for it.
+>
+> 2.  _Memory Use_ - Reading from variables or changing values is reading from, and write to, memory.
+>
+> 3.  _Memory Release_ - When you no longer use some function or object, that memory is released via _Garbage Collection_.
+>
+> ## Memory Allocation
+>
+> Non-primitive data types behave differently compared to primitive data types.
+>
+> Remember that JavaScript stores objects and functions in the `heap`. `Primitives` and `references` are stored in the `stack`.
+>
+> All `variables` first point to the `stack`. In case it's a non-primitive value, the `stack` contains a `reference` to the `object` in the `heap`.
+>
+> | Stack                              | Heap                      |
+> | ---------------------------------- | ------------------------- |
+> | Primitive values and references    | Objects and functions     |
+> | Size is known at compile time      | Size is known at run time |
+> | Allocates a fixed amount of memory | No limit per object       |
+>
+> ### Primitives
+>
+> > Below, we declare a variable called `myNumber` and initialize it with a value of `23`.
+> >
+> > ```js
+> > let myNumber = 23;
+> > ```
+> >
+> > When this code executes, `JavaScript Engine` will...
+> >
+> > 1.  Create a unique identifier for your variable `myNumber`.
+> > 2.  Allocate an address in memory (_will be assigned at runtime_).
+> > 3.  Store a value at the address allocated `23`.
+> >
+> > ![example 1](https://miro.medium.com/max/750/1*IiejRUFbks-TaOzJJvdoVw.jpeg)
+> >
+> > While we would colloquially say, _“myNumber equals 23”_, more technically, `myNumber` equals the memory address that holds the value `23`. This is a crucial distinction to understand.
+> >
+> > If we were to create a new variable called `newVar` and assign it `myNumber` …
+> >
+> > ```js
+> > let newVar = myNumber;
+> > ```
+> >
+> > ... since `myNumber` technically equals _“0012CCGWH80”_, `newVar` would also equal _“0012CCGWH80”_, which is the memory address that holds the value `23`. Ultimately, this has the intended effect of colloquially saying, _“newVar is now equal to 23.”_ ![example 2](https://miro.medium.com/max/750/1*AaUqtuwa2BZiI73bV9RHmA.jpeg)
+> >
+> > Take a look at another example...
+> >
+> > ```js
+> > let myString = "abc";
+> > myString = myString + "d";
+> > ```
+> >
+> > ... while a novice JS programmer may say that the letter `d` is simply appended to the string `abc` wherever it exists in memory, this is technically false. When `abc` is concatenated with `d`, since `strings` are also `primitive data types` in JS, a new memory address is allocated, `abcd` is stored there, and `myString` points to this new memory address.
+> >
+> > ![example 3](https://miro.medium.com/max/750/1*WQHSspJDrPGOQ9L8R01jmw.jpeg)
+> >
+> > Another example:
+> >
+> > ```js
+> > let name = "John"; // allocates memory for a string
+> > const age = 24; // allocates memory for a number
+> >
+> > name = "John Doe"; // allocates memory for a new string
+> > const firstName = name.slice(0, 4); // allocates memory for a new string
+> >
+> > // -> Primitive values are immutable, which means that instead of changing the original value, JavaScript creates a new one.
+> > ```
+>
+> ### References
+>
+> > The memory of the `heap` is not ordered in any particular way, which is why we need to keep a `reference` to it in the stack.
+> >
+> > _You can think of `references` as addresses and the objects in the `heap` as houses that these addresses belong to_.
+> >
+> > Let's start with an example...
+> >
+> > ```js
+> > let myArray = [];
+> > ```
+> >
+> > This is what happens in memory:
+> >
+> > 1.  Create a unique identifier for your variable `myArray`.
+> > 2.  Allocate an address in memory (_will be assigned at runtime_).
+> > 3.  Store a value of a memory address allocated on the heap (_will be assigned at runtime_).
+> > 4.  The memory address on the heap stores the value assigned (_the empty `array []`_).
+> >
+> > ![example 4](https://miro.medium.com/max/750/1*CPnnVIgE0tQVbxIja_C-_A.jpeg)
+> >
+> > ![example 5](https://miro.medium.com/max/750/1*0x_h4Q0eu-rpA0YxHJBJdg.jpeg)
+> >
+> > From here, we could `push`, `pop`, or do whatever we wanted to to our `array`.
+> >
+> > ```js
+> > myArray.push("first");
+> > myArray.push("second");
+> > myArray.push("third");
+> > myArray.push("fourth");
+> > myArray.pop();
+> > ```
+> >
+> > ![example 6](https://miro.medium.com/max/750/1*XfqW2Xh5oJrChzhRAauf9Q.jpeg)
+> >
+> > More Examples:
+> >
+> > ```js
+> > const person = {
+> >   name: "John",
+> >   age: 24,
+> > };
+> >
+> > // -> JS allocates memory for this object in the heap.
+> > // -> The actual values are still primitive, which is why they are stored in the stack.
+> > ```
+> >
+> > ![memory references](https://felixgerschau.com/static/b452488bd7eeac0405c48f164da6280d/c1b63/stack-heap-pointers.png)
+> >
+> > Note above how `person` and `newPerson` both point to the same object.
+>
+> ## Garbage Collection
+>
+> The last step is releasing memory and this is where `garbage collection` comes into play (which is also handled by the `JavaScript Engine`).
+>
+> _Algorithms_ are used to pinpoint unneeded memory that needs to be released. The _mark-and-sweep algorithm_ has been implemented in all modern browsers since 2012.
+>
+> ### Mark-and-sweep algorithm
+>
+> > The mark-and-sweep algorithm has a solution to cyclic dependencies. Instead of simply counting the `references` to a given `object`, it detects if they are _reachable from the root object_.
+> >
+> > - The `root` in the browser is the `window` object, while in NodeJS this is `global`.
+> >
+> > The algorithm _marks the `objects` that aren't reachable_ as garbage, and _sweeps (collects) them afterward_. `Root objects` will never be collected.
+> >
+> > ![mark-and-sweep algorithm](https://felixgerschau.com/static/87b4e1eb66afc84d49da13af8e897367/c1b63/garbage-collectoion-algorithm.png)
+>
+> ### Trade-offs
+>
+> > Automatic `garbage collection` allows us to focus on building applications instead of losing time with memory management. However, there are some tradeoffs that we need to be aware of.
+> >
+> > #### Memory usage
+> >
+> > - Given that the algorithms can't know when exactly memory won't be needed anymore, _JavaScript applications may use more memory than they actually need_.
+> > - Even though `objects` are marked as garbage, it's up to the `garbage collector` to decide when and if the allocated memory will be collected.
+> > - If you need your application to be as memory efficient as possible, you're better off with a lower-level language. But keep in mind that this comes with its own set of trade-offs.
+> >
+> > #### Performance
+> >
+> > - The algorithms that collect garbage for us usually run periodically to clean unused `objects`.
+> > - The issue with this is that we, the developers, don't know when exactly this will happen. Collecting a lot of garbage or collecting garbage frequently might impact performance since it needs a certain amount of computation power to do so.
+>
+> ## Memory Leaks
+>
+> Here are the most common memory leaks:
+>
+> ### Global variables
+>
+> > - Storing data in `global variables` is probably the most common type of memory leak.
+> > - Avoid this by running your code in _strict mode_.
+> > - You can certainly make use of `global variables`, but make sure you free space up once you don't need the data anymore.
+> > - To release memory, assign the `global variable` to `null`.
+> >   - _Note_: ES6 modules are JavaScript files that executes in _strict mode only_. It means that any variables or functions declared in the module won’t be added automatically to the global scope.
+>
+> ### Forgotten timers and callbacks
+>
+> > - Forgetting about `timers` and `callbacks` can make the memory usage of your application go up. Especially in Single Page Applications (`SPAs`), you have to be careful when adding `event listeners` and `callbacks` dynamically.
+> > - _Make sure to clear and remove any `listeners` or `timers`_.
+>
+> ---
+>
+> #### Links:
+>
+> - [Memory Management](https://felixgerschau.com/javascript-memory-management/)
+> - [Memory Model](https://medium.com/@ethannam/javascripts-memory-model-7c972cd2c239)
+> - [Memory Life Cycle](https://blog.alexdevero.com/memory-life-cycle-heap-stack-javascript/)
+
+> # Data Types
+>
+> - [Primitives](#primitives)
+> - [Objects](#objects)
+>
+> ## Primitives
+>
+> `Primitive` types are _immutable_, they can be reassigned to a `variable` but not changed directly (_a new memory address will be allocated if reassigned_).
+>
+> There are 7 types in `JavaScript`, 6 `primitives` and the `object`.
+>
+> - `string`
+> - `number`
+> - `boolean`
+> - `null`
+> - `undefined`
+> - `symbol` (the latest addition)
+>
+> ### null
+>
+> > `null` is a `primitive` type and an assignment value, can be thought of as an intentional absence of a value since it must be assigned.
+> >
+> > `null` should be set explicitly, so that any `null` values that is encountered will tell you that it is intentional.
+>
+> ### undefined
+>
+> > `undefined` is a primitive type that is returned if a variable was declared but not assigned a value.
+> >
+> > `undefined` should only be set by the `JavaScript Engine` implicitly when it executes code because it lets you know that this undefined value is unintentional (_unless pointing to a declared variable that has been hoisted in which case it is your fault_).
+> >
+> > ![null vs undefined](https://i.stack.imgur.com/T9M2J.png)
+> >
+> > `undefined` can also occur:
+> >
+> > ```js
+> > // if an object's property doesn't exist...
+> > let myDetails = {
+> >   age: 27,
+> > };
+> > console.log(myDetails.name); // -> undefined
+> >
+> > // or a function has a missing parameter...
+> > function getName(name) {
+> >   return name;
+> > }
+> > getString(); // undefined
+> >
+> > // and default parameters will only work if the parameter is `undefined`
+> > function getFullName(firstName = "ricky", lastName = "bobby") {
+> >   `${firstName} ${lastName}`; // -> 'hi'
+> > }
+> > getFullName();
+> > ```
+>
+> ## Objects
+>
+> `Objects` represent more complex data types.
+>
+> - `Arrays`
+> - `Functions`
+> - `Classes`
+>
+> Anything that is not a Primitive type will inherit from an `Object`.
+>
+> ### Objects
+>
+> > #### Spread Operator
+> >
+> > #### Object Freeze
+>
+> ### Arrays
+>
+> ---
+>
+> #### Links:
+>
+> - [Understanding Null and Undefined in JavaScript](https://blog.bitsrc.io/understanding-null-and-undefined-in-javascript-77ceb44cf7db)
+> - [Null vs. Undefined](https://codeburst.io/javascript-null-vs-undefined-20f955215a2)
+
+<br />
+<a name="control-flow" />
+
+> # Control Flow
+>
+> - [Coercion](#coercion)
+> - [Operators](#operators)
+> - [Loops](#loops)
+>
+> ## Coercion
+>
+> Type `Coercion` is the conversion of a value from _one type to another_. It can occur:
+>
+> - _Explicit_ - when you intentionally want to convert the type.
+> - _Implicit_ - when the `JavaScript engine` does it for you.
+>
+> When using an `if` statement or other statements that expect a `Boolean` value (such as the `!` NOT) and the expression given is not a `Boolean` value, `JavaScript` will implicitly coerce and transform the expression into a `Boolean` value.
+>
+> ```js
+> // truthy
+> true
+> 1
+> ' '
+> []
+> {}
+> function(){}
+>
+> // falsey
+> false
+> 0
+> undefined
+> null
+> ''
+> ```
+>
+> ### Explicit Coercion
+>
+> > _Explicit Coercion_ is when you type cast a value from one type to another through the use of functions (`wrapper objects`) like `Number()` and `String()`.
+> >
+> > ```js
+> > String(42); // ->  "42"
+> > String(undefined); // -> "undefined"
+> >
+> > Number("12"); // -> 12
+> > Number("abc"); // -> NaN
+> > Number(undefined); // -> NaN
+> >
+> > Boolean(0); // -> false
+> > Boolean(1); // -> true
+> > Boolean(10); // -> true
+> > ```
+>
+> ### Implicit Coercion
+>
+> > _Implicit Coercion_ is when `JavaScript` handles the type conversion for you behind the scenes (_using the same functions above_). It will mostly take place in an expression with operands of different types.
+>
+> ### Object Wrapper
+>
+> > `JavaScript` promptly coerces between `primitives` and `objects`.
+> >
+> > ```js
+> > var str = "hello";
+> > console.log(str.toUpperCase()); // -> HELLO
+> > ```
+> >
+> > _Question_: If `strings` are `primitive` types, how do they have properties?
+> >
+> > - _Answer_: whenever you try to access a property of a `string` str, `JavaScript` coerces the `string` value to an `object`, by `new String(str)`. This `object` is called a `wrapper object`. _It inherits all string methods_, and is used to resolve the property reference. Once the property has been resolved, the `wrapper object` is discarded. <br /> (**Note**: the same concept applies to `numbers` and `booleans`)
+> >
+> > So the above code translates to this via the `JavaScript engine`...
+> >
+> > ```js
+> > new String(str).toUpperCase();
+> > ```
+> >
+> > This is essentially the reason why the following piece of code yields an `undefined`:
+> >
+> > ```js
+> > var str = "hello";
+> > str.custom = 1;
+> > console.log(str.custom); // -> undefined
+> >
+> > -------------------------------------------------------------
+> >
+> > // which translates to
+> > var str = "hello";
+> > var temp = new String(str); // wrapper object
+> > temp.custom = 1;
+> > // end of the line for temp
+> >
+> > console.log(str.custom); // creates new temp wrapper object
+> > // custom property does not exist on this object, thus it is 'undefined'
+> > ```
+>
+> ## Operators
+>
+> In `JavaScript` you have the following main operators:
+>
+> - _assignment operators_
+> - _comparison operators_
+> - _arithmetic operators_
+> - _logical operators_
+>
+> ### Assignment Operators: `=`, `+=`, `-=`, etc.
+>
+> > Assignment operators assign values to JavaScript variables.
+> >
+> > ```js
+> > let x = 10; // -> The = assignment operator assigns a value to a variable.
+> > x += 5; // -> x = 15
+> > x -= 5; // -> x = 5
+> > x *= 5; // -> x = 50
+> > ```
+>
+> ### Arithmetic Operators: `+`, `-`, `*`, etc.
+>
+> > Arithmetic operators are used to perform arithmetic between variables and/or values.
+> >
+> > ```js
+> > 10 + 10; // -> 20
+> > 10 - 10; // -> 0
+> > "10" - 10; // -> 0
+> > 10 - "10"; // -> 0
+> > "10" + 10; // -> '1010'
+> > 10 + "10"; // -> '1010'
+> > null + ""; // -> 'null'
+> > null + undefined; // NaN
+> > ```
+> >
+> > #### String conversion
+> >
+> > If we have two numbers, `JavaScript` will output the sum of those numbers. But if only one of the values is a number, `JavaScript` _will convert both values to strings and concatenate those values_.
+> >
+> > - `JavaScript Engine` will use `String()` method to convert types to a `string`.
+> >
+> > ```js
+> > "2" + 2 // -> "22" - translates to: "2" + new String(2)
+> > "hi" + 2 // -> "hi2"
+> > [] + 2 // -> "2"
+> > [2] + 2 // -> "22" - engine converts both to strings
+> >
+> > 15 + 3 + "2" // -> "182" - adds first two operands 18 + '2'
+> > "2" + 15 + 3 // -> "2153" - engine evaluates first operand as string and adds the rest
+> > ```
+> >
+> > #### Number conversion
+> >
+> > - `JavaScript Engine` will use `Number()` method to convert types to a `number`.
+> >
+> > ```js
+> > "2" - 2; // -> 0 - translates to: new Number("2") - 2
+> > "2" * 2; // -> 4
+> > "2" / 2; // -> 1
+> >
+> > "hi" - 2; // -> NaN - "hi" can't be converted to a string so we get NaN
+> > "hi" * 2; // -> NaN
+> > "hi" / 2; // -> NaN
+> >
+> > [] - 2 // -> -2 - the object will be converted to 0.
+> > [] * 2 // -> 0
+> > [] / 2 // -> 0
+> > ```
+> >
+> > #### Boolean conversion
+> >
+> > Any `true` will be converted to _1_ and any `false` to _0_.
+> >
+> > - `JavaScript Engine` will use `Boolean()` method to convert types to a `boolean`.
+> >
+> > ```js
+> > true + true; // -> 2
+> > 1 + false; // -> 1
+> > !!"Hi there"; // -> true
+> > !!2; // -> true
+> >
+> > // All values in `JavaScript` can be converted to `true` except for the following:
+> > !!"";
+> > !!0;
+> > !!undefined;
+> > !!null;
+> > !!NaN;
+> > !!false;
+> > ```
+> >
+> > _Hint_: Use double bang to convert any value into a boolean.
+>
+> ### Comparison Operators: `==`, `===`, `!=`, etc.
+>
+> > We use these operators to evaluate two expressions. As the computer runs the code, the operator will return either a `true` (if the statement evaluates to `true`) or a `false` (if the statement evaluates to not `true`).
+> >
+> > ```js
+> > 1 > 2; // -> false
+> > 2 < 3; // -> true
+> > 10 >=; // -> true
+> > 100 <= 1; // -> false
+> >
+> > 2 == "2"; // -> true - with type coercion
+> > 2 === "2"; // -> false - without type coercion
+> > ```
+>
+> ### Logical Operators: `&&`, `||`, `!`, etc.
+>
+> > Logical operators are used to determine the logic between variables or values.
+> >
+> > #### Logical AND: `&&`
+> >
+> > - The _first_ expression will immediatley return (**short-circuit**) if it evaluates to `falsey`, otherwise returns the _second_ expression if _first_ expression is `truthy`.
+> >
+> > ```js
+> > 3 > 0 && -2 > 0; // ->  false
+> >
+> > true && true; // -> true
+> > true && false; // -> false
+> > false && true; // -> false
+> > false && 3 == 4; // -> false
+> > "Cat" && "Dog"; // ->  "Dog"
+> > false && "Cat"; // ->  false
+> > "Cat" && false; // ->  false
+> > "" && false; // -> ""
+> > false && ""; // ->  false
+> > ```
+> >
+> > #### Logical OR: `||`
+> >
+> > - The _first_ expression will immediatley return (**short-circuit**) if it evaluates to `truthy`, otherwise returns the _second_ expression if _first_ expression is `falsey`. (**think of it as a fallback!**)
+> >
+> > ```js
+> > true || true; // -> true
+> > false || true; // -> true
+> > true || false; // -> true
+> > false || 3 == 4; // -> false
+> > "Cat" || "Dog"; // -> "Cat"
+> > false || "Cat"; // -> "Cat"
+> > "Cat" || false; // -> "Cat"
+> > "" || false; // -> false
+> > false || ""; // -> ""
+> > false || varObject; // -> varObject
+> > ```
+> >
+> > #### Logical NOT: `!` and Double NOT: `!!`
+> >
+> > - Returns `false` if its single operand evaluates to `true`, otherwise returns `true` if operand can be converted to `false`.
+> >
+> > ```js
+> > // NOT (!)
+> > !true; // -> false
+> > !false; // -> true
+> > !""; // -> true
+> > !"Cat"; // -> false
+> >
+> > // Double NOT (!!)
+> > !!"Cat"; // -> true
+> > !!true; // -> true
+> > !!{}; // -> true: any object is truthy...
+> > !![]; // -> true: any array is truthy...
+> > !![12]; // -> true
+> > !!false; // -> false
+> > !!""; // -> false
+> > !!Boolean(false); // -> false
+> > ```
+> >
+> > #### Nullish Coalescing: `??`
+> >
+> > - The _first_ expression will immediatley return (**short-circuit**) if it evaluates to `truthy`, otherwise returns the _second_ expression if _first_ expression is `null` or `undefined`.
+> > - This can be contrasted with the `logical OR (||)` operator.
+> > - This fixes the issue when you are expecting a `falsy` value like `0` or `''` when using the `Logical OR (||)` when setting a default value.
+> >
+> > ```js
+> > null ?? "default for A"; // -> "default for A"
+> > "" ?? "default for B"; // -> ""
+> > 42 ?? 0; // -> 42
+> > ```
+>
+> ## Loops
+>
+> ---
+>
+> #### Links:
+>
+> - [Wrapper Object](https://javascriptrefined.io/the-wrapper-object-400311b29151)
+> - [Implicit Type Coercion](https://javascript.plainenglish.io/implicit-type-coercion-in-javascript-7eb6170a2d87)
+> - [Reddit example](https://www.reddit.com/r/learnprogramming/comments/7w5fw7/javascript_concept_what_is_type_coercion/)
+
+> # Advanced: Scope, Hoisting, & Closures
+>
+> ## Scope
+>
+> _Scope_ in `JavaScript` refers to the current context of code, which determines the accessibility of `variables`.
+>
+> `JavaScript` has two scopes: _global_ and _local_. Local scope has two variations: the old function scope, and the new block scope introduced with ES6.
+>
+> - **Global**: variables declared _outside_ of a block
+> - **Local**: variables declared _inside_ of a block
+> - function scope
+> - block scope
+>
+> ### Global Scope
+>
+> > In a script, the outermost scope is the **global scope**.
+> >
+> > - The use of global variables is discouraged in `JavaScript`. This is, for example, because they can potentially be overwritten by other scripts, or from elsewhere in your program.
+> >
+> > ```js
+> > // Global Scope
+> >
+> > const name = "Monique";
+> >
+> > function sayHi() {
+> >   console.log(`Hi ${name}`);
+> > }
+> >
+> > sayHi(); // -> Hi Monique
+> > ```
+>
+> ### Local Scope
+>
+> > There are three ways to declare a variable in JavaScript: by using `var`, `let` and `const` keywords.
+> >
+> > - Differences: based on _scope_, _hoisting_, and _reassignment_.
+> > - Best practice: use `const` as much as possible, and `let` in the case of loops and reassignment.
+> >
+> > | Stack   | Heap           | Hoisting | Can Be Reassigned | Can Be Redeclared |
+> > | ------- | -------------- | -------- | ----------------- | ----------------- |
+> > | `var`   | Function scope | Yes      | Yes               | Yes               |
+> > | `let`   | Block scope    | No       | Yes               | No                |
+> > | `const` | Block scope    | No       | No                | No                |
+> >
+> > #### function scope: _var_, _let_, _const_
+> >
+> > Defines a scope for variables declared using `var`, `let` and `const`. _Any variable declared within that function is only accessible from that function and any nested functions_.
+> >
+> > ```js
+> > // Initialize a global variable
+> > var species = "human";
+> >
+> > function transform() {
+> >   // Initialize a local, function-scoped variable
+> >   var species = "werewolf";
+> >   console.log(species);
+> > }
+> >
+> > console.log(species); // -> "human"
+> > transform(); // -> "werewolf"
+> > console.log(species); // -> "human"
+> > ```
+> >
+> > Variables declared with the `var` keyword are always function-scoped, meaning they **recognize functions as having a separate scope**.This locally-scoped variable is therefore not accessible from the global scope.
+> >
+> > #### block scope: `let`, `const`
+> >
+> > On the otherhand (any block of curly braces like `if`, `for`, etc.) defines a scope only for variables declared with the `let` and `const` keywords. _not `var` becuase it is limited to function scope_, meaning that new scope can only be created inside functions.
+> >
+> > ```js
+> > let species = "human";
+> >
+> > if (true) {
+> > let species = "werewolf";
+> > console.log(species); // -> "werewolf"
+> > }
+> >
+> > console.log(species); // -> "human"
+> >
+> > ----------------------------------
+> >
+> > var species = "human";
+> >
+> > if (true) {
+> >  var species = "werewolf";
+> >  console.log(species); // -> "werewolf"
+> > }
+> >
+> > console.log(species); // -> "werewolf"
+> > ```
+> >
+> > `let` and `const`, are _block-scoped_. This means that a new, local scope is created from any kind of block, including`function blocks`,`if`statements, and`for`and`while` loops.
+> >
+> > However in the bottom example, both the global variable and the block-scoped variable end up with the same value, 'werewolf'. This is because instead of creating a new _local variable_ with `var`, you are reassigning the same variable in the same scope. _`var` does not recognize if to be part of a different, new scope_.
+>
+> ## Hoisting
+>
+> During compile phase, just microseconds before code execution, it is scanned for _declarations_ (`functions` & `variables`).
+>
+> All these declarations are added to the memory inside a `JavaScript` data structure called `Lexical Environment`. _So that they can be used even before they are actually declared in the source code_.
+>
+> ### Lexical Environment
+>
+> > Is a data structure that holds **identifier-variable mapping**, and a place where variables and functions live during the program execution
+> >
+> > - _identifier_: refers to the **name** of variables/functions
+> > - _variable_: refers to `object` **references** and `primitive` **values**.
+> >
+> > This is what a lexical environment conceptually look like:
+> >
+> > ```js
+> > LexicalEnvironment = {
+> >  Identifier:  <value>,
+> >  Identifier:  <function object>
+> > }
+> > ```
+>
+> ### Hoisting
+>
+> > Only declarations (`function`, `var`, `let`, `const` and `class`) are hoisted in `JavaScript` _not their assignments_ (`value`).
+> >
+> > - `var` declarations are initialized with `undefined`
+> > - `let` and `const` declarations _remain uninitialized_.
+> > - `var` variables are function scoped.
+> > - `let` and `const` variables are block scoped (this includes functions too).
+> > - All declarations — `classes`, `functions` and `variables` — are hoisted to the top of the containing scope, before any part of your code is executed.
+> > - Functions are hoisted first, then variables.
+> > - Function declarations have priority over variable declarations, but not over variable assignments.
+> >
+> > #### Function Expressions: _not hoisted_
+> >
+> > Only function declarations are hoisted in `JavaScript`, function expressions are not hoisted.
+> >
+> > ```js
+> > helloWorld(); // -> TypeError: helloWorld is not a function
+> >
+> > var helloWorld = function() {
+> >   console.log("Hello World!");
+> > };
+> > ```
+> >
+> > `JavaScript` only hoist declarations, not initializations (assignments), so the `helloWorld` will be _treated as a variable_, not as a function. Because `helloWorld` is a variable, the engine will assign it with `undefined` during hoisting.
+> >
+> > #### Function Declarations: _hoisted_
+> >
+> > Function declarations are added to the memory during the compile stage, so we are able to access it in our code before the actual function declaration.
+> >
+> > ```js
+> > helloWorld(); // -> 'Hello World!'
+> >
+> > function helloWorld() {
+> >   console.log("Hello World!");
+> > }
+> >
+> > --------------------------------
+> >
+> > // Lexical Environment
+> > lexicalEnvironment = {
+> >  helloWorld: < func >
+> > }
+> > ```
+> >
+> > So when the `JavaScript engine` encounters a call to **helloWorld()**, it will look into the `lexical environment`, finds the function and will be able to execute it.
+> >
+> > #### var: _hoisted_
+> >
+> > Why do we get `undefined` below?
+> >
+> > ```js
+> > console.log(a); // -> 'undefined'
+> > var a = 3;
+> > ```
+> >
+> > When `JavaScript engine` finds a `var` variable declaration during the compile phase, it will add that variable to the `lexical environment` and initialize it with `undefined` and later during the execution when it reaches the line where the actual assignment is done in the code, it will assign that value to the variable.
+> >
+> > #### let / const: _hoisted_
+> >
+> > So are `let` and `const` variables not hoisted?
+> >
+> > ```js
+> > console.log(a); // -> ReferenceError: a is not defined
+> > let a = 3;
+> > ```
+> >
+> > Remeber declarations (`function`, `var`, `let`, `const` and `class`) are hoisted in `JavaScript`.
+> >
+> > While `var` declarations are initialized with `undefined`. `let` and `const` declarations _remain uninitialized_.
+> >
+> > They will only get initialized when their _lexical binding (assignment)_ is evaluated during runtime by the `JavaScript engine`.
+> >
+> > This means you can’t access the variable before the engine evaluates its value at the place it was declared in the source code.
+> >
+> > This is what we call _“Temporal Dead Zone”_...
+> >
+> > ```js
+> > {
+> >   // Temporal dead one (TDZ) starts at the beginning of the scope
+> >   console.log(state); // output: "ReferenceError: Cannot access 'state' before initialization
+> >   let state = "ready"; // end of TDZ. TDZ ends at actual variable declaration
+> > }
+> > ```
+> >
+> > ...a time span between variable creation and its initialization where they can’t be accessed.
+> >
+> > This is a mechanism that ensures better coding practice, forcing you to declare a variable before you use it.
+> >
+> > **Another example:**
+> >
+> > ```js
+> > let a;
+> > console.log(a); // outputs undefined
+> > a = 5;
+> > ```
+> >
+> > Here during the compile phase, the `JavaScript engine` encounters the variable `a` and stores it in the `lexical environment`, but because it’s a `let` variable, the engine does not initialize it with any value.
+> >
+> > Now if we try to access the variable before it is declared, the `JavaScript engine` will try to fetch the value of the variable from the `lexical environment`, because the variable is _uninitialized_, it will throw a reference error.
+> >
+> > During the execution, when the engine reaches the line where the variable was declared, it will try to evaluate its _binding (value)_, because the variable has no value associated with it, it will assign it `undefined`.
+> >
+> > #### Class Declarations: _hoisted_
+> >
+> > Just like `let` and `const` declarations, `classes` in `JavaScript` are also hoisted and _remain uninitialized_ until evaluation. So they are also affected by the _“Temporal Dead Zone”_...
+> >
+> > ```js
+> > let peter = new Person("Peter", 25); // -> ReferenceError: Person is not defined
+> >
+> > console.log(peter);
+> >
+> > class Person {
+> >   constructor(name, age) {
+> >     this.name = name;
+> >     this.age = age;
+> >   }
+> > }
+> > ```
+> >
+> > So to access the classes, you have to declare them first...
+> >
+> > ```js
+> > class Person {
+> >   constructor(name, age) {
+> >     this.name = name;
+> >     this.age = age;
+> >   }
+> > }
+> > let peter = new Person("Peter", 25);
+> > console.log(peter); // -> Person { name: 'Peter', age: 25 }
+> > ```
+> >
+> > #### Class Expressions: _not hoisted_
+> >
+> > Just like function expressions, class expressions are also not hoisted.
+> >
+> > This will not work...
+> >
+> > ```js
+> > let peter = new Person("Peter", 25); // -> ReferenceError: Person is not defined
+> >
+> > console.log(peter);
+> >
+> > let Person = class {
+> >   constructor(name, age) {
+> >     this.name = name;
+> >     this.age = age;
+> >   }
+> > };
+> > ```
+> >
+> > ...correct way is to declare them before evaluation.
+> >
+> > ```js
+> > let Person = class {
+> >   constructor(name, age) {
+> >     this.name = name;
+> >     this.age = age;
+> >   }
+> > };
+> >
+> > let peter = new Person("Peter", 25);
+> > console.log(peter); // -> Person { name: 'Peter', age: 25 }
+> > ```
+>
+> ---
+>
+> ### Links
+>
+> - [Hoisting in JavaScript](https://blog.bitsrc.io/hoisting-in-modern-javascript-let-const-and-var-b290405adfda)
+> - [Demystifying JavaScript Variable Scope and Hoisting](https://www.sitepoint.com/demystifying-javascript-variable-scope-hoisting/)
