@@ -9,7 +9,11 @@ menu: Docs
 
 [Memory Management](#memory-management)
 
+[Data Types](#data-types)
+
 [Control Flow](#control-flow)
+
+[Advanced](#advanced)
 
 <br />
 <br />
@@ -80,275 +84,7 @@ menu: Docs
 > > Refers to a feature implemented by `JavaScript engines` like V8 that allow `JavaScript` to offload tasks to separate threads. Browser and Node APIs execute long-running tasks separately from the the main `JavaScript` thread, then enqueue a callback function (which you define) to run on the main thread when the task is complete. This is why `JavaScript` is called `non-blocking` because it should only ever wait for `synchronous` code from your `JavaScript` functions. Think of the `Event Loop` as message queue between the single `JavaScript` thread and the OS.
 
 <br />
-<a name="how-javaScript-works" />
-
-> # How JavaScript Works
->
-> - [JavaScript Engine](#javaScript-engine)
-> - [Runtime Environment](#runtime-environment)
->
-> ## JavaScript Engine
->
-> In web development, each browser has a `JavaScript Runtime Environment`, and in that runtime is a `JavaScript engine` **that parses the code**.
->
-> It can be implemented as a standard `interpreter`, or `just-in-time compiler` that compiles `JavaScript` to `bytecode` in some form.
->
-> There are two regions of memory that are allocated on the machine's `RAM` (Random Access Memory) when a js program is ran: it stores things like the `runtime`, `variables` and `objects` that you reference in your code in the `Heap` and `Stack`.
->
-> ### Stack - _static memory allocation_
->
-> > Data structure that follows the _Last In First Out (LIFO)_ principle (the last item to enter the stack will be the first item to be removed from the stack).
-> >
-> > Stores the `execution context` for each function, which stores `primitive` types and `references` _[these references point to objects and functions you've created]_.
-> >
-> > Allocating memory _during compile time_ is known as **static memory allocation**.
-> >
-> > - Static data have fixed sizes: `JavaScript engine` knows how much memory to allocate before execution.
-> >
-> > #### Execution Context
-> >
-> > By default, at the bottom of the ECS, we have a global execution context which deals with all the code in the global scope. Each function has its own execution context called functional execution context which gets inserted on the top of ECS as and when the function is called in the code. If the same function is called twice like in recursion, it will have two different functional execution context in the ECS.
->
-> ### Heap - _dynamic memory allocation_
->
-> > The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
-> >
-> > Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
-> >
-> > Allocating memory during runtime is known as _dynamic memory allocation_.
->
-> ## Runtime Environment
->
-> _AJAX_, the _DOM tree_, and other API’s, are not part of `JavaScript`, they are just objects with properties and methods, _provided by the browser_ and made available in the browser’s `JavaScript Runtime Environment`.
->
-> It provides additional _scripts/features/API's_ at runtime to build JavaScript based software.
->
-> - `Browser` - DOM API, Fetch API, Timer (setTimeout/setInterval), Storage (local storage), etc.
-> - `Server Environment` - File System, Network, Console, etc
->
-> Think of the `JavaScript runtime environment` as a big container. Within the big container are other smaller containers. As the `JavaScript engine` parses the code it starts putting pieces of it into different containers.
->
-> ![JS Runtime Environment](https://miro.medium.com/max/700/1*zeKjWCjyAGZ9JN4fvnWsiA.png)
->
-> ### Memory Heap
->
-> > Unstructured memory pool where we can store complex objects, and is `Garbage Collected`.
->
-> ### Call Stack
->
-> > _LIFO principle_ - last-in-first-out.
-> >
-> > The call `stack` is designed to be a high performance continuous region of memory used to execute functions, and helps keep track of where we are in the code so that we can run the code in order.
-> >
-> > - When you call a function, it creates a frame in the stack that contains a copy of its local variables.
->
-> ### Web API Container
->
-> > Calls that were sent to the `Web API` container from the `Stack`, like _event listeners_, _HTTP/AJAX_ requests, or _timing_ functions, sit there until an action is triggered.
-> >
-> > - Once triggered, a _callback function_ is sent to the final container, the `callback queue`.
->
-> ### Callback Queue
->
-> > The `Queue` is a FIFO (first in first out) data structure.
-> >
-> > The `Callback Queue` will store all the callback functions in the order in which they were added. It will **wait** until the `Stack` is completely empty.
->
-> ### Event Loop
->
-> > The `Event Loop` is implemented in `runtime environment`.
-> >
-> > Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
-
-<br />
-<a name="memory-management" />
-
-> # Memory Management
->
-> - [Memory Life Cycle](#memory-life-cycle)
-> - [Memory Allocation](#memory-allocation)
-> - [Garbage Collection](#garbage-collection)
-> - [Memory Leaks](#memory-leaks)
->
-> ## Memory Life Cycle
->
-> In `JavaScript`, memory life cycle is composed of 3 steps:
->
-> 1.  _Memory Allocation_ - When you assign a variable or create a function or object some amount of memory has to be allocated for it.
->
-> 2.  _Memory Use_ - Reading from variables or changing values is reading from, and write to, memory.
->
-> 3.  _Memory Release_ - When you no longer use some function or object, that memory is released via _Garbage Collection_.
->
-> ## Memory Allocation
->
-> Non-primitive data types behave differently compared to primitive data types.
->
-> Remember that JavaScript stores objects and functions in the `heap`. `Primitives` and `references` are stored in the `stack`.
->
-> All `variables` first point to the `stack`. In case it's a non-primitive value, the `stack` contains a `reference` to the `object` in the `heap`.
->
-> | Stack                              | Heap                      |
-> | ---------------------------------- | ------------------------- |
-> | Primitive values and references    | Objects and functions     |
-> | Size is known at compile time      | Size is known at run time |
-> | Allocates a fixed amount of memory | No limit per object       |
->
-> ### Primitives
->
-> > Below, we declare a variable called `myNumber` and initialize it with a value of `23`.
-> >
-> > ```js
-> > let myNumber = 23;
-> > ```
-> >
-> > When this code executes, `JavaScript Engine` will...
-> >
-> > 1.  Create a unique identifier for your variable `myNumber`.
-> > 2.  Allocate an address in memory (_will be assigned at runtime_).
-> > 3.  Store a value at the address allocated `23`.
-> >
-> > ![example 1](https://miro.medium.com/max/750/1*IiejRUFbks-TaOzJJvdoVw.jpeg)
-> >
-> > While we would colloquially say, _“myNumber equals 23”_, more technically, `myNumber` equals the memory address that holds the value `23`. This is a crucial distinction to understand.
-> >
-> > If we were to create a new variable called `newVar` and assign it `myNumber` …
-> >
-> > ```js
-> > let newVar = myNumber;
-> > ```
-> >
-> > ... since `myNumber` technically equals _“0012CCGWH80”_, `newVar` would also equal _“0012CCGWH80”_, which is the memory address that holds the value `23`. Ultimately, this has the intended effect of colloquially saying, _“newVar is now equal to 23.”_ ![example 2](https://miro.medium.com/max/750/1*AaUqtuwa2BZiI73bV9RHmA.jpeg)
-> >
-> > Take a look at another example...
-> >
-> > ```js
-> > let myString = "abc";
-> > myString = myString + "d";
-> > ```
-> >
-> > ... while a novice JS programmer may say that the letter `d` is simply appended to the string `abc` wherever it exists in memory, this is technically false. When `abc` is concatenated with `d`, since `strings` are also `primitive data types` in JS, a new memory address is allocated, `abcd` is stored there, and `myString` points to this new memory address.
-> >
-> > ![example 3](https://miro.medium.com/max/750/1*WQHSspJDrPGOQ9L8R01jmw.jpeg)
-> >
-> > Another example:
-> >
-> > ```js
-> > let name = "John"; // allocates memory for a string
-> > const age = 24; // allocates memory for a number
-> >
-> > name = "John Doe"; // allocates memory for a new string
-> > const firstName = name.slice(0, 4); // allocates memory for a new string
-> >
-> > // -> Primitive values are immutable, which means that instead of changing the original value, JavaScript creates a new one.
-> > ```
->
-> ### References
->
-> > The memory of the `heap` is not ordered in any particular way, which is why we need to keep a `reference` to it in the stack.
-> >
-> > _You can think of `references` as addresses and the objects in the `heap` as houses that these addresses belong to_.
-> >
-> > Let's start with an example...
-> >
-> > ```js
-> > let myArray = [];
-> > ```
-> >
-> > This is what happens in memory:
-> >
-> > 1.  Create a unique identifier for your variable `myArray`.
-> > 2.  Allocate an address in memory (_will be assigned at runtime_).
-> > 3.  Store a value of a memory address allocated on the heap (_will be assigned at runtime_).
-> > 4.  The memory address on the heap stores the value assigned (_the empty `array []`_).
-> >
-> > ![example 4](https://miro.medium.com/max/750/1*CPnnVIgE0tQVbxIja_C-_A.jpeg)
-> >
-> > ![example 5](https://miro.medium.com/max/750/1*0x_h4Q0eu-rpA0YxHJBJdg.jpeg)
-> >
-> > From here, we could `push`, `pop`, or do whatever we wanted to to our `array`.
-> >
-> > ```js
-> > myArray.push("first");
-> > myArray.push("second");
-> > myArray.push("third");
-> > myArray.push("fourth");
-> > myArray.pop();
-> > ```
-> >
-> > ![example 6](https://miro.medium.com/max/750/1*XfqW2Xh5oJrChzhRAauf9Q.jpeg)
-> >
-> > More Examples:
-> >
-> > ```js
-> > const person = {
-> >   name: "John",
-> >   age: 24,
-> > };
-> >
-> > // -> JS allocates memory for this object in the heap.
-> > // -> The actual values are still primitive, which is why they are stored in the stack.
-> > ```
-> >
-> > ![memory references](https://felixgerschau.com/static/b452488bd7eeac0405c48f164da6280d/c1b63/stack-heap-pointers.png)
-> >
-> > Note above how `person` and `newPerson` both point to the same object.
->
-> ## Garbage Collection
->
-> The last step is releasing memory and this is where `garbage collection` comes into play (which is also handled by the `JavaScript Engine`).
->
-> _Algorithms_ are used to pinpoint unneeded memory that needs to be released. The _mark-and-sweep algorithm_ has been implemented in all modern browsers since 2012.
->
-> ### Mark-and-sweep algorithm
->
-> > The mark-and-sweep algorithm has a solution to cyclic dependencies. Instead of simply counting the `references` to a given `object`, it detects if they are _reachable from the root object_.
-> >
-> > - The `root` in the browser is the `window` object, while in NodeJS this is `global`.
-> >
-> > The algorithm _marks the `objects` that aren't reachable_ as garbage, and _sweeps (collects) them afterward_. `Root objects` will never be collected.
-> >
-> > ![mark-and-sweep algorithm](https://felixgerschau.com/static/87b4e1eb66afc84d49da13af8e897367/c1b63/garbage-collectoion-algorithm.png)
->
-> ### Trade-offs
->
-> > Automatic `garbage collection` allows us to focus on building applications instead of losing time with memory management. However, there are some tradeoffs that we need to be aware of.
-> >
-> > #### Memory usage
-> >
-> > - Given that the algorithms can't know when exactly memory won't be needed anymore, _JavaScript applications may use more memory than they actually need_.
-> > - Even though `objects` are marked as garbage, it's up to the `garbage collector` to decide when and if the allocated memory will be collected.
-> > - If you need your application to be as memory efficient as possible, you're better off with a lower-level language. But keep in mind that this comes with its own set of trade-offs.
-> >
-> > #### Performance
-> >
-> > - The algorithms that collect garbage for us usually run periodically to clean unused `objects`.
-> > - The issue with this is that we, the developers, don't know when exactly this will happen. Collecting a lot of garbage or collecting garbage frequently might impact performance since it needs a certain amount of computation power to do so.
->
-> ## Memory Leaks
->
-> Here are the most common memory leaks:
->
-> ### Global variables
->
-> > - Storing data in `global variables` is probably the most common type of memory leak.
-> > - Avoid this by running your code in _strict mode_.
-> > - You can certainly make use of `global variables`, but make sure you free space up once you don't need the data anymore.
-> > - To release memory, assign the `global variable` to `null`.
-> >   - _Note_: ES6 modules are JavaScript files that executes in _strict mode only_. It means that any variables or functions declared in the module won’t be added automatically to the global scope.
->
-> ### Forgotten timers and callbacks
->
-> > - Forgetting about `timers` and `callbacks` can make the memory usage of your application go up. Especially in Single Page Applications (`SPAs`), you have to be careful when adding `event listeners` and `callbacks` dynamically.
-> > - _Make sure to clear and remove any `listeners` or `timers`_.
->
-> ---
->
-> #### Links:
->
-> - [Memory Management](https://felixgerschau.com/javascript-memory-management/)
-> - [Memory Model](https://medium.com/@ethannam/javascripts-memory-model-7c972cd2c239)
-> - [Memory Life Cycle](https://blog.alexdevero.com/memory-life-cycle-heap-stack-javascript/)
+<a name="data-types" />
 
 > # Data Types
 >
@@ -712,7 +448,282 @@ menu: Docs
 > - [Implicit Type Coercion](https://javascript.plainenglish.io/implicit-type-coercion-in-javascript-7eb6170a2d87)
 > - [Reddit example](https://www.reddit.com/r/learnprogramming/comments/7w5fw7/javascript_concept_what_is_type_coercion/)
 
+<br />
+<a name="how-javaScript-works" />
+
+> # How JavaScript Works
+>
+> - [JavaScript Engine](#javaScript-engine)
+> - [Runtime Environment](#runtime-environment)
+>
+> ## JavaScript Engine
+>
+> In web development, each browser has a `JavaScript Runtime Environment`, and in that runtime is a `JavaScript engine` **that parses the code**.
+>
+> It can be implemented as a standard `interpreter`, or `just-in-time compiler` that compiles `JavaScript` to `bytecode` in some form.
+>
+> There are two regions of memory that are allocated on the machine's `RAM` (Random Access Memory) when a js program is ran: it stores things like the `runtime`, `variables` and `objects` that you reference in your code in the `Heap` and `Stack`.
+>
+> ### Stack - _static memory allocation_
+>
+> > Data structure that follows the _Last In First Out (LIFO)_ principle (the last item to enter the stack will be the first item to be removed from the stack).
+> >
+> > Stores the `execution context` for each function, which stores `primitive` types and `references` _[these references point to objects and functions you've created]_.
+> >
+> > Allocating memory _during compile time_ is known as **static memory allocation**.
+> >
+> > - Static data have fixed sizes: `JavaScript engine` knows how much memory to allocate before execution.
+> >
+> > #### Execution Context
+> >
+> > By default, at the bottom of the ECS, we have a global execution context which deals with all the code in the global scope. Each function has its own execution context called functional execution context which gets inserted on the top of ECS as and when the function is called in the code. If the same function is called twice like in recursion, it will have two different functional execution context in the ECS.
+>
+> ### Heap - _dynamic memory allocation_
+>
+> > The `heap` is where `objects` (`objects`, `functions`, `arrays`, `classes`) are stored.
+> >
+> > Unlike the stack, the engine doesn't allocate a fixed amount of memory for these objects. Instead, more space will be allocated as needed.
+> >
+> > Allocating memory during runtime is known as _dynamic memory allocation_.
+>
+> ## Runtime Environment
+>
+> _AJAX_, the _DOM tree_, and other API’s, are not part of `JavaScript`, they are just objects with properties and methods, _provided by the browser_ and made available in the browser’s `JavaScript Runtime Environment`.
+>
+> It provides additional _scripts/features/API's_ at runtime to build JavaScript based software.
+>
+> - `Browser` - DOM API, Fetch API, Timer (setTimeout/setInterval), Storage (local storage), etc.
+> - `Server Environment` - File System, Network, Console, etc
+>
+> Think of the `JavaScript runtime environment` as a big container. Within the big container are other smaller containers. As the `JavaScript engine` parses the code it starts putting pieces of it into different containers.
+>
+> ![JS Runtime Environment](https://miro.medium.com/max/700/1*zeKjWCjyAGZ9JN4fvnWsiA.png)
+>
+> ### Memory Heap
+>
+> > Unstructured memory pool where we can store complex objects, and is `Garbage Collected`.
+>
+> ### Call Stack
+>
+> > _LIFO principle_ - last-in-first-out.
+> >
+> > The call `stack` is designed to be a high performance continuous region of memory used to execute functions, and helps keep track of where we are in the code so that we can run the code in order.
+> >
+> > - When you call a function, it creates a frame in the stack that contains a copy of its local variables.
+>
+> ### Web API Container
+>
+> > Calls that were sent to the `Web API` container from the `Stack`, like _event listeners_, _HTTP/AJAX_ requests, or _timing_ functions, sit there until an action is triggered.
+> >
+> > - Once triggered, a _callback function_ is sent to the final container, the `callback queue`.
+>
+> ### Callback Queue
+>
+> > The `Queue` is a FIFO (first in first out) data structure.
+> >
+> > The `Callback Queue` will store all the callback functions in the order in which they were added. It will **wait** until the `Stack` is completely empty.
+>
+> ### Event Loop
+>
+> > The `Event Loop` is implemented in `runtime environment`.
+> >
+> > Its job is to constantly look at the `Stack` and the `Queue`. If the `Stack` is empty, it will notify the `Queue` to send over its next callback function.
+
+<br />
+<a name="memory-management" />
+
+> # Memory Management
+>
+> - [Memory Life Cycle](#memory-life-cycle)
+> - [Memory Allocation](#memory-allocation)
+> - [Garbage Collection](#garbage-collection)
+> - [Memory Leaks](#memory-leaks)
+>
+> ## Memory Life Cycle
+>
+> In `JavaScript`, memory life cycle is composed of 3 steps:
+>
+> 1.  _Memory Allocation_ - When you assign a variable or create a function or object some amount of memory has to be allocated for it.
+>
+> 2.  _Memory Use_ - Reading from variables or changing values is reading from, and write to, memory.
+>
+> 3.  _Memory Release_ - When you no longer use some function or object, that memory is released via _Garbage Collection_.
+>
+> ## Memory Allocation
+>
+> _Remember that JavaScript stores objects and functions in the `heap`. `Primitives` and `references` are stored in the `stack`_.
+>
+> All `variables` first point to the `stack`. In case it's a non-primitive value, the `stack` contains a `reference` to the `object` in the `heap`.
+>
+> | Stack                              | Heap                      |
+> | ---------------------------------- | ------------------------- |
+> | Primitive values and references    | Objects and functions     |
+> | Size is known at compile time      | Size is known at run time |
+> | Allocates a fixed amount of memory | No limit per object       |
+>
+> ### Primitives
+>
+> > Below, we declare a variable called `myNumber` and initialize it with a value of `23`.
+> >
+> > ```js
+> > let myNumber = 23;
+> > ```
+> >
+> > When this code executes, `JavaScript Engine` will...
+> >
+> > 1.  Create a unique identifier for your variable `myNumber`.
+> > 2.  Allocate an address in memory (_will be assigned at runtime_).
+> > 3.  Store a value at the address allocated `23`.
+> >
+> > ![example 1](https://miro.medium.com/max/750/1*IiejRUFbks-TaOzJJvdoVw.jpeg)
+> >
+> > While we would colloquially say, _“myNumber equals 23”_, more technically, `myNumber` equals the memory address that holds the value `23`. This is a crucial distinction to understand.
+> >
+> > If we were to create a new variable called `newVar` and assign it `myNumber` …
+> >
+> > ```js
+> > let newVar = myNumber;
+> > ```
+> >
+> > ... since `myNumber` technically equals _“0012CCGWH80”_, `newVar` would also equal _“0012CCGWH80”_, which is the memory address that holds the value `23`. Ultimately, this has the intended effect of colloquially saying, _“newVar is now equal to 23.”_ ![example 2](https://miro.medium.com/max/750/1*AaUqtuwa2BZiI73bV9RHmA.jpeg)
+> >
+> > Take a look at another example...
+> >
+> > ```js
+> > let myString = "abc";
+> > myString = myString + "d";
+> > ```
+> >
+> > ... while a novice JS programmer may say that the letter `d` is simply appended to the string `abc` wherever it exists in memory, this is technically false. When `abc` is concatenated with `d`, since `strings` are also `primitive data types` in JS, a new memory address is allocated, `abcd` is stored there, and `myString` points to this new memory address.
+> >
+> > ![example 3](https://miro.medium.com/max/750/1*WQHSspJDrPGOQ9L8R01jmw.jpeg)
+> >
+> > Another example:
+> >
+> > ```js
+> > let name = "John"; // allocates memory for a string
+> > const age = 24; // allocates memory for a number
+> >
+> > name = "John Doe"; // allocates memory for a new string
+> > const firstName = name.slice(0, 4); // allocates memory for a new string
+> >
+> > // -> Primitive values are immutable, which means that instead of changing the original value, JavaScript creates a new one.
+> > ```
+>
+> ### References
+>
+> > The memory of the `heap` is not ordered in any particular way, which is why we need to keep a `reference` to it in the stack.
+> >
+> > _You can think of `references` as addresses and the objects in the `heap` as houses that these addresses belong to_.
+> >
+> > Let's start with an example...
+> >
+> > ```js
+> > let myArray = [];
+> > ```
+> >
+> > This is what happens in memory:
+> >
+> > 1.  Create a unique identifier for your variable `myArray`.
+> > 2.  Allocate an address in memory (_will be assigned at runtime_).
+> > 3.  Store a value of a memory address allocated on the heap (_will be assigned at runtime_).
+> > 4.  The memory address on the heap stores the value assigned (_the empty `array []`_).
+> >
+> > ![example 4](https://miro.medium.com/max/750/1*CPnnVIgE0tQVbxIja_C-_A.jpeg)
+> >
+> > ![example 5](https://miro.medium.com/max/750/1*0x_h4Q0eu-rpA0YxHJBJdg.jpeg)
+> >
+> > From here, we could `push`, `pop`, or do whatever we wanted to to our `array`.
+> >
+> > ```js
+> > myArray.push("first");
+> > myArray.push("second");
+> > myArray.push("third");
+> > myArray.push("fourth");
+> > myArray.pop();
+> > ```
+> >
+> > ![example 6](https://miro.medium.com/max/750/1*XfqW2Xh5oJrChzhRAauf9Q.jpeg)
+> >
+> > More Examples:
+> >
+> > ```js
+> > const person = {
+> >   name: "John",
+> >   age: 24,
+> > };
+> >
+> > // -> JS allocates memory for this object in the heap.
+> > // -> The actual values are still primitive, which is why they are stored in the stack.
+> > ```
+> >
+> > ![memory references](https://felixgerschau.com/static/b452488bd7eeac0405c48f164da6280d/c1b63/stack-heap-pointers.png)
+> >
+> > Note above how `person` and `newPerson` both point to the same object.
+>
+> ## Garbage Collection
+>
+> The last step is releasing memory and this is where `garbage collection` comes into play (which is also handled by the `JavaScript Engine`).
+>
+> _Algorithms_ are used to pinpoint unneeded memory that needs to be released. The _mark-and-sweep algorithm_ has been implemented in all modern browsers since 2012.
+>
+> ### Mark-and-sweep algorithm
+>
+> > The mark-and-sweep algorithm has a solution to cyclic dependencies. Instead of simply counting the `references` to a given `object`, it detects if they are _reachable from the root object_.
+> >
+> > - The `root` in the browser is the `window` object, while in NodeJS this is `global`.
+> >
+> > The algorithm _marks the `objects` that aren't reachable_ as garbage, and _sweeps (collects) them afterward_. `Root objects` will never be collected.
+> >
+> > ![mark-and-sweep algorithm](https://felixgerschau.com/static/87b4e1eb66afc84d49da13af8e897367/c1b63/garbage-collectoion-algorithm.png)
+>
+> ### Trade-offs
+>
+> > Automatic `garbage collection` allows us to focus on building applications instead of losing time with memory management. However, there are some tradeoffs that we need to be aware of.
+> >
+> > #### Memory usage
+> >
+> > - Given that the algorithms can't know when exactly memory won't be needed anymore, _JavaScript applications may use more memory than they actually need_.
+> > - Even though `objects` are marked as garbage, it's up to the `garbage collector` to decide when and if the allocated memory will be collected.
+> > - If you need your application to be as memory efficient as possible, you're better off with a lower-level language. But keep in mind that this comes with its own set of trade-offs.
+> >
+> > #### Performance
+> >
+> > - The algorithms that collect garbage for us usually run periodically to clean unused `objects`.
+> > - The issue with this is that we, the developers, don't know when exactly this will happen. Collecting a lot of garbage or collecting garbage frequently might impact performance since it needs a certain amount of computation power to do so.
+>
+> ## Memory Leaks
+>
+> Here are the most common memory leaks:
+>
+> ### Global variables
+>
+> > - Storing data in `global variables` is probably the most common type of memory leak.
+> > - Avoid this by running your code in _strict mode_.
+> > - You can certainly make use of `global variables`, but make sure you free space up once you don't need the data anymore.
+> > - To release memory, assign the `global variable` to `null`.
+> >   - _Note_: ES6 modules are JavaScript files that executes in _strict mode only_. It means that any variables or functions declared in the module won’t be added automatically to the global scope.
+>
+> ### Forgotten timers and callbacks
+>
+> > - Forgetting about `timers` and `callbacks` can make the memory usage of your application go up. Especially in Single Page Applications (`SPAs`), you have to be careful when adding `event listeners` and `callbacks` dynamically.
+> > - _Make sure to clear and remove any `listeners` or `timers`_.
+>
+> ---
+>
+> #### Links:
+>
+> - [Memory Management](https://felixgerschau.com/javascript-memory-management/)
+> - [Memory Model](https://medium.com/@ethannam/javascripts-memory-model-7c972cd2c239)
+> - [Memory Life Cycle](https://blog.alexdevero.com/memory-life-cycle-heap-stack-javascript/)
+
+<br />
+<a name="advanced" />
+
 > # Advanced: Scope, Hoisting, & Closures
+>
+> - [Scope](#scope)
+> - [Hoisting](#hoisting)
 >
 > ## Scope
 >
@@ -720,10 +731,10 @@ menu: Docs
 >
 > `JavaScript` has two scopes: _global_ and _local_. Local scope has two variations: the old function scope, and the new block scope introduced with ES6.
 >
-> - **Global**: variables declared _outside_ of a block
-> - **Local**: variables declared _inside_ of a block
-> - function scope
-> - block scope
+> - _Global_: variables declared **outside** of a block
+> - _Local_: variables declared **inside** of a block
+>   - function scope
+>   - block scope
 >
 > ### Global Scope
 >
